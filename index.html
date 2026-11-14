@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<title>Northern Line Commute</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-title" content="Commute">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22#48484a%22/%3E%3Cstop offset=%221%22 stop-color=%22#0b0b0c%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2215%22 fill=%22url(#g)%22/%3E%3Crect x=%2217%22 y=%229%22 width=%2230%22 height=%2237%22 rx=%229%22 fill=%22#fff%22/%3E%3Crect x=%2222%22 y=%2215%22 width=%2220%22 height=%2212%22 rx=%223.5%22 fill=%22#1d1d1f%22/%3E%3Ccircle cx=%2225.5%22 cy=%2237%22 r=%223.2%22 fill=%22#1d1d1f%22/%3E%3Ccircle cx=%2238.5%22 cy=%2237%22 r=%223.2%22 fill=%22#1d1d1f%22/%3E%3Cpath d=%22M24 55l5-8.5M40 55l-5-8.5%22 stroke=%22#fff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFl0lEQVR4AaxXS0xUZxQ+wSZujBFNjJsmbgo1lhTdGGtNJjyGsaRNgVSoSYGWKAg0tS4QjFKCJjUpD5t007SmTUiEhiYtNAFTurMbRRmaopaELStAGMYNj3tOv/Pf+9+ZgXtRWkkO557Xd75z7j937mTRhr9YLFZbUnJqADIFWYNImMRi74TGtEbj0WhMMaai0VP9wK7Z0I58AtFodH9xcWzYceQHZq6EHIa8AqEwcRwnNKY1GhcRxTgswlXA/rGoqOSX0tLSbEvEECguLi5E8G8R510tFBEDvFlziN/mPz8uwu+vrKz9VVRU9LaSMATW1/ksGu93HCYkkDKHHaBfWvxVx5FmQyASiVSJiK4czQVN2WglAH/GxEePHqGysjKqqamm6uqPNumKinLKz88PrVc8xwxpNlYZiRRWZeE2NujEbtBBMYOEavE00549e6i3t4e6ur6i5uYm07i2tmaTbmpqpO7uLrp+/Rrt27fPr98CvyGL2TmYaq5NGSTEK1bNdPHi53TkSL5u7IXkxIm3qLGxwcNhTzueTredg1lofgAkTDBI5+bm0smT5rzQ8vIy3b7dTz09vYGiMc1RloWFhZST81ooLvri9soB3AJnJ7OYidO1klFbQRRQpa7uLLW2ttHNm18HisY0R3NVlLyuX3E2ahefd+oGwMRdDzP7jBmkGLbeSwVTicfjqraU9Jy9e/f6eO7Em/H1DICAQBwIQ1SnbBH2G66urvrXYRfpOWKeJ5l47uQpfBBQQxsHa2CE9Xqu3yUQjMvehkFAGSoBxrrY24CrBdOr2E7Hjh2zl6E6PUfA3p1Y8TgQHwQsQ8ZBZBAQiKvdh0aq161b39GNG1/ShQufBYrGNMdWuAQsHgfigwB7zDZqx/gVxALu3r2bzpz50DwX9NmwUTSmOTZfaxkHWbDJzdrFx6fAZaZJ7sTWFsNYsEYLuF2ttYLmmbiZ+HgOsJk0LEn+J4Fg3BSJjA3YNdkiPUDpBMbG/qDjx09QfX0Dra2t+QtZX183Po1pjg1oraRtIAjf24CYdWuC29zagu2IxcOXUTfNzs7S6OgdyKjvHxkZgX3HxLq6un2/YHuZeGz6WD/jo2g24E7K5vQLGKdsh2ZmZnzA06c/oF27dlFubg4VFBT4/kgkYnwa0xwbiMcnMIDiugeO/QNpbYfMBhhMGEGGVsaq2bPv3v2TFhcXDWZd3Sf0+PEUjY39bogYJ/7pyVefxjQHLlpaWqKHD+NmYgYue3gb8f0NsElKMbP206cL1N7+hWJuS65ebadEYsnfgMWzG7Z2FoOZ4F7p2tmQYBQJbocDUc00PDyMN6Fyun9/HKCJUCKJxLLJKS8vp6GhIb9+K3wQEKzJNnO1/eq0pNQeH39ACpyX9yZNT08bEh0dHdTZec1cP3nyD+Xl5SGnwpBwhwnHs3EQcPyJLdOtdG1tNQ5cLi0sLJiXk76+PnN96NDreEWrwdTbwwMBvqcTalN7QMJsfTdsaWkxE3d2duINKUnJ5DN/C5cutVB2drbZ6Ivgoc89PYSTbrIyZ38CBLGZTPvy5TZz+icmJqi/f8CPDwwMkPr0Y9jW1gq/eCR4Szz0ndQNfI9mDgwUsSlm72DqRqx/x44dVFVVZabXLVi/1erTYGVlpcGw/iCt+MyCnvxt1vz8/AMRBgltziDhgLWr4Te26pWVVbySf0rnztVTPD7p+0EeDRkbmKTz5xupqanJxKw/pTPx8Svsm7m5ubj5ZYTn+hU0mWdv8mDNpKseHBw0BMV8dBVUPNvGf/Zs67ea0/2z2OgVwp8hkEwm50U4B/KrNldR5qqt6O2w16r/axx1vxHJG5j+Gfqnfh0nEolFSBlI1OLzPyAij9BoHeIxdydI2e5kKTs4jrhiPALeTxji42Ry+T08ppe0ucq/AAAA//+huwBaAAAABklEQVQDAHW9xM1tRvrEAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
+<style>[hidden] { display: none !important; }
+
+/* Layout: an Apple-style single column (980px of content) on a soft grey ground: a translucent sticky bar,
+   one centred status headline, then quiet white tiles whose rows open for detail. */
+:root {
+  --ground: #f5f5f7;
+  --tile: #ffffff;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --ink-3: #86868b;
+  --rule: #d2d2d7;
+  --fill: #e8e8ed;
+  --link: #0066cc;
+  --action: #0071e3;
+  --on-action: #ffffff;
+  --bar: rgba(245, 245, 247, 0.82);
+  --good: #248a3d;   --good-tint: #e3f3e6;
+  --minor: #b25000;  --minor-tint: #fdf0e1;
+  --severe: #d70015; --severe-tint: #fde8ea;
+  --quiet: #6e6e73;  --quiet-tint: #ececf0;
+  --northern: #1d1d1f; /* the Northern line is drawn in black on TfL's map */
+  --sport: #0066cc; --festival: #8944ab; --protest: #b25000; --works: #6e6e73;
+  --bus: #dc241f; /* London bus red, for route numbers */
+  --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #000000; --tile: #1c1c1e; --ink: #f5f5f7; --ink-2: #a1a1a6; --ink-3: #8e8e93; --rule: #38383a; --fill: #2c2c2e;
+    --link: #2997ff; --action: #0071e3; --on-action: #ffffff; --bar: rgba(22, 22, 23, 0.82);
+    --good: #30d158; --good-tint: rgba(48, 209, 88, 0.16); --minor: #ff9f0a; --minor-tint: rgba(255, 159, 10, 0.16);
+    --severe: #ff453a; --severe-tint: rgba(255, 69, 58, 0.18); --quiet: #98989d; --quiet-tint: #2c2c2e;
+    --northern: #f5f5f7; --sport: #2997ff; --festival: #bf5af2; --protest: #ff9f0a; --works: #98989d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #000000; --tile: #1c1c1e; --ink: #f5f5f7; --ink-2: #a1a1a6; --ink-3: #8e8e93; --rule: #38383a; --fill: #2c2c2e;
+  --link: #2997ff; --action: #0071e3; --on-action: #ffffff; --bar: rgba(22, 22, 23, 0.82);
+  --good: #30d158; --good-tint: rgba(48, 209, 88, 0.16); --minor: #ff9f0a; --minor-tint: rgba(255, 159, 10, 0.16);
+  --severe: #ff453a; --severe-tint: rgba(255, 69, 58, 0.18); --quiet: #98989d; --quiet-tint: #2c2c2e;
+  --northern: #f5f5f7; --sport: #2997ff; --festival: #bf5af2; --protest: #ff9f0a; --works: #98989d;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--font-text); font-size: 17px; line-height: 1.47; letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-optical-sizing: auto;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--action); outline-offset: 3px; border-radius: 8px; }
+.num { font-variant-numeric: tabular-nums; }
+.wrap {
+  width: 100%; max-width: 1024px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 735px) {
+  .wrap { padding-left: max(22px, env(safe-area-inset-left, 0px)); padding-right: max(22px, env(safe-area-inset-right, 0px)); }
+}
+
+/* ---------- translucent bar ---------- */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30;
+  background: var(--bar); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+}
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--bar); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: inset 0 -1px 0 var(--rule);
+}
+.bar .wrap { display: flex; align-items: center; gap: 20px; min-height: 52px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; min-width: 0; color: var(--ink); }
+.brand svg { width: 28px; height: 28px; flex: none; display: block; }
+.brand b { font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: 0.011em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-links { display: flex; align-items: center; gap: 20px; font-size: 12px; letter-spacing: -0.01em; }
+.bar-links a { color: var(--ink); opacity: 0.85; white-space: nowrap; }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 28px; padding: 4px 14px;
+  border: 0; border-radius: 980px; background: var(--action); color: var(--on-action);
+  font-size: 12px; font-weight: 500; line-height: 1.33; letter-spacing: -0.01em; white-space: nowrap; cursor: pointer;
+}
+.pill:hover { filter: brightness(1.08); }
+.pill[disabled] { opacity: 0.6; cursor: default; filter: none; }
+.spin { width: 11px; height: 11px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--on-action) 35%, transparent); border-top-color: var(--on-action); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 734px) {
+  .bar .wrap { gap: 14px; }
+  .brand b { font-size: 19px; }
+  .bar-links { gap: 14px; }
+}
+@media (max-width: 480px) { .bar .long { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { text-align: center; padding-block: 56px 48px; }
+.glyph { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; display: grid; place-items: center; background: var(--quiet); color: var(--on-action); }
+.glyph svg { width: 30px; height: 30px; display: block; }
+.glyph.good { background: var(--good); } .glyph.minor { background: var(--minor); } .glyph.severe { background: var(--severe); }
+.eyebrow { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.24; color: var(--ink-2); letter-spacing: -0.012em; }
+.eyebrow.severe { color: var(--severe); } .eyebrow.minor { color: var(--minor); } .eyebrow.good { color: var(--good); }
+.headline {
+  margin: 8px 0 0; font-family: var(--font-display); font-size: 64px; line-height: 1.06; font-weight: 600;
+  letter-spacing: -0.012em; text-wrap: balance; overflow-wrap: break-word;
+}
+.subhead { margin: 16px auto 0; max-width: 32em; font-size: 21px; line-height: 1.38; letter-spacing: 0.004em; text-wrap: balance; }
+.detail { margin: 12px auto 0; max-width: 38em; font-size: 17px; line-height: 1.47; color: var(--ink-2); text-wrap: pretty; }
+.tag { display: inline-flex; align-items: center; margin-top: 20px; padding: 5px 13px; border-radius: 980px; font-size: 14px; font-weight: 600; background: var(--quiet-tint); color: var(--quiet); }
+.tag.minor { background: var(--minor-tint); color: var(--minor); } .tag.severe { background: var(--severe-tint); color: var(--severe); } .tag.good { background: var(--good-tint); color: var(--good); }
+.cta { margin-top: 24px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 30px; font-size: 17px; }
+.cta a::after, .more-link::after { content: "\203A"; display: inline-block; margin-left: 0.28em; transform: scale(1.25) translateY(-0.02em); }
+.meta { margin: 20px 0 0; font-size: 12px; line-height: 1.33; color: var(--ink-3); letter-spacing: -0.01em; }
+@media (max-width: 734px) {
+  .hero { padding-block: 36px 32px; }
+  .glyph { width: 48px; height: 48px; margin-bottom: 14px; }
+  .glyph svg { width: 26px; height: 26px; }
+  .eyebrow { font-size: 15px; }
+  .headline { font-size: 44px; line-height: 1.08; }
+  .subhead { font-size: 19px; line-height: 1.42; }
+  .detail { font-size: 16px; }
+}
+
+/* ---------- tiles ---------- */
+main.wrap { display: grid; gap: 12px; }
+.row2, .row3 { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.row3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.row3.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .row3.n1 { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 734px) { .row2, .row3, .row3.n2 { grid-template-columns: minmax(0, 1fr); } }
+.tile { background: var(--tile); border-radius: 18px; padding: 30px 32px 32px; min-width: 0; }
+.kicker { font-size: 14px; font-weight: 600; line-height: 1.29; color: var(--ink-2); letter-spacing: -0.01em; }
+.kicker .now { color: var(--link); }
+.tile h2 { margin: 3px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; text-wrap: balance; }
+.lede { margin: 6px 0 0; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.ok-note { margin: 20px 0 0; font-size: 15px; line-height: 1.47; color: var(--ink-2); }
+.more-link { display: inline-block; margin-top: 14px; padding: 0; border: 0; background: none; color: var(--link); font-size: 14px; cursor: pointer; }
+.more-link:hover { text-decoration: underline; }
+@media (max-width: 734px) {
+  .tile { padding: 24px 22px 26px; }
+  .tile h2 { font-size: 24px; line-height: 1.17; }
+}
+
+/* ---------- rows that open for detail ---------- */
+.rows { margin-top: 14px; }
+.ev { border-top: 1px solid var(--rule); }
+.ev:first-child { border-top: 0; }
+.ev > summary {
+  list-style: none; display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 16px;
+  padding: 14px 0; cursor: pointer; border-radius: 10px;
+}
+.ev > summary::-webkit-details-marker { display: none; }
+.when-d { text-align: center; line-height: 1.1; }
+.when-d b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: 0.004em; }
+.when-d b.now { font-size: 17px; color: var(--link); }
+.when-d span { display: block; margin-top: 3px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); }
+.what { min-width: 0; }
+.what b { display: block; font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.016em; }
+.what span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+.what .one { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.what .hit { font-weight: 600; } .what .hit.severe { color: var(--severe); } .what .hit.minor { color: var(--minor); } .what .hit.quiet { color: var(--ink-2); font-weight: 400; }
+.side { display: flex; align-items: center; gap: 12px; }
+.chev { width: 9px; height: 9px; margin: 0 4px 4px 2px; border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3); transform: rotate(45deg); transition: transform 0.2s ease, margin 0.2s ease; }
+.ev[open] > summary .chev { transform: rotate(225deg); margin-bottom: -3px; }
+.more { padding: 0 0 18px 68px; font-size: 15px; line-height: 1.47; color: var(--ink-2); }
+.more p { margin: 0 0 8px; max-width: 62ch; }
+.more b { color: var(--ink); font-weight: 600; }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 980px; font-size: 12px; font-weight: 600; white-space: nowrap; background: var(--quiet-tint); color: var(--ink-2); }
+.badge.severe { background: var(--severe-tint); color: var(--severe); } .badge.minor { background: var(--minor-tint); color: var(--minor); }
+.type { font-style: normal; font-weight: 600; }
+.type.strike { color: var(--severe); } .type.protest { color: var(--protest); } .type.sport { color: var(--sport); } .type.festival { color: var(--festival); } .type.works { color: var(--works); }
+@media (max-width: 734px) {
+  .ev > summary { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; }
+  .when-d b { font-size: 21px; }
+  .more { padding-left: 54px; }
+  .side .badge { display: none; }
+}
+
+/* ---------- footer ---------- */
+footer { padding-block: 26px 48px; font-size: 12px; line-height: 1.5; color: var(--ink-3); letter-spacing: -0.01em; }
+footer p { margin: 0 0 8px; max-width: 80ch; }
+footer a { color: var(--ink-2); }
+footer .sep { margin: 0 8px; color: var(--rule); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.subhead span { display: block; }
+
+/* ---------- the rest of the line ---------- */
+.others { margin: 18px auto 0; max-width: 36em; font-size: 15px; line-height: 1.47; color: var(--ink-2); text-wrap: pretty; }
+.others span { display: block; }
+.others span + span { margin-top: 6px; }
+.others b { font-weight: 600; color: var(--ink); }
+.others .near b { color: var(--minor); }
+
+/* ---------- next trains ---------- */
+.train.first { order: -1; }
+.train { display: flex; flex-direction: column; }
+.train .slot { margin-top: auto; } /* keeps the times level across the three tiles */
+.train .next { display: flex; align-items: flex-end; gap: 16px; margin-top: 24px; }
+.train .big { font-family: var(--font-display); font-size: 56px; line-height: 0.95; font-weight: 600; letter-spacing: -0.01em; }
+.train .big small { margin-left: 4px; font-family: var(--font-text); font-size: 21px; font-weight: 500; letter-spacing: 0; color: var(--ink-2); }
+.train .big.due { color: var(--good); }
+.train .dest { min-width: 0; padding-bottom: 2px; }
+.train .dest b { display: block; font-size: 17px; font-weight: 600; line-height: 1.3; }
+.train .dest span { display: block; font-size: 14px; color: var(--ink-2); }
+.train .where { margin: 10px 0 0; font-size: 14px; color: var(--ink-3); }
+.train .then { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); }
+.train .then b { color: var(--ink); font-weight: 600; }
+.busy { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.busy:empty { display: none; }
+.busy .lvl { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--ink); }
+.busy .lvl::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--quiet); }
+.busy .lvl.l-quiet::before { background: var(--good); } .busy .lvl.l-busy::before { background: var(--minor); } .busy .lvl.l-very::before { background: var(--severe); }
+.busy .pct { margin-left: 4px; color: var(--ink-2); }
+.busy p { margin: 3px 0 0; }
+
+/* ---------- live boards (iPhone version) ---------- */
+.boards { margin-top: 18px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.board { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; border-radius: 14px; background: var(--ground); color: var(--ink); }
+.board:hover { text-decoration: none; filter: brightness(0.98); }
+.board b { display: block; font-size: 17px; font-weight: 600; color: var(--ink); }
+.board span { display: block; font-size: 14px; color: var(--ink-2); }
+.board::after { content: "\203A"; font-size: 26px; line-height: 1; color: var(--ink-3); }
+.bcard { display: flex; flex-direction: column; min-width: 0; border-radius: 14px; background: var(--ground); }
+.bcard .board { background: none; }
+.bcard .busy { margin: 0 18px 16px; }
+@media (max-width: 734px) { .boards { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- route ---------- */
+.route { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); position: relative; }
+.route::before { content: ""; position: absolute; left: calc(100% / 24); right: calc(100% / 24); top: 6px; height: 4px; border-radius: 2px; background: var(--northern); }
+.route li { position: relative; text-align: center; padding: 0 2px; min-width: 0; }
+.route .pt { position: relative; z-index: 1; display: block; width: 16px; height: 16px; margin: 0 auto; border-radius: 50%; background: var(--tile); border: 4px solid var(--northern); }
+.route .end .pt { background: var(--northern); }
+.route .issue .pt { border-color: var(--minor); background: var(--minor-tint); }
+.route .closed .pt { border-color: var(--severe); background: var(--severe); }
+.route .nm { display: block; margin-top: 10px; font-size: 12px; line-height: 1.25; color: var(--ink-2); overflow-wrap: break-word; }
+.route .end .nm { color: var(--ink); font-weight: 600; }
+.route .issue .nm { color: var(--minor); font-weight: 600; } .route .closed .nm { color: var(--severe); font-weight: 600; }
+.issues { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 10px; }
+.issues li { display: grid; grid-template-columns: 8px minmax(0, 1fr); gap: 12px; font-size: 15px; line-height: 1.47; color: var(--ink-2); }
+.issues .dot { width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--minor); }
+.issues .dot.severe { background: var(--severe); }
+.issues b { color: var(--ink); font-weight: 600; }
+@media (max-width: 734px) {
+  .route { grid-template-columns: minmax(0, 1fr); margin-top: 18px; }
+  .route::before { left: 6px; right: auto; top: 15px; bottom: 15px; width: 4px; height: auto; }
+  .route li { display: flex; align-items: center; gap: 14px; padding: 4px 0; text-align: left; }
+  .route .pt { margin: 0; flex: none; }
+  .route .nm { margin: 0; font-size: 15px; line-height: 1.45; }
+}
+
+/* ---------- by bus ---------- */
+.bus-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.seg { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
+.seg button { border: 0; background: none; padding: 6px 14px; border-radius: 7px; font-size: 14px; line-height: 1.3; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--tile); font-weight: 600; box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent); }
+.steps { list-style: none; margin: 24px 0 0; padding: 0; }
+.steps li { position: relative; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 14px; padding-bottom: 22px; }
+.steps li:last-child { padding-bottom: 0; }
+.steps li::before { content: ""; position: absolute; left: 14px; top: 34px; bottom: 4px; width: 2px; border-radius: 1px; background: var(--rule); }
+.steps li.walk::before { width: 0; background: none; border-left: 2px dotted var(--ink-3); }
+.steps li:last-child::before { display: none; }
+.ico { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--fill); color: var(--ink-2); }
+.ico svg { width: 17px; height: 17px; display: block; }
+.ico.bus { background: var(--bus); color: var(--on-action); }
+.step-main { min-width: 0; padding-top: 3px; }
+.step-main b { display: block; font-size: 17px; font-weight: 600; line-height: 1.3; text-wrap: balance; }
+.step-main > span { display: block; margin-top: 3px; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.routes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+.route-no { display: inline-block; min-width: 32px; padding: 1px 6px; border-radius: 5px; background: var(--bus); color: var(--on-action); font-size: 13px; font-weight: 700; line-height: 1.45; text-align: center; letter-spacing: 0; }
+.eta { padding-top: 3px; text-align: right; font-size: 14px; line-height: 1.6; color: var(--ink-2); white-space: nowrap; }
+.eta b { font-size: 17px; font-weight: 600; color: var(--ink); }
+.eta small { margin-left: 3px; font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.eta .sep { margin: 0 7px; color: var(--rule); }
+.bus-note { margin: 24px 0 0; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+@media (max-width: 734px) {
+  .steps li { grid-template-columns: 30px minmax(0, 1fr); }
+  .eta { grid-column: 2; padding-top: 0; text-align: left; }
+}
+
+/* ---------- log ---------- */
+.log { list-style: none; margin: 16px 0 0; padding: 0; }
+.log li { display: grid; grid-template-columns: 50px 8px minmax(0, 1fr); align-items: baseline; gap: 12px; padding: 11px 0; border-top: 1px solid var(--rule); font-size: 15px; line-height: 1.4; }
+.log li:first-child { border-top: 0; }
+.log time { color: var(--ink-2); }
+.log .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--quiet); align-self: center; }
+.log .dot.good { background: var(--good); } .log .dot.minor { background: var(--minor); } .log .dot.severe { background: var(--severe); }
+.log .txt { min-width: 0; } .log .txt b { font-weight: 600; } .log .txt span { color: var(--ink-2); }
+.log .none { display: block; color: var(--ink-2); }
+
+.pages { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
+.pages a { padding: 5px 13px; border-radius: 7px; font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); white-space: nowrap; }
+.pages a:hover { text-decoration: none; }
+.pages a[aria-current="page"] { background: var(--tile); font-weight: 600; box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent); }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48484a"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#gc)"/><rect x="17" y="9" width="30" height="37" rx="9" fill="#fff"/><rect x="22" y="15" width="20" height="12" rx="3.5" fill="#1d1d1f"/><circle cx="25.5" cy="37" r="3.2" fill="#1d1d1f"/><circle cx="38.5" cy="37" r="3.2" fill="#1d1d1f"/><path d="M24 55l5-8.5M40 55l-5-8.5" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/></svg><nav class="pages" aria-label="Pages"><a href="index.html" aria-current="page">Commute</a><a href="journeys.html">Journeys</a></nav></div>
+    
+    <button class="pill" id="btn-act" type="button" hidden>Refresh</button>
+  </div>
+</header>
+
+<section class="hero wrap" aria-live="polite">
+  <div class="glyph" id="glyph" aria-hidden="true"></div>
+  <p class="eyebrow num" id="eyebrow">Northern line</p>
+  <h1 class="headline" id="headline">Checking TfL…</h1>
+  <p class="subhead" id="subhead">Hendon Central to Tottenham Court Road.</p>
+  <span class="tag" id="tag" hidden></span>
+  <p class="others" id="others" hidden></p>
+  <div class="cta">
+    <a href="https://tfl.gov.uk/tube-dlr-overground/status/" target="_blank" rel="noopener">Live status on TfL</a>
+    <a href="https://tfl.gov.uk/campaign/strikes" target="_blank" rel="noopener">Strike updates</a>
+  </div>
+  <p class="meta num" id="meta"></p>
+</section>
+
+<main class="wrap">
+
+  <div class="row3">
+    <article class="tile train" id="t-work">
+      <div class="kicker" id="k-work">To work</div>
+      <h2>Hendon Central</h2>
+      <p class="lede">Southbound via Charing Cross, for Warren Street and Tottenham Court Road</p>
+      <div class="slot"><p class="ok-note">Loading train times…</p></div>
+      <div class="busy" id="busy-work"></div>
+    </article>
+    <article class="tile train" id="t-home">
+      <div class="kicker" id="k-home">To home</div>
+      <h2>Tottenham Court Road</h2>
+      <p class="lede">Northbound to Edgware via Hendon Central</p>
+      <div class="slot"><p class="ok-note">Loading train times…</p></div>
+      <div class="busy" id="busy-home"></div>
+    </article>
+    <article class="tile train" id="t-wrr">
+      <div class="kicker" id="k-wrr">To home</div>
+      <h2>Warren Street</h2>
+      <p class="lede">Northbound to Edgware via Hendon Central</p>
+      <div class="slot"><p class="ok-note">Loading train times…</p></div>
+      <div class="busy" id="busy-wrr"></div>
+    </article>
+  </div>
+
+  <section class="tile" id="bus-tile">
+    <div class="bus-top">
+      <div>
+        <div class="kicker">By bus</div>
+        <h2>Work and back</h2>
+      </div>
+      <div class="seg" role="group" aria-label="Direction">
+        <button type="button" id="bus-out" aria-pressed="true">To work</button>
+        <button type="button" id="bus-home" aria-pressed="false">To home</button>
+      </div>
+    </div>
+    <p class="lede" id="bus-lede"></p>
+    <ol class="steps" id="bus-steps"></ol>
+    <p class="bus-note" id="bus-note"></p>
+  </section>
+
+  <section class="tile">
+    <div class="kicker">Your route</div>
+    <h2>12 stations, about 20 minutes</h2>
+    <p class="lede">Edgware branch to Camden Town, then the Charing Cross branch.</p>
+    <ol class="route" id="route" aria-label="Stations on your route"></ol>
+    <ul class="issues" id="issues" hidden></ul>
+    <p class="ok-note" id="route-ok">Station problems appear here.</p>
+  </section>
+
+  <section class="tile">
+    <div class="kicker">Coming up</div>
+    <h2>Strikes and planned closures</h2>
+    <div class="rows" id="coming"></div>
+    <button class="more-link" id="coming-more" type="button" hidden>Show all</button>
+  </section>
+
+  <section class="tile">
+    <div class="kicker" id="log-kicker">Today</div>
+    <h2 id="log-title">How the line ran</h2>
+    <p class="lede" id="log-lede"></p>
+    <ul class="log" id="log"></ul>
+
+    <button class="more-link" id="btn-csv" type="button">Download the log for Excel</button>
+
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+
+    <p>Live data from Transport for London. The page refreshes every minute while it’s open. The headline covers Hendon Central to Tottenham Court Road only, and problems elsewhere on the line are listed underneath.</p>
+    <p>How busy: TfL’s measure of how busy each station is, as a share of its busiest since July 2019, updated every 5 minutes. Under 40% is quiet, 40 to 70% busy and over 70% very busy.</p>
+
+    <p><a href="https://tfl.gov.uk/tube-dlr-overground/status/" target="_blank" rel="noopener">TfL status</a><span class="sep">|</span><a href="https://tfl.gov.uk/campaign/strikes" target="_blank" rel="noopener">TfL strikes</a></p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const MODE = 'local';
+  const ROUTE = [
+    ['940GZZLUHCL', 'Hendon Central'], ['940GZZLUBTX', 'Brent Cross'], ['940GZZLUGGN', 'Golders Green'], ['940GZZLUHTD', 'Hampstead'],
+    ['940GZZLUBZP', 'Belsize Park'], ['940GZZLUCFM', 'Chalk Farm'], ['940GZZLUCTN', 'Camden Town'], ['940GZZLUMTC', 'Mornington Crescent'],
+    ['940GZZLUEUS', 'Euston'], ['940GZZLUWRR', 'Warren Street'], ['940GZZLUGDG', 'Goodge Street'], ['940GZZLUTCR', 'Tottenham Court Road'],
+  ];
+  const WINDOWS = [['Morning commute', 360, 600, 'am', 'morning'], ['Evening commute', 960, 1140, 'pm', 'evening']];
+  const CHECKS = [350, 440, 950, 1040]; // scheduled checks, 05:50, 07:20, 15:50 and 17:20 on weekdays
+  const SEED_UPCOMING = [{"start": "2026-11-26T12:00", "end": "2026-11-27T12:00", "name": "Tube drivers' strike (RMT), 1 of 8", "type": "Strike", "commute": "High", "impact": "Some trains run as ASLEF drivers are not striking. In earlier strikes in this dispute there was no Central line through Tottenham Court Road. Northern line service level to be confirmed by TfL. Elizabeth line, Overground and DLR not affected.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2026-12-17T12:00", "end": "2026-12-18T12:00", "name": "Tube drivers' strike (RMT), 2 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov. Falls in the busiest week before Christmas.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2026-12-19T12:00", "end": "2026-12-20T12:00", "name": "Tube drivers' strike (RMT), 3 of 8", "type": "Strike", "commute": "Low", "impact": "As for 26 Nov. Last Saturday before Christmas, so roads and buses very busy.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2027-01-04T12:00", "end": "2027-01-05T12:00", "name": "Tube drivers' strike (RMT), 4 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov. First week back at work.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2027-01-06T12:00", "end": "2027-01-07T12:00", "name": "Tube drivers' strike (RMT), 5 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2027-02-17T12:00", "end": "2027-02-18T12:00", "name": "Tube drivers' strike (RMT), 6 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2027-02-23T12:00", "end": "2027-02-24T12:00", "name": "Tube drivers' strike (RMT), 7 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov.", "url": "https://www.itv.com/news/2026-11-06/tube-drivers-to-strike-over-christmas-period-in-long-running-dispute"}, {"start": "2027-02-25T12:00", "end": "2027-02-26T12:00", "name": "Tube drivers' strike (RMT), 8 of 8", "type": "Strike", "commute": "High", "impact": "As for 26 Nov. The strike mandate ends on 26 Feb, so more dates are possible without a deal.", "url": "https://www.timeout.com/london/news/tube-and-train-strikes-christmas-winter-2026-2027-full-list-of-dates-and-lines-110626"}];
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = (n) => String(n).padStart(2, '0');
+  const store = {
+    get(k, d = null) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+  };
+  const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
+  /* ---------- London time ---------- */
+  const TZ = 'Europe/London';
+  function london(d = new Date()) {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', weekday: 'short', hourCycle: 'h23' })
+      .formatToParts(d).map((x) => [x.type, x.value]));
+    return { mins: +p.hour * 60 + +p.minute, dow: p.weekday, iso: `${p.year}-${p.month}-${p.day}`, hm: `${p.hour}:${p.minute}` };
+  }
+  const weekday = (l) => !['Sat', 'Sun'].includes(l.dow);
+  const hm = (m) => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+  const fmt = (d, o) => new Date(d).toLocaleString('en-GB', { timeZone: TZ, ...o });
+  const fmtTime = (d) => fmt(d, { hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const fmtDay = (d) => fmt(d, { weekday: 'short', day: 'numeric', month: 'short' });
+  function ukDate(local) {
+    const s = local.length === 10 ? `${local}T00:00` : local;
+    const guess = new Date(`${s}:00Z`);
+    const off = new Date(guess.toLocaleString('en-US', { timeZone: TZ })) - new Date(guess.toLocaleString('en-US', { timeZone: 'UTC' }));
+    return new Date(guess.getTime() - off);
+  }
+  const endOf = (local) => (local.length === 10 ? new Date(ukDate(local).getTime() + 864e5 - 1) : ukDate(local));
+  const dayStart = (d) => ukDate(london(d).iso);
+  const currentWindow = (l = london()) => (weekday(l) ? WINDOWS.find(([, a, b]) => l.mins >= a && l.mins < b) || null : null);
+  function dayWord(d) {
+    const t = london(new Date(d)).iso;
+    if (t === london().iso) return 'today';
+    if (t === london(new Date(Date.now() + 864e5)).iso) return 'tomorrow';
+    if (t === london(new Date(Date.now() - 864e5)).iso) return 'yesterday';
+    return fmt(d, { weekday: 'long', day: 'numeric', month: 'short' });
+  }
+  function nextAfter(times) { // next weekday slot (minutes past midnight) after now
+    const now = new Date(), l = london(now);
+    for (let i = 0; i < 8; i++) {
+      const t = new Date(now.getTime() + i * 864e5);
+      if (!weekday(london(t))) continue;
+      for (const m of times) if (i > 0 || m > l.mins) return { m, label: i === 0 ? 'today' : i === 1 ? 'tomorrow' : fmt(t, { weekday: 'long' }) };
+    }
+    return null;
+  }
+
+  /* ---------- status ---------- */
+  const levelOf = (n) => (n === 10 || n === 18 ? 'good' : n === 20 ? 'closed' : [7, 9, 14, 17, 19].includes(n) ? 'minor' : 'severe');
+  const RANK = { unknown: -1, good: 0, closed: 1, minor: 2, severe: 3 };
+  const sentence = (s) => { const t = String(s || '').trim(); return t ? t.charAt(0).toUpperCase() + t.slice(1).toLowerCase() : ''; };
+  const clean = (r) => String(r || '').replace(/^\s*northern line:\s*/i, '').replace(/\s+/g, ' ').trim();
+  /* ---------- where is a disruption? (Northern line map) ---------- */
+  const BRANCHES = {
+    edgware: ['Edgware', 'Burnt Oak', 'Colindale', 'Hendon Central', 'Brent Cross', 'Golders Green', 'Hampstead', 'Belsize Park', 'Chalk Farm', 'Camden Town'],
+    barnet: ['High Barnet', 'Totteridge & Whetstone', 'Woodside Park', 'West Finchley', 'Finchley Central', 'East Finchley', 'Highgate', 'Archway', 'Tufnell Park', 'Kentish Town', 'Camden Town'],
+    millhill: ['Mill Hill East', 'Finchley Central'],
+    cx: ['Camden Town', 'Mornington Crescent', 'Euston', 'Warren Street', 'Goodge Street', 'Tottenham Court Road', 'Leicester Square', 'Charing Cross', 'Embankment', 'Waterloo', 'Kennington'],
+    bank: ['Camden Town', 'Euston', "King's Cross St. Pancras", 'Angel', 'Old Street', 'Moorgate', 'Bank', 'London Bridge', 'Borough', 'Elephant & Castle', 'Kennington'],
+    morden: ['Kennington', 'Oval', 'Stockwell', 'Clapham North', 'Clapham Common', 'Clapham South', 'Balham', 'Tooting Bec', 'Tooting Broadway', 'Colliers Wood', 'South Wimbledon', 'Morden'],
+    battersea: ['Kennington', 'Nine Elms', 'Battersea Power Station'],
+  };
+  const norm = (s) => ` ${String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/st\.\s*/g, 'st ').replace(/['’.,:;()]/g, ' ').replace(/\s+/g, ' ').trim()} `;
+  const STATIONS = [...new Set(Object.values(BRANCHES).flat())].map((name) => ({ name, key: norm(name).trim() }))
+    .concat([{ name: "King's Cross St. Pancras", key: 'kings cross' }, { name: 'Elephant & Castle', key: 'elephant castle' }, { name: 'Battersea Power Station', key: 'battersea' }])
+    .sort((a, b) => b.key.length - a.key.length);
+  const EDGES = [];
+  Object.entries(BRANCHES).forEach(([br, list]) => list.slice(1).forEach((s, i) => EDGES.push({ a: list[i], b: s, br })));
+  const edgeId = (e) => `${e.br}:${[e.a, e.b].sort().join('|')}`;
+  function pathEdges(from, to, avoid) { // breadth-first search; avoiding one of the two central branches leaves a tree
+    const usable = EDGES.filter((e) => e.br !== avoid);
+    const prev = { [from]: null }, queue = [from];
+    while (queue.length) {
+      const s = queue.shift();
+      if (s === to) break;
+      usable.filter((e) => e.a === s || e.b === s).forEach((e) => {
+        const n = e.a === s ? e.b : e.a;
+        if (!(n in prev)) { prev[n] = e; queue.push(n); }
+      });
+    }
+    if (!(to in prev)) return [];
+    const out = [];
+    for (let s = to; prev[s]; s = prev[s].a === s ? prev[s].b : prev[s].a) out.push(edgeId(prev[s]));
+    return out;
+  }
+  const along = (br, a, b) => { const l = BRANCHES[br], i = l.indexOf(a), j = l.indexOf(b); return l.slice(Math.min(i, j), Math.max(i, j) + 1); };
+  const edgesOf = (br, list) => list.slice(1).map((s, i) => edgeId({ a: list[i], b: s, br }));
+  const ROUTE_EDGES = new Set([...edgesOf('edgware', along('edgware', 'Hendon Central', 'Camden Town')), ...edgesOf('cx', along('cx', 'Camden Town', 'Tottenham Court Road'))]);
+  const NEAR_EDGES = new Set([...edgesOf('edgware', along('edgware', 'Edgware', 'Hendon Central')), ...edgesOf('cx', along('cx', 'Tottenham Court Road', 'Kennington'))]);
+  const ROUTE_STOPS = new Set([...along('edgware', 'Hendon Central', 'Camden Town'), ...along('cx', 'Camden Town', 'Tottenham Court Road')]);
+  const NEAR_STOPS = new Set([...along('edgware', 'Edgware', 'Colindale'), ...along('cx', 'Leicester Square', 'Kennington')]);
+  const NOT_STATION = /^(edgware road|bank holiday)/;
+  function stationAt(t, i) { // the longest station name starting at position i of normalised text
+    for (const st of STATIONS) if (t.startsWith(`${st.key} `, i) && !NOT_STATION.test(t.slice(i, i + st.key.length + 9))) return st;
+    return null;
+  }
+  // 'route' = touches Hendon Central to Tottenham Court Road (or gives no place), 'near' = the same branches beyond it, 'elsewhere' = the rest
+  function scopeOf(text) {
+    const t = norm(text);
+    if (/ (charing cross|cx|edgware) branch | via (charing cross|cx) /.test(t) && !/ between /.test(t)) return 'route';
+    const spans = [];
+    const readList = (pos) => { // "Euston (Bank Branch) / Charing Cross" -> [{st, br}]
+      const items = [];
+      for (;;) {
+        const st = stationAt(t, pos);
+        if (!st) break;
+        pos += st.key.length;
+        let br = '';
+        const q = t.slice(pos).match(/^ (bank|charing cross|cx) branch/);
+        if (q) { br = q[1] === 'bank' ? 'bank' : 'cx'; pos += q[0].length; }
+        items.push({ st, br });
+        if (!t.startsWith(' / ', pos)) break;
+        pos += 3;
+      }
+      return { items, end: pos };
+    };
+    for (let i = t.indexOf(' between '); i >= 0; i = t.indexOf(' between ', i + 1)) {
+      const A = readList(i + 9);
+      if (!A.items.length || !t.startsWith(' and ', A.end)) continue;
+      const B = readList(A.end + 5);
+      if (!B.items.length) continue;
+      const rest = t.slice(B.end, B.end + 26);
+      const via = /^ via bank /.test(rest) ? 'bank' : /^ via (charing cross|cx) /.test(rest) ? 'cx' : '';
+      A.items.forEach((a) => B.items.forEach((b) => {
+        if (a.st.name === b.st.name) return;
+        const pick = via || a.br || b.br;
+        spans.push(pick === 'bank' ? pathEdges(a.st.name, b.st.name, 'cx') : pick === 'cx' ? pathEdges(a.st.name, b.st.name, 'bank')
+          : [...pathEdges(a.st.name, b.st.name, 'cx'), ...pathEdges(a.st.name, b.st.name, 'bank')]);
+      }));
+    }
+    if (spans.length) {
+      const all = spans.flat();
+      return all.some((e) => ROUTE_EDGES.has(e)) ? 'route' : all.some((e) => NEAR_EDGES.has(e)) ? 'near' : 'elsewhere';
+    }
+    const named = STATIONS.filter((st) => new RegExp(` ${st.key} (?!road |holiday)`).test(t)).map((st) => st.name);
+    if (!named.length) return / (bank|morden|high barnet|mill hill east|battersea) branch /.test(t) ? 'elsewhere' : 'route';
+    return named.some((n) => ROUTE_STOPS.has(n)) ? 'route' : named.some((n) => NEAR_STOPS.has(n)) ? 'near' : 'elsewhere';
+  }
+  const onRoute = (text) => scopeOf(text) === 'route';
+  const hasPlace = (text) => { const t = norm(text); return / branch /.test(t) || STATIONS.some((st) => t.includes(` ${st.key} `)); };
+  const firstSentence = (text) => { const m = String(text || '').match(/^.*?[.!?](\s|$)/); return (m ? m[0] : String(text || '')).trim(); };
+  const GLYPH = {
+    good: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"/></svg>',
+    minor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 6.5v7"/><path d="M12 17.6h.01"/></svg>',
+    closed: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.8 4.2a8.2 8.2 0 1 0 5 13.1 7 7 0 0 1-5-13.1z"/></svg>',
+    unknown: '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="12" r="1.9"/><circle cx="12" cy="12" r="1.9"/><circle cx="17.5" cy="12" r="1.9"/></svg>',
+  };
+  GLYPH.severe = GLYPH.minor;
+
+  const S = { phase: 'loading', checkedAt: null, statuses: [], level: 'unknown', headline: '', reasons: [], affects: false,
+    stations: [], planned: [], trains: null, trainsError: false, upcoming: SEED_UPCOMING, history: [], checking: false, note: '' };
+
+  function derive() { // the headline describes Hendon Central to Tottenham Court Road only; the rest of the line goes in S.others
+    const sts = S.statuses;
+    S.others = []; S.unlocated = false;
+    if (!sts.length) { S.level = 'unknown'; S.headline = ''; S.reasons = []; S.affects = false; return; }
+    const bad = sts.filter((s) => ['minor', 'severe'].includes(levelOf(s.severity))).map((s) => ({ ...s, scope: scopeOf(s.reason) }));
+    const mine = bad.filter((s) => s.scope === 'route');
+    S.others = bad.filter((s) => s.scope !== 'route').map((s) => ({ scope: s.scope, text: firstSentence(clean(s.reason)) || sentence(s.description) }));
+    if (mine.length) {
+      const worst = mine.reduce((a, s) => (RANK[levelOf(s.severity)] > RANK[levelOf(a.severity)] ? s : a), mine[0]);
+      S.level = levelOf(worst.severity);
+      S.unlocated = mine.every((s) => !hasPlace(s.reason));
+      S.headline = `${sentence(worst.description)} ${S.unlocated ? 'on the Northern line' : 'on your route'}`;
+      S.reasons = [...new Set(mine.map((s) => clean(s.reason)).filter(Boolean))];
+      S.affects = true;
+    } else {
+      S.level = sts.every((s) => levelOf(s.severity) === 'closed') ? 'closed' : 'good';
+      S.headline = S.level === 'closed' ? 'Service closed for the night' : 'Good service on your route';
+      S.reasons = []; S.affects = false;
+    }
+  }
+
+  /* ---------- hero ---------- */
+  function metaText() {
+    const parts = [];
+
+    if (!S.checkedAt) return '';
+    parts.push(`Checked at ${fmtTime(S.checkedAt)}`);
+    parts.push(S.note || 'refreshes every minute');
+
+    return cap(parts.join(' · '));
+  }
+
+  function homeward() { // true during the evening commute, or when the evening one is next
+    const w = currentWindow();
+    if (w) return w[3] === 'pm';
+    const n = nextAfter(WINDOWS.map((x) => x[1]));
+    return !!n && n.m === WINDOWS[1][1];
+  }
+  function renderHero() {
+    const now = new Date(), l = london(now), w = currentWindow(l);
+    let when = '';
+    if (w) when = `${w[0]} until ${hm(w[2])}`;
+    else if (!weekday(l)) when = 'No commute today';
+    else { const n = nextAfter(WINDOWS.map((x) => x[1])); if (n) when = `Next commute ${n.label} at ${hm(n.m)}`; }
+    $('eyebrow').textContent = `${fmt(now, { weekday: 'long', day: 'numeric', month: 'long' })} · ${when}`;
+
+    const lv = S.phase === 'ready' ? S.level : 'unknown';
+    $('glyph').className = `glyph ${lv}`;
+    $('glyph').innerHTML = GLYPH[lv] || GLYPH.unknown;
+    let head = '', sub = '';
+    if (S.phase === 'loading') { head = MODE === 'pub' ? 'Loading the latest check…' : 'Checking TfL…'; sub = 'Hendon Central to Tottenham Court Road.'; }
+    else if (S.phase === 'empty') { head = 'Waiting for the first check.'; sub = 'Your checks run at 05:50, 07:20, 15:50 and 17:20 on weekdays and appear here.'; }
+    else if (S.phase === 'nodb') { head = 'Open this page in Claude.'; sub = 'The latest check shows when you open this page while signed in to your Claude account.'; }
+    else if (S.phase === 'offline') { head = 'Can’t reach TfL.'; sub = 'Check your internet connection. The page tries again every minute.'; }
+    else {
+      head = `${S.headline}.`;
+      if (S.level === 'good') {
+        const both = ['Hendon Central to Tottenham Court Road is running normally.', 'Tottenham Court Road to Hendon Central is running normally.'];
+        sub = homeward() ? both.reverse() : both; // the direction you travel next comes first
+      }
+      else if (S.level === 'closed') sub = 'Trains start again in the morning.';
+      else sub = S.reasons.join(' ') || 'TfL hasn’t given any details yet.';
+    }
+    $('headline').textContent = head;
+    $('subhead').innerHTML = (Array.isArray(sub) ? sub : [sub]).map((x) => `<span>${esc(x)}</span>`).join('');
+    const tag = $('tag');
+    if (S.phase === 'ready' && S.unlocated) {
+      tag.hidden = false;
+      tag.className = `tag ${S.level}`;
+      tag.textContent = 'No place given, so it may affect your route';
+    } else tag.hidden = true;
+    const others = S.phase === 'ready' ? (S.others || []) : [];
+    $('others').hidden = !others.length;
+    $('others').innerHTML = others.slice(0, 3).map((o) => `<span class="${o.scope}"><b>${o.scope === 'near' ? 'Near your route' : 'Elsewhere on the line'}.</b> ${esc(o.text)}</span>`).join('');
+    $('meta').textContent = metaText();
+  }
+
+  /* ---------- how busy (TfL station crowding) ---------- */
+  const crowd = { live: {}, typical: {}, liveAt: 0 };
+  const level = (p) => (p >= 0.7 ? ['l-very', 'Very busy'] : p >= 0.4 ? ['l-busy', 'Busy'] : ['l-quiet', 'Quiet']);
+  const pct = (p) => `${Math.round(p * 100)}%`;
+
+  function bandsFor(id) { // today's typical pattern in 15-minute slots
+    const t = crowd.typical[id] && crowd.typical[id].data;
+    if (!t || !Array.isArray(t.daysOfWeek)) return null;
+    const dow = london().dow.slice(0, 3).toUpperCase();
+    const d = t.daysOfWeek.find((x) => String(x.dayOfWeek || '').toUpperCase() === dow);
+    if (!d || !Array.isArray(d.timeBands)) return null;
+    return d.timeBands.map((b) => {
+      const label = Object.values(b || {}).find((v) => typeof v === 'string' && /^\d\d:\d\d-\d\d:\d\d$/.test(v));
+      const val = Number(b && (b.percentageOfBaseLine ?? b.percentageOfBaseline));
+      if (!label || !Number.isFinite(val)) return null;
+      const [h, m] = label.slice(0, 5).split(':').map(Number);
+      return { start: h * 60 + m, from: label.slice(0, 5), val };
+    }).filter(Boolean);
+  }
+
+  function renderBusy(key, id, win) {
+    const el = $(`busy-${key}`);
+    if (!el) return;
+    let live = crowd.live[id];
+    if (MODE === 'pub' && live && london(new Date(live.at)).iso !== london().iso) live = null; // a reading from an earlier day
+    const bands = bandsFor(id);
+    if (live === undefined && !bands) { el.innerHTML = ''; return; }
+    const mins = london().mins;
+    const now = bands && bands.find((b) => mins >= b.start && mins < b.start + 15);
+    const peak = bands ? bands.filter((b) => b.start >= win[1] && b.start < win[2]) : [];
+    const high = peak.length ? peak.reduce((a, b) => (b.val > a.val ? b : a)) : null;
+    const lines = [];
+    if (now) lines.push(`Usually ${level(now.val)[1].toLowerCase()} at this time (${pct(now.val)}).`);
+    if (high) { // the busiest 15 minutes of this commute, and the busy stretch around it
+      const name = win[4] === 'morning' ? 'Morning' : 'Evening', i = peak.indexOf(high);
+      let a = i, b = i;
+      while (a > 0 && peak[a - 1].val >= 0.4) a -= 1;
+      while (b < peak.length - 1 && peak[b + 1].val >= 0.4) b += 1;
+      lines.push(high.val < 0.4 ? `${name}: usually quiet, busiest ${high.from} (${pct(high.val)}).`
+        : `${name}: usually busy ${peak[a].from} to ${hm(peak[b].start + 15)}, busiest ${high.from} (${pct(high.val)}).`);
+    }
+    if (!live && !lines.length) { el.innerHTML = ''; return; }
+    const [cls, word] = live ? level(live.val) : ['', 'How busy'];
+    const head = !live ? `<span class="lvl">${word}</span>`
+      : MODE === 'pub' ? `<span class="lvl ${cls}">${word}</span><span class="pct num">${pct(live.val)} at the ${fmtTime(live.at)} check</span>`
+        : `<span class="lvl ${cls}">${word} now</span><span class="pct num">${pct(live.val)}</span>`;
+    el.innerHTML = `${head}${lines.length ? `<p class="num">${esc(lines.join(' '))}</p>` : ''}`;
+  }
+  function renderBusyAll() {
+    renderBusy('work', '940GZZLUHCL', WINDOWS[0]);
+    renderBusy('home', '940GZZLUTCR', WINDOWS[1]);
+    renderBusy('wrr', '940GZZLUWRR', WINDOWS[1]);
+  }
+
+  /* ---------- trains ---------- */
+  function destName(a) {
+    const t = String(a.towards || a.destinationName || '').replace(/\s*Underground Station$/i, '').trim();
+    const m = t.match(/^(.*?)\s+via\s+(.*)$/i);
+    return m ? { main: m[1], via: `via ${/^cx$/i.test(m[2]) ? 'Charing Cross' : m[2]}` } : { main: t, via: '' };
+  }
+  function renderTrain(id, list) {
+    const box = $(id).querySelector('.slot');
+    if (!list) { box.innerHTML = `<p class="ok-note">${S.trainsError ? 'Train times aren’t available right now. They come back with the next refresh.' : 'Loading train times…'}</p>`; return; }
+    if (!list.length) { box.innerHTML = '<p class="ok-note">No trains showing in the next 30 minutes. Check the status above.</p>'; return; }
+    const [a, ...rest] = list;
+    const big = a.timeToStation < 60 ? '<div class="big due">Due</div>' : `<div class="big num">${Math.floor(a.timeToStation / 60)}<small>min</small></div>`;
+    const d = destName(a);
+    const then = rest.slice(0, 3).map((x) => Math.max(1, Math.floor(x.timeToStation / 60)));
+    const list2 = then.length > 1 ? `${then.slice(0, -1).join(', ')} and ${then[then.length - 1]}` : String(then[0] || '');
+    box.innerHTML = `<div class="next">${big}<div class="dest"><b>${esc(d.main)}</b><span>${esc(d.via)}</span></div></div>
+      ${a.currentLocation ? `<p class="where">${esc(a.currentLocation)}</p>` : ''}
+      ${then.length ? `<p class="then num">Then <b>${esc(list2)}</b> min</p>` : ''}`;
+  }
+  function renderTrains() {
+    const w = currentWindow();
+    $('t-work').classList.toggle('first', !!w && w[3] === 'am');
+    $('t-home').classList.toggle('first', !!w && w[3] === 'pm');
+    $('t-wrr').classList.toggle('first', !!w && w[3] === 'pm');
+    $('k-work').innerHTML = `To work${w && w[3] === 'am' ? ' · <span class="now">now</span>' : ''}`;
+    $('k-home').innerHTML = `To home${w && w[3] === 'pm' ? ' · <span class="now">now</span>' : ''}`;
+    $('k-wrr').innerHTML = `To home${w && w[3] === 'pm' ? ' · <span class="now">now</span>' : ''}`;
+    renderTrain('t-work', S.trains && S.trains.work);
+    renderTrain('t-home', S.trains && S.trains.home);
+    renderTrain('t-wrr', S.trains && S.trains.wrr);
+    renderBusyAll();
+  }
+
+  /* ---------- route ---------- */
+  const isClosure = (t) => /clos/i.test(t) && !/lift|escalator|entrance|exit|toilet|ticket/i.test(t);
+  function renderRoute() {
+    const by = {};
+    S.stations.forEach((s) => (by[s.station] = by[s.station] || []).push(s.text));
+    $('route').innerHTML = ROUTE.map(([, n], i) => {
+      const list = by[n] || [];
+      const cls = [i === 0 || i === ROUTE.length - 1 ? 'end' : '', list.some(isClosure) ? 'closed' : list.length ? 'issue' : ''].join(' ').trim();
+      return `<li class="${cls}"><span class="pt"></span><span class="nm">${esc(n)}</span></li>`;
+    }).join('');
+    $('issues').innerHTML = S.stations.map((s) => `<li><span class="dot ${isClosure(s.text) ? 'severe' : ''}"></span><span><b>${esc(s.station)}.</b> ${esc(s.text)}</span></li>`).join('');
+    $('issues').hidden = !S.stations.length;
+    $('route-ok').hidden = !!S.stations.length;
+    $('route-ok').textContent = S.phase === 'ready' ? 'No station problems reported on your route.' : 'Station problems appear here after each check.';
+  }
+
+  /* ---------- coming up ---------- */
+  const shortName = (n) => String(n || '').replace(/\s*\([^)]*\)/g, '').replace(/,\s*\d+\s+of\s+\d+\s*$/i, '').trim();
+  function hits(from, to) {
+    const out = [];
+    for (let t = new Date(from); t < to; t = new Date(t.getTime() + 30 * 60e3)) {
+      const l = london(t), w = currentWindow(l);
+      if (w && !out.includes(`${l.dow} ${w[4]}`)) out.push(`${l.dow} ${w[4]}`);
+    }
+    return out;
+  }
+  function span(from, to, timed) {
+    if (!timed) return london(from).iso === london(to).iso ? fmtDay(from) : `${fmtDay(from)} to ${fmtDay(to)}`;
+    return london(from).iso === london(to).iso ? `${fmtDay(from)}, ${fmtTime(from)} to ${fmtTime(to)}` : `${fmtDay(from)} ${fmtTime(from)} to ${fmtDay(to)} ${fmtTime(to)}`;
+  }
+  function countdown(from, to) {
+    const now = new Date();
+    if (from <= now && to > now) return 'Now';
+    const days = Math.round((dayStart(from) - dayStart(now)) / 864e5);
+    return days <= 0 ? 'Today' : days === 1 ? 'Tomorrow' : `In ${days} days`;
+  }
+  function comingItems() {
+    const now = new Date();
+    const ev = (S.upcoming || []).filter((e) => e && e.start).map((e) => {
+      const from = ukDate(e.start), to = e.end ? endOf(e.end) : new Date(dayStart(from).getTime() + 864e5 - 1);
+      const h = hits(from, to);
+      const strike = e.type === 'Strike';
+      return { from, to, title: shortName(e.name), line: span(from, to, e.start.length > 10), impact: e.impact, url: e.url, kind: strike ? 'strike' : 'event',
+        hit: h.length ? `Hits your ${h.join(' and ')} commute` : 'Outside your commute hours', hot: h.length > 0 };
+    });
+    const works = (S.planned || []).map((p) => {
+      const from = new Date(p.from), to = new Date(p.to);
+      return { from, to, title: sentence(p.description), line: span(from, to, true), impact: clean(p.reason), url: 'https://tfl.gov.uk/tube-dlr-overground/status/', kind: 'works',
+        hit: p.onRoute ? 'On your route' : 'Not on your route', hot: !!p.onRoute };
+    });
+    return [...ev, ...works].filter((x) => x.to > now && !Number.isNaN(x.from.getTime())).sort((a, b) => a.from - b.from);
+  }
+  let showAll = false;
+  function renderComing() {
+    const now = new Date(), items = comingItems(), shown = showAll ? items : items.slice(0, 4);
+    $('coming').innerHTML = shown.map((x) => {
+      const ongoing = x.from <= now;
+      const soon = x.hot && (x.from - now) < 7 * 864e5;
+      return `<details class="ev"><summary>
+        <span class="when-d num">${ongoing ? '<b class="now">Now</b>' : `<b>${esc(fmt(x.from, { day: 'numeric' }))}</b><span>${esc(fmt(x.from, { month: 'short' }))}</span>`}</span>
+        <span class="what"><b>${esc(x.title)}</b><span class="num">${esc(x.line)}</span><span class="hit ${x.hot ? (x.kind === 'works' ? 'minor' : 'severe') : 'quiet'}">${esc(x.hit)}</span></span>
+        <span class="side"><span class="badge ${soon ? 'severe' : ''}">${esc(countdown(x.from, x.to))}</span><span class="chev" aria-hidden="true"></span></span>
+      </summary><div class="more">${x.impact ? `<p>${esc(x.impact)}</p>` : ''}${x.url ? `<p><a class="more-link" href="${esc(x.url)}" target="_blank" rel="noopener">${x.kind === 'works' ? 'TfL status' : 'Source'}</a></p>` : ''}</div></details>`;
+    }).join('') || '<p class="ok-note">No strikes or planned closures announced for your route.</p>';
+    const more = $('coming-more');
+    more.hidden = items.length <= 4;
+    more.textContent = showAll ? 'Show fewer' : `Show all ${items.length}`;
+  }
+  $('coming-more').addEventListener('click', () => { showAll = !showAll; renderComing(); });
+
+  /* ---------- log ---------- */
+  function logRow(t, level, head, note) {
+    return `<li><time class="num">${esc(t)}</time><span class="dot ${esc(level)}"></span><span class="txt"><b>${esc(head)}</b>${note ? ` <span>· ${esc(note)}</span>` : ''}</span></li>`;
+  }
+  function renderLog() {
+
+    const l = london();
+    const arr = store.get(`nl.log.${l.iso}`, []) || [];
+    $('log-kicker').textContent = 'Today';
+    $('log-title').textContent = 'How the line ran';
+    $('log-lede').textContent = 'Noted whenever your route’s status changes while this page is open.';
+    const WIN = { am: 'Morning commute', pm: 'Evening commute' };
+    $('log').innerHTML = arr.slice().reverse().map((e) => logRow(e.t, e.cls, sentence(e.label), WIN[e.window] || ''))
+      .join('') || '<li><span class="none">Nothing noted yet today.</span></li>';
+
+  }
+
+  /* ---------- by bus: home and work ---------- */
+  const WALK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4.2" r="1.9" fill="currentColor" stroke="none"/><path d="M9.5 21.5l2.6-6.2 2.7 2.8v3.4"/><path d="M12.1 15.3l1.3-6.6"/><path d="M8.6 12.6l1.6-3.6 3.2-.5 2.4 3h2.6"/></svg>';
+  const BUSICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.5 2h11A2.5 2.5 0 0 1 20 4.5V16a2 2 0 0 1-1 1.73V20a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H8v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2.27A2 2 0 0 1 4 16V4.5A2.5 2.5 0 0 1 6.5 2ZM6.5 5v6h11V5h-11Zm1 8.2a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm9 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/></svg>';
+  const TFL_STOP = 'https://tfl.gov.uk/bus/stop/';
+  const BUS = {
+    out: {
+      lede: 'From home to work. About 80 minutes, with two changes.',
+      steps: [
+        { walk: 'Walk to The Quadrant', sub: '9 min · Stop T, towards Hendon Central' },
+        { lines: ['SL10', '143', '326'], stop: '490013512T', page: '490013512T/the-quadrant', from: 'From The Quadrant, Stop T', sub: '7 min to Hendon Central. The 143 and 326 stop at Stop G, where the 113 leaves. The SL10 stops at Stop B, a short walk away.' },
+        { lines: ['113'], stop: '490000106G', page: '490000106G/hendon-central-station', from: 'From Hendon Central, Stop G', sub: 'About 45 min to Baker Street Station, Stop B. Walk to Stop D for the next bus.' },
+        { lines: ['18', '27', '205'], stop: '490000011D', page: '490000011D/baker-street-station', from: 'From Baker Street Station, Stop D', sub: '4 min to Great Portland Street Station, Stop H' },
+        { walk: 'Walk to work', sub: '5 min' },
+      ],
+    },
+    home: {
+      lede: 'From work back home. About 80 minutes, with two changes.',
+      steps: [
+        { walk: 'Walk to Warren Street Station', sub: '3 min · Stop V on Euston Road, towards Baker Street' },
+        { lines: ['18', '27', '205'], stop: '490000252V', page: '490000252V/warren-street-stn-tottenham-court-rd/', from: 'From Warren Street Station, Stop V', sub: '6 min to Baker Street Station, Stop E. Walk to Stop C for the 113.' },
+        { lines: ['113'], stop: '490000011ZZ', page: '490000011ZZ/baker-street-station', from: 'From Baker Street Station, Stop C', sub: 'About 45 min to Hendon Central, Stop E. Walk to Stop F for the last bus.' },
+        { lines: ['143', '326'], stop: '490000106F', page: '490000106F/hendon-central-station', from: 'From Hendon Central, Stop F', sub: '8 min to The Quadrant, Stop S' },
+        { walk: 'Walk home', sub: '7 min' },
+      ],
+    },
+  };
+  let busDir = london().mins < 720 ? 'out' : 'home';
+  const busLive = {};
+  function etaHtml(step) {
+
+    const list = busLive[step.stop];
+    if (list === undefined) return '<span class="eta">Checking…</span>';
+    if (list === null) return `<span class="eta"><a href="${TFL_STOP}${step.page}" target="_blank" rel="noopener">Live times</a></span>`;
+    if (!list.length) return '<span class="eta">None due in 30 min</span>';
+    return `<span class="eta num">${list.slice(0, 2).map((a) => `<b>${a.timeToStation < 60 ? 'Due' : Math.floor(a.timeToStation / 60)}</b>${a.timeToStation < 60 ? '' : ' min'}${step.lines.length > 1 ? `<small>${esc(a.lineName)}</small>` : ''}`).join('<span class="sep">|</span>')}</span>`;
+
+  }
+  function renderBus() {
+    const d = BUS[busDir];
+    $('bus-out').setAttribute('aria-pressed', String(busDir === 'out'));
+    $('bus-home').setAttribute('aria-pressed', String(busDir === 'home'));
+    $('bus-lede').textContent = d.lede;
+    $('bus-steps').innerHTML = d.steps.map((st) => (st.walk
+      ? `<li class="walk"><span class="ico">${WALK}</span><span class="step-main"><b>${esc(st.walk)}</b><span>${esc(st.sub)}</span></span></li>`
+      : `<li><span class="ico bus">${BUSICON}</span><span class="step-main"><span class="routes">${st.lines.map((n) => `<span class="route-no">${esc(n)}</span>`).join('')}</span><b>${esc(st.from)}</b><span>${esc(st.sub)}</span></span>${etaHtml(st)}</li>`)).join('');
+
+    $('bus-note').textContent = 'Live bus times from TfL, refreshed with the page. Times in traffic can vary.';
+
+  }
+  function setBusDir(dir) {
+    busDir = dir;
+    renderBus();
+
+    loadBuses();
+
+  }
+  $('bus-out').addEventListener('click', () => setBusDir('out'));
+  $('bus-home').addEventListener('click', () => setBusDir('home'));
+
+  function renderAll() {
+    renderHero();
+
+    renderTrains();
+
+    renderBus(); renderRoute(); renderComing(); renderLog();
+  }
+
+  /* ---------- live TfL (laptop version) ---------- */
+  const API = 'https://api.tfl.gov.uk', HENDON = '940GZZLUHCL', TCR = '940GZZLUTCR', WRR = '940GZZLUWRR';
+  async function tfl(path, timeout = 12000) {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), timeout);
+    try {
+      const r = await fetch(`${API}${path}`, { signal: ctl.signal, cache: 'no-store' });
+      if (!r.ok) throw new Error(`TfL answered ${r.status}`);
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+  const byTime = (x) => x.sort((a, b) => a.timeToStation - b.timeToStation);
+  const toWork = (arr) => byTime((arr || []).filter((a) => a.lineId === 'northern' && /^south/i.test(a.platformName || '') && /via cx|charing cross|kennington|battersea|nine elms/i.test(`${a.towards} ${a.destinationName}`) && !/bank/i.test(a.towards || '')));
+  const toHome = (arr) => byTime((arr || []).filter((a) => a.lineId === 'northern' && /^north/i.test(a.platformName || '') && /edgware|colindale|burnt oak|hendon/i.test(`${a.towards} ${a.destinationName}`)));
+  function mapStations(list) {
+    const out = [];
+    (list || []).forEach((d) => {
+      const hit = ROUTE.find(([sid, n]) => [d.stationAtcoCode, d.atcoCode].some((x) => String(x || '').startsWith(sid)) || String(d.commonName || '').startsWith(n));
+      const text = String(d.description || '').replace(/^[^:]{0,70}:\s*/, '').trim();
+      if (hit && text && !out.some((o) => o.station === hit[1] && o.text === text)) out.push({ station: hit[1], text });
+    });
+    return out;
+  }
+  function mapPlanned(data) {
+    const now = new Date();
+    return ((data && data[0] && data[0].lineStatuses) || []).filter((s) => s.statusSeverity !== 10).flatMap((s) => {
+      const p = (s.validityPeriods || []).find((v) => !v.isNow && new Date(v.toDate) > now);
+      return p ? [{ from: p.fromDate, to: p.toDate, description: s.statusSeverityDescription, reason: s.reason || '', onRoute: onRoute(s.reason) }] : [];
+    });
+  }
+  function logCheck() {
+    const l = london(), w = currentWindow(l);
+    if (S.phase !== 'ready') return;
+    const key = `nl.log.${l.iso}`, arr = store.get(key, []) || [];
+    const reason = S.reasons.join(' ');
+    const last = arr[arr.length - 1];
+    const win = w ? w[3] : 'day';
+    if (!last || last.window !== win || sentence(last.label) !== sentence(S.headline) || (last.reason || '') !== reason) {
+      arr.push({ t: l.hm, window: win, label: S.headline, cls: S.level, reason, route: S.affects });
+      store.set(key, arr);
+    }
+  }
+  async function loadCrowding() {
+    if (Date.now() - crowd.liveAt < 5 * 60e3) return;
+    crowd.liveAt = Date.now();
+    const ids = [HENDON, TCR, WRR], day = london().iso;
+    const need = ids.filter((id) => !crowd.typical[id] || crowd.typical[id].day !== day);
+    const [lives, typs] = await Promise.all([
+      Promise.allSettled(ids.map((id) => tfl(`/crowding/${id}/Live`))),
+      Promise.allSettled(need.map((id) => tfl(`/crowding/${id}`))),
+    ]);
+    lives.forEach((r, i) => {
+      const v = r.status === 'fulfilled' ? r.value : null;
+      const val = v && Number(v.percentageOfBaseline ?? v.percentageOfBaseLine);
+      crowd.live[ids[i]] = v && v.dataAvailable && Number.isFinite(val) ? { val, at: v.timeUtc } : null;
+    });
+    typs.forEach((r, i) => { if (r.status === 'fulfilled' && r.value) crowd.typical[need[i]] = { day, data: r.value }; });
+  }
+  async function loadBuses() {
+    const steps = BUS[busDir].steps.filter((st) => st.stop);
+    const res = await Promise.allSettled(steps.map((st) => tfl(`/StopPoint/${st.stop}/Arrivals`)));
+    res.forEach((r, i) => {
+      const st = steps[i];
+      busLive[st.stop] = r.status === 'fulfilled' && Array.isArray(r.value)
+        ? r.value.filter((a) => st.lines.includes(String(a.lineName))).sort((a, b) => a.timeToStation - b.timeToStation)
+        : null;
+    });
+    renderBus();
+  }
+  let busy = false, nextAt = 0;
+  function setBusy(on) {
+    const b = $('btn-act');
+    b.disabled = on;
+    b.innerHTML = on ? '<span class="spin" aria-hidden="true"></span>Refreshing' : 'Refresh';
+  }
+  async function refresh() {
+    if (busy) return;
+    busy = true; setBusy(true);
+    try {
+      const l = london(), end = london(new Date(Date.now() + 7 * 864e5));
+      const ids = ROUTE.map(([id]) => id).join(',');
+      const [st, ha, ta, di, pl, wa] = await Promise.allSettled([
+        tfl('/Line/northern/Status'), tfl(`/StopPoint/${HENDON}/Arrivals`), tfl(`/StopPoint/${TCR}/Arrivals`),
+        tfl(`/StopPoint/${ids}/Disruption?getFamily=true&includeRouteBlockedStops=false`), tfl(`/Line/northern/Status/${l.iso}/to/${end.iso}`),
+        tfl(`/StopPoint/${WRR}/Arrivals`),
+      ]);
+      const now = new Date();
+      const sts = st.status === 'fulfilled' && Array.isArray(st.value) && st.value[0] ? (st.value[0].lineStatuses || []) : [];
+      if (sts.length) {
+        S.statuses = sts.map((s) => ({ severity: s.statusSeverity, description: s.statusSeverityDescription, reason: s.reason || '' }));
+        S.checkedAt = now; S.phase = 'ready'; S.note = '';
+        derive(); logCheck();
+      } else if (S.phase === 'ready') S.note = `couldn’t refresh at ${fmtTime(now)}, showing the last check`;
+      else S.phase = 'offline';
+      const ok = (r) => r.status === 'fulfilled' && Array.isArray(r.value);
+      S.trainsError = true; // tried at least once: an empty slot now means TfL didn't answer for that station
+      S.trains = { work: ok(ha) ? toWork(ha.value) : null, home: ok(ta) ? toHome(ta.value) : null, wrr: ok(wa) ? toHome(wa.value) : null };
+      if (di.status === 'fulfilled') S.stations = mapStations(di.value);
+      if (pl.status === 'fulfilled') S.planned = mapPlanned(pl.value);
+      await Promise.allSettled([loadBuses(), loadCrowding()]);
+    } finally {
+      busy = false; setBusy(false);
+      nextAt = Date.now() + 60e3;
+      renderAll();
+    }
+  }
+  $('btn-act').hidden = false;
+  $('btn-act').addEventListener('click', refresh);
+  $('btn-csv').addEventListener('click', () => {
+    const rows = [['Date', 'Time', 'Window', 'Status', 'Details']];
+    let keys = [];
+    try { keys = Object.keys(localStorage).filter((k) => k.startsWith('nl.log.')).sort(); } catch { keys = []; }
+    keys.forEach((k) => (store.get(k, []) || []).forEach((e) => rows.push([k.slice(7), e.t, e.window === 'am' ? 'Morning' : e.window === 'pm' ? 'Evening' : 'Other', sentence(e.label), e.reason || ''])));
+    const csv = rows.map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' }));
+    a.download = 'Northern line commute log.csv';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  });
+  renderAll();
+  refresh();
+  setInterval(() => { if (!busy && Date.now() >= nextAt) refresh(); }, 5000);
+  setInterval(renderHero, 30000);
+
+})();
+</script>
+</body>
+</html>
