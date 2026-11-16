@@ -204,9 +204,14 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 }
 
 .pages { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
-.pages a { padding: 5px 13px; border-radius: 7px; font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); white-space: nowrap; }
+.pages a { --tab: #0071e3; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 7px; font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); white-space: nowrap; }
+.pages a[href="journeys.html"] { --tab: #00757f; } .pages a[href="events.html"] { --tab: #8944ab; }
+.pages a::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--tab); }
 .pages a:hover { text-decoration: none; }
-.pages a[aria-current="page"] { background: var(--tile); font-weight: 600; box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent); }
+.pages a[aria-current="page"] { background: var(--tab); color: #ffffff; font-weight: 600; }
+.pages a[aria-current="page"]::before { background: #ffffff; }
+@media (max-width: 480px) { .pages a { padding: 5px 9px; font-size: 13px; } .pages a::before { display: none; } }
+@media (max-width: 374px) { .brand svg { display: none; } .pages a { padding: 5px 8px; } }
 
 /* ---------- plan form ---------- */
 .plan { display: grid; gap: 18px; }
@@ -225,8 +230,11 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .suggest .none { color: var(--ink-2); cursor: default; }
 .when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
 .seg { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
-.seg button { border: 0; background: none; padding: 7px 14px; border-radius: 7px; font-size: 15px; line-height: 1.3; color: var(--ink); cursor: pointer; white-space: nowrap; }
-.seg button[aria-pressed="true"] { background: var(--tile); font-weight: 600; box-shadow: 0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent); }
+.seg button { --tab: #00757f; display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 7px 14px; border-radius: 7px; font-size: 15px; line-height: 1.3; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.seg button::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--tab); }
+.seg button[aria-pressed="true"] { background: var(--tab); color: #ffffff; font-weight: 600; }
+.seg button[aria-pressed="true"]::before { background: #ffffff; }
+@media (max-width: 480px) { .seg button::before { display: none; } }
 .later { display: flex; flex-wrap: wrap; gap: 10px; }
 .later input { min-height: 42px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--ground); color: var(--ink); font: inherit; font-size: 16px; }
 .go { justify-self: start; display: inline-flex; align-items: center; gap: 9px; min-height: 46px; padding: 10px 24px; border: 0; border-radius: 980px; background: var(--action); color: var(--on-action); font-size: 17px; font-weight: 600; cursor: pointer; }
@@ -281,7 +289,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 
 <header class="bar">
   <div class="wrap">
-    <div class="brand"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="gj" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48484a"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#gj)"/><rect x="17" y="9" width="30" height="37" rx="9" fill="#fff"/><rect x="22" y="15" width="20" height="12" rx="3.5" fill="#1d1d1f"/><circle cx="25.5" cy="37" r="3.2" fill="#1d1d1f"/><circle cx="38.5" cy="37" r="3.2" fill="#1d1d1f"/><path d="M24 55l5-8.5M40 55l-5-8.5" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/></svg><nav class="pages" aria-label="Pages"><a href="index.html">Commute</a><a href="journeys.html" aria-current="page">Journeys</a></nav></div>
+    <div class="brand"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="gj" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48484a"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#gj)"/><rect x="17" y="9" width="30" height="37" rx="9" fill="#fff"/><rect x="22" y="15" width="20" height="12" rx="3.5" fill="#1d1d1f"/><circle cx="25.5" cy="37" r="3.2" fill="#1d1d1f"/><circle cx="38.5" cy="37" r="3.2" fill="#1d1d1f"/><path d="M24 55l5-8.5M40 55l-5-8.5" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/></svg><nav class="pages" aria-label="Pages"><a href="index.html">Commute</a><a href="journeys.html" aria-current="page">Journeys</a><a href="events.html">Events</a></nav></div>
   </div>
 </header>
 
