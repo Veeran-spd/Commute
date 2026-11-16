@@ -297,6 +297,11 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .step-main { min-width: 0; padding-top: 3px; }
 .step-main b { display: block; font-size: 17px; font-weight: 600; line-height: 1.3; text-wrap: balance; }
 .step-main > span { display: block; margin-top: 3px; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.stop-link { display: block; color: var(--ink); }
+.stop-link:hover { text-decoration: none; }
+.stop-link:hover b { text-decoration: underline; text-underline-offset: 0.15em; }
+.stop-link .nw { white-space: nowrap; }
+.stop-link svg { display: inline-block; width: 16px; height: 16px; margin-left: 7px; vertical-align: -2px; color: var(--link); }
 .routes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
 .route-no { display: inline-block; min-width: 32px; padding: 1px 6px; border-radius: 5px; background: var(--bus); color: var(--on-action); font-size: 13px; font-weight: 700; line-height: 1.45; text-align: center; letter-spacing: 0; }
 .eta { padding-top: 3px; text-align: right; font-size: 14px; line-height: 1.6; color: var(--ink-2); white-space: nowrap; }
@@ -909,14 +914,21 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   const WALK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4.2" r="1.9" fill="currentColor" stroke="none"/><path d="M9.5 21.5l2.6-6.2 2.7 2.8v3.4"/><path d="M12.1 15.3l1.3-6.6"/><path d="M8.6 12.6l1.6-3.6 3.2-.5 2.4 3h2.6"/></svg>';
   const BUSICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.5 2h11A2.5 2.5 0 0 1 20 4.5V16a2 2 0 0 1-1 1.73V20a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H8v1a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-2.27A2 2 0 0 1 4 16V4.5A2.5 2.5 0 0 1 6.5 2ZM6.5 5v6h11V5h-11Zm1 8.2a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Zm9 0a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8Z"/></svg>';
   const TFL_STOP = 'https://tfl.gov.uk/bus/stop/';
+  const MAPS = (ll) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ll)}`;
+  const PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.8-6.5-11A6.5 6.5 0 0 1 18.5 10c0 5.2-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>';
+  function stopName(st) { // the stop name opens Google Maps; the pin stays on the line with the last word
+    if (!st.ll) return `<b>${esc(st.from)}</b>`;
+    const m = st.from.match(/^(.*\s)(\S+)$/) || [null, '', st.from];
+    return `<a class="stop-link" href="${MAPS(st.ll)}" target="_blank" rel="noopener" aria-label="${esc(st.from.replace(/^From /, ''))} on Google Maps"><b>${esc(m[1])}<span class="nw">${esc(m[2])}${PIN}</span></b></a>`;
+  }
   const BUS = {
     out: {
       lede: 'From home to work. About 80 minutes, with two changes.',
       steps: [
         { walk: 'Walk to The Quadrant', sub: '9 min · Stop T, towards Hendon Central' },
-        { lines: ['SL10', '143', '326'], stop: '490013512T', page: '490013512T/the-quadrant', from: 'From The Quadrant, Stop T', sub: '7 min to Hendon Central. The 143 and 326 stop at Stop G, where the 113 leaves. The SL10 stops at Stop B, a short walk away.' },
-        { lines: ['113'], stop: '490000106G', page: '490000106G/hendon-central-station', from: 'From Hendon Central, Stop G', sub: 'About 45 min to Baker Street Station, Stop B. Walk to Stop D for the next bus.' },
-        { lines: ['18', '27', '205'], stop: '490000011D', page: '490000011D/baker-street-station', from: 'From Baker Street Station, Stop D', sub: '4 min to Great Portland Street Station, Stop H' },
+        { lines: ['SL10', '143', '326'], stop: '490013512T', ll: '51.58954,-0.22093', page: '490013512T/the-quadrant', from: 'From The Quadrant, Stop T', sub: '7 min to Hendon Central. The 143 and 326 stop at Stop G, where the 113 leaves. The SL10 stops at Stop B, a short walk away.' },
+        { lines: ['113'], stop: '490000106G', ll: '51.58386,-0.22808', page: '490000106G/hendon-central-station', from: 'From Hendon Central, Stop G', sub: 'About 45 min to Baker Street Station, Stop B. Walk to Stop D for the next bus.' },
+        { lines: ['18', '27', '205'], stop: '490000011D', ll: '51.52242,-0.15628', page: '490000011D/baker-street-station', from: 'From Baker Street Station, Stop D', sub: '4 min to Great Portland Street Station, Stop H' },
         { walk: 'Walk to work', sub: '5 min' },
       ],
     },
@@ -924,9 +936,9 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       lede: 'From work back home. About 80 minutes, with two changes.',
       steps: [
         { walk: 'Walk to Warren Street Station', sub: '3 min · Stop V on Euston Road, towards Baker Street' },
-        { lines: ['18', '27', '205'], stop: '490000252V', page: '490000252V/warren-street-stn-tottenham-court-rd/', from: 'From Warren Street Station, Stop V', sub: '6 min to Baker Street Station, Stop E. Walk to Stop C for the 113.' },
-        { lines: ['113'], stop: '490000011ZZ', page: '490000011ZZ/baker-street-station', from: 'From Baker Street Station, Stop C', sub: 'About 45 min to Hendon Central, Stop E. Walk to Stop F for the last bus.' },
-        { lines: ['143', '326'], stop: '490000106F', page: '490000106F/hendon-central-station', from: 'From Hendon Central, Stop F', sub: '8 min to The Quadrant, Stop S' },
+        { lines: ['18', '27', '205'], stop: '490000252V', ll: '51.52458,-0.13919', page: '490000252V/warren-street-stn-tottenham-court-rd/', from: 'From Warren Street Station, Stop V', sub: '6 min to Baker Street Station, Stop E. Walk to Stop C for the 113.' },
+        { lines: ['113'], stop: '490000011ZZ', ll: '51.52284,-0.15795', page: '490000011ZZ/baker-street-station', from: 'From Baker Street Station, Stop C', sub: 'About 45 min to Hendon Central, Stop E. Walk to Stop F for the last bus.' },
+        { lines: ['143', '326'], stop: '490000106F', ll: '51.5839,-0.22868', page: '490000106F/hendon-central-station', from: 'From Hendon Central, Stop F', sub: '8 min to The Quadrant, Stop S' },
         { walk: 'Walk home', sub: '7 min' },
       ],
     },
@@ -949,7 +961,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     $('bus-lede').textContent = d.lede;
     $('bus-steps').innerHTML = d.steps.map((st) => (st.walk
       ? `<li class="walk"><span class="ico">${WALK}</span><span class="step-main"><b>${esc(st.walk)}</b><span>${esc(st.sub)}</span></span></li>`
-      : `<li><span class="ico bus">${BUSICON}</span><span class="step-main"><span class="routes">${st.lines.map((n) => `<span class="route-no">${esc(n)}</span>`).join('')}</span><b>${esc(st.from)}</b><span>${esc(st.sub)}</span></span>${etaHtml(st)}</li>`)).join('');
+      : `<li><span class="ico bus">${BUSICON}</span><span class="step-main"><span class="routes">${st.lines.map((n) => `<span class="route-no">${esc(n)}</span>`).join('')}</span>${stopName(st)}<span>${esc(st.sub)}</span></span>${etaHtml(st)}</li>`)).join('');
 
     $('bus-note').textContent = 'Live bus times from TfL, refreshed with the page. Times in traffic can vary.';
 
