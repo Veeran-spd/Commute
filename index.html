@@ -226,6 +226,8 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .train .where { margin: 10px 0 0; font-size: 14px; color: var(--ink-3); }
 .train .then { margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 15px; color: var(--ink-2); }
 .train .then b { color: var(--ink); font-weight: 600; }
+.plat { align-self: flex-start; display: inline-flex; align-items: center; gap: 7px; margin: 12px 0 0; padding: 4px 12px 4px 10px; border-radius: 980px; background: var(--fill); font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.plat::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 2px; background: var(--northern); }
 .busy { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 14px; line-height: 1.43; color: var(--ink-2); }
 .busy:empty { display: none; }
 .busy .lvl { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--ink); }
@@ -252,7 +254,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .route li { position: relative; text-align: center; padding: 0 2px; min-width: 0; }
 .route .pt { position: relative; z-index: 1; display: block; width: 16px; height: 16px; margin: 0 auto; border-radius: 50%; background: var(--tile); border: 4px solid var(--northern); }
 .route .end .pt { background: var(--northern); }
-.route .issue .pt { border-color: var(--minor); background: var(--minor-tint); }
+.route .issue .pt { border-color: var(--minor); background: var(--tile); }
 .route .closed .pt { border-color: var(--severe); background: var(--severe); }
 .route .nm { display: block; margin-top: 10px; font-size: 12px; line-height: 1.25; color: var(--ink-2); overflow-wrap: break-word; }
 .route .end .nm { color: var(--ink); font-weight: 600; }
@@ -262,6 +264,11 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .issues .dot { width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--minor); }
 .issues .dot.severe { background: var(--severe); }
 .issues b { color: var(--ink); font-weight: 600; }
+.route-key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 16px 0 0; font-size: 13px; line-height: 1.4; color: var(--ink-2); }
+.route-key .k { display: inline-flex; align-items: center; gap: 8px; }
+.route-key .k::before { content: ""; flex: none; width: 11px; height: 11px; border-radius: 50%; }
+.route-key .issue::before { border: 3px solid var(--minor); background: var(--tile); }
+.route-key .closed::before { background: var(--severe); }
 @media (max-width: 734px) {
   .route { grid-template-columns: minmax(0, 1fr); margin-top: 18px; }
   .route::before { left: 6px; right: auto; top: 15px; bottom: 15px; width: 4px; height: auto; }
@@ -346,6 +353,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       <div class="kicker" id="k-work">To work</div>
       <h2>Hendon Central</h2>
       <p class="lede">Southbound via Charing Cross, for Warren Street and Tottenham Court Road</p>
+      <p class="plat" id="plat-work">Platform 2</p>
       <div class="slot"><p class="ok-note">Loading train times…</p></div>
       <div class="busy" id="busy-work"></div>
     </article>
@@ -353,6 +361,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       <div class="kicker" id="k-home">To home</div>
       <h2>Tottenham Court Road</h2>
       <p class="lede">Northbound to Edgware via Hendon Central</p>
+      <p class="plat" id="plat-home">Platform 3</p>
       <div class="slot"><p class="ok-note">Loading train times…</p></div>
       <div class="busy" id="busy-home"></div>
     </article>
@@ -360,6 +369,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       <div class="kicker" id="k-wrr">To home</div>
       <h2>Warren Street</h2>
       <p class="lede">Northbound to Edgware via Hendon Central</p>
+      <p class="plat" id="plat-wrr">Platform 1</p>
       <div class="slot"><p class="ok-note">Loading train times…</p></div>
       <div class="busy" id="busy-wrr"></div>
     </article>
@@ -387,6 +397,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     <p class="lede">Edgware branch to Camden Town, then the Charing Cross branch.</p>
     <ol class="route" id="route" aria-label="Stations on your route"></ol>
     <ul class="issues" id="issues" hidden></ul>
+    <p class="route-key" id="route-key" hidden><span class="k issue">Delays or a station problem</span><span class="k closed">No service or closed</span></p>
     <p class="ok-note" id="route-ok">Station problems appear here.</p>
   </section>
 
@@ -527,10 +538,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     for (const st of STATIONS) if (t.startsWith(`${st.key} `, i) && !NOT_STATION.test(t.slice(i, i + st.key.length + 9))) return st;
     return null;
   }
-  // 'route' = touches Hendon Central to Tottenham Court Road (or gives no place), 'near' = the same branches beyond it, 'elsewhere' = the rest
-  function scopeOf(text) {
-    const t = norm(text);
-    if (/ (charing cross|cx|edgware) branch | via (charing cross|cx) /.test(t) && !/ between /.test(t)) return 'route';
+  function spansOf(t) { // every "between A and B" stretch in normalised text, as lists of track edges
     const spans = [];
     const readList = (pos) => { // "Euston (Bank Branch) / Charing Cross" -> [{st, br}]
       const items = [];
@@ -561,6 +569,13 @@ footer .sep { margin: 0 8px; color: var(--rule); }
           : [...pathEdges(a.st.name, b.st.name, 'cx'), ...pathEdges(a.st.name, b.st.name, 'bank')]);
       }));
     }
+    return spans;
+  }
+  // 'route' = touches Hendon Central to Tottenham Court Road (or gives no place), 'near' = the same branches beyond it, 'elsewhere' = the rest
+  function scopeOf(text) {
+    const t = norm(text);
+    if (/ (charing cross|cx|edgware) branch | via (charing cross|cx) /.test(t) && !/ between /.test(t)) return 'route';
+    const spans = spansOf(t);
     if (spans.length) {
       const all = spans.flat();
       return all.some((e) => ROUTE_EDGES.has(e)) ? 'route' : all.some((e) => NEAR_EDGES.has(e)) ? 'near' : 'elsewhere';
@@ -568,6 +583,28 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     const named = STATIONS.filter((st) => new RegExp(` ${st.key} (?!road |holiday)`).test(t)).map((st) => st.name);
     if (!named.length) return / (bank|morden|high barnet|mill hill east|battersea) branch /.test(t) ? 'elsewhere' : 'route';
     return named.some((n) => ROUTE_STOPS.has(n)) ? 'route' : named.some((n) => NEAR_STOPS.has(n)) ? 'near' : 'elsewhere';
+  }
+  // which of your 12 stations a disruption covers (an empty set when it is off your route)
+  function routeStopsOf(text) {
+    const t = norm(text), out = new Set();
+    const all = () => { ROUTE_STOPS.forEach((s) => out.add(s)); return out; };
+    if (!/ between /.test(t)) {
+      if (/ edgware branch /.test(t)) along('edgware', 'Hendon Central', 'Camden Town').forEach((s) => out.add(s));
+      if (/ (charing cross|cx) branch | via (charing cross|cx) /.test(t)) along('cx', 'Camden Town', 'Tottenham Court Road').forEach((s) => out.add(s));
+      if (out.size) return out;
+    }
+    const spans = spansOf(t);
+    if (spans.length) {
+      spans.flat().filter((e) => ROUTE_EDGES.has(e)).forEach((e) => e.slice(e.indexOf(':') + 1).split('|').forEach((s) => out.add(s)));
+      return out;
+    }
+    const named = STATIONS.filter((st) => new RegExp(` ${st.key} (?!road |holiday)`).test(t)).map((st) => st.name);
+    if (!named.length) return / (bank|morden|high barnet|mill hill east|battersea) branch /.test(t) ? out : all();
+    if (!named.some((n) => ROUTE_STOPS.has(n))) return out;
+    // "delays due to a failure at X" names the cause, not the stretch; "not stopping at X" or "X closed" is that station only
+    if (/ due to /.test(t) && !/ not stopping | closed | closure | exit only | not running | no step free /.test(t)) return all();
+    named.filter((n) => ROUTE_STOPS.has(n)).forEach((n) => out.add(n));
+    return out;
   }
   const onRoute = (text) => scopeOf(text) === 'route';
   const hasPlace = (text) => { const t = norm(text); return / branch /.test(t) || STATIONS.some((st) => t.includes(` ${st.key} `)); };
@@ -725,6 +762,8 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     if (!list) { box.innerHTML = `<p class="ok-note">${S.trainsError ? 'Train times aren’t available right now. They come back with the next refresh.' : 'Loading train times…'}</p>`; return; }
     if (!list.length) { box.innerHTML = '<p class="ok-note">No trains showing in the next 30 minutes. Check the status above.</p>'; return; }
     const [a, ...rest] = list;
+    const pm = String(a.platformName || '').match(/platform\s*([A-Za-z0-9]+)/i), plat = $(id).querySelector('.plat');
+    if (pm && plat) plat.textContent = `Platform ${pm[1]}`;
     const big = a.timeToStation < 60 ? '<div class="big due">Due</div>' : `<div class="big num">${Math.floor(a.timeToStation / 60)}<small>min</small></div>`;
     const d = destName(a);
     const then = rest.slice(0, 3).map((x) => Math.max(1, Math.floor(x.timeToStation / 60)));
@@ -749,18 +788,40 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 
   /* ---------- route ---------- */
   const isClosure = (t) => /clos/i.test(t) && !/lift|escalator|entrance|exit|toilet|ticket/i.test(t);
+  const NO_SERVICE = [1, 2, 3, 4, 5, 11, 16]; // closed, suspended, part closure, not running
+  function lineMarks() { // line problems on your route, per station: 'closed' (no service) or 'issue' (delays)
+    const marks = {}, items = [];
+    if (S.phase !== 'ready') return { marks, items };
+    (S.statuses || []).forEach((st) => {
+      if ([10, 18, 20].includes(st.severity)) return;
+      const hit = routeStopsOf(st.reason || st.description);
+      if (!hit.size) return;
+      const cls = NO_SERVICE.includes(st.severity) ? 'closed' : 'issue';
+      hit.forEach((n) => { if (marks[n] !== 'closed') marks[n] = cls; });
+      const names = ROUTE.map(([, n]) => n).filter((n) => hit.has(n));
+      items.push({ cls, where: names.length === ROUTE.length ? 'Your whole route' : names.length === 1 ? names[0] : `${names[0]} to ${names[names.length - 1]}`, what: cap(String(st.description || '').toLowerCase()) });
+    });
+    return { marks, items };
+  }
   function renderRoute() {
     const by = {};
     S.stations.forEach((s) => (by[s.station] = by[s.station] || []).push(s.text));
+    const { marks, items } = lineMarks();
     $('route').innerHTML = ROUTE.map(([, n], i) => {
       const list = by[n] || [];
-      const cls = [i === 0 || i === ROUTE.length - 1 ? 'end' : '', list.some(isClosure) ? 'closed' : list.length ? 'issue' : ''].join(' ').trim();
+      const state = list.some(isClosure) || marks[n] === 'closed' ? 'closed' : list.length || marks[n] ? 'issue' : '';
+      const cls = [i === 0 || i === ROUTE.length - 1 ? 'end' : '', state].join(' ').trim();
       return `<li class="${cls}"><span class="pt"></span><span class="nm">${esc(n)}</span></li>`;
     }).join('');
-    $('issues').innerHTML = S.stations.map((s) => `<li><span class="dot ${isClosure(s.text) ? 'severe' : ''}"></span><span><b>${esc(s.station)}.</b> ${esc(s.text)}</span></li>`).join('');
-    $('issues').hidden = !S.stations.length;
-    $('route-ok').hidden = !!S.stations.length;
-    $('route-ok').textContent = S.phase === 'ready' ? 'No station problems reported on your route.' : 'Station problems appear here after each check.';
+    $('issues').innerHTML = [
+      ...items.map((x) => `<li><span class="dot ${x.cls === 'closed' ? 'severe' : ''}"></span><span><b>${esc(x.where)}.</b> ${esc(x.what)}.</span></li>`),
+      ...S.stations.map((s) => `<li><span class="dot ${isClosure(s.text) ? 'severe' : ''}"></span><span><b>${esc(s.station)}.</b> ${esc(s.text)}</span></li>`),
+    ].join('');
+    const any = items.length + S.stations.length;
+    $('issues').hidden = !any;
+    $('route-key').hidden = !any;
+    $('route-ok').hidden = !!any;
+    $('route-ok').textContent = S.phase === 'ready' ? 'No problems on your route. When there are, stations turn amber for delays or a station problem, and red for no service.' : 'Station problems appear here after each check.';
   }
 
   /* ---------- coming up ---------- */

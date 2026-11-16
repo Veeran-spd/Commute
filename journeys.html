@@ -250,6 +250,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .trip .nm { display: block; font-size: 17px; font-weight: 600; line-height: 1.4; }
 #t-trip, #t-lines, #t-opts { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px); }
 .trip .sub { display: block; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.trip .sub b { color: var(--ink); font-weight: 600; }
 .line { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 600; color: var(--ink); }
 .line::before { content: ""; flex: none; width: 12px; height: 12px; border-radius: 3px; background: var(--c, var(--ink-3)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); }
 .crowd { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
@@ -431,7 +432,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   };
 
   /* ---------- state ---------- */
-  const S = { from: store.get('journeys.from', HOME), to: store.get('journeys.to', null), when: 'now', res: null, pick: 0, status: null, crowd: {}, busy: false };
+  const S = { from: store.get('journeys.from', HOME), to: store.get('journeys.to', null), when: 'now', res: null, pick: 0, status: null, crowd: {}, plat: new Map(), busy: false };
 
   /* ---------- station search (type-ahead) ---------- */
   function toStation(m) {
@@ -568,11 +569,11 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       const journeys = (r && Array.isArray(r.journeys) ? r.journeys : []).filter((j) => Array.isArray(j.legs) && j.legs.length).slice(0, 5);
       if (!journeys.length) { S.res = null; render(); note('TfL found no journey between those stations at that time.'); return; }
       S.res = { journeys, when, from: S.from, to: S.to, at: new Date() };
-      S.pick = 0; S.status = null;
+      S.pick = 0; S.status = null; S.plat = new Map();
       remember(S.from, S.to);
       render();
       $('t-trip').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      loadStatus(); loadCrowd();
+      loadStatus(); loadCrowd(); loadPlatforms();
     } catch {
       S.res = null; render();
       note('TfL couldn’t plan that journey just now. Check your connection, or pick the stations from the list, then try again.');
@@ -628,6 +629,44 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       }).catch(() => { S.crowd[start] = null; })] : []),
     ]);
     if (res === S.res) renderTrip();
+  }
+
+  /* ---------- platforms: where each train leaves from, read from TfL's live arrivals ---------- */
+  const platCache = new Map();
+  function platOf(name) { // 'Southbound - Platform 2' -> { num: '2', bound: 'southbound' }
+    const s = String(name || '').trim();
+    const m = s.match(/^(?:(\w+bound)\b)?[\s-]*platform\s*([A-Za-z0-9]{1,3})\b/i) || s.match(/^()([A-Za-z0-9]{1,2})$/);
+    return m ? { num: m[2], bound: (m[1] || '').toLowerCase() } : null;
+  }
+  function platformFor(leg) {
+    const ro = (leg.routeOptions || [])[0] || {}, line = lineOf(leg).id, naptan = leg.departurePoint && leg.departurePoint.naptanId;
+    if (!line || !/^9[14]0G/.test(naptan || '')) return Promise.resolve(null);
+    const dir = String(ro.direction || '').toLowerCase(), to = String((ro.directions || [])[0] || '');
+    const via = /via (charing cross|cx)/i.test(to) ? /via cx|charing cross/i : /via bank/i.test(to) ? /via bank/i : null;
+    const term = clean(to.replace(/\s+via\s+.*$/i, '')).toLowerCase().split(/\s+/)[0] || '';
+    const key = [line, naptan, dir, String(via), term].join('|');
+    if (!platCache.has(key)) {
+      platCache.set(key, tfl(`/Line/${line}/Arrivals/${naptan}`).then((arr) => {
+        let c = (Array.isArray(arr) ? arr : []).filter((a) => a && a.platformName && (!a.lineId || a.lineId === line));
+        if (dir) c = c.filter((a) => String(a.direction || '').toLowerCase() === dir); // never guess the other direction
+        const narrow = (test) => { const n = c.filter(test); if (n.length) c = n; };
+        if (via) narrow((a) => via.test(`${a.towards} ${a.destinationName}`));
+        if (term) narrow((a) => `${a.towards} ${a.destinationName}`.toLowerCase().includes(term));
+        const count = {};
+        c.forEach((a) => { count[a.platformName] = (count[a.platformName] || 0) + 1; });
+        const best = Object.keys(count).sort((x, y) => count[y] - count[x])[0];
+        return best ? platOf(best) : null;
+      }).catch(() => { platCache.delete(key); return null; }));
+    }
+    return platCache.get(key);
+  }
+  async function loadPlatforms() {
+    const res = S.res; if (!res) return;
+    const j = res.journeys[S.pick], legs = ridesOf(j);
+    const found = await Promise.all(legs.map((l) => platformFor(l)));
+    if (res !== S.res || j !== res.journeys[S.pick]) return;
+    S.plat = new Map(legs.map((l, i) => [l, found[i]]));
+    renderTrip();
   }
 
   /* ---------- render ---------- */
@@ -709,8 +748,9 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       }
       if (r.type === 'walk') return `<li class="walk"><span class="t"></span><span class="rail"></span><div class="body"><span class="sub">${esc(clean((r.leg.instruction && r.leg.instruction.summary) || 'Walk'))} · ${Number(r.leg.duration) || 1} min</span></div></li>`;
       const l = lineOf(r.leg), n = ((r.leg.path && r.leg.path.stopPoints) || []).length;
-      const dir = dirOf(r.leg);
-      return `<li class="ride" style="--c:${l.colour}"><span class="t"></span><span class="rail"></span><div class="body">${linePill(l)}<span class="sub">${esc(dir)}${dir ? ' · ' : ''}${n ? `${n} stop${n > 1 ? 's' : ''} · ` : ''}${Number(r.leg.duration) || 0} min</span></div></li>`;
+      const dir = dirOf(r.leg), pf = S.plat.get(r.leg);
+      const plat = pf ? `<span class="sub"><b>${res.when ? 'Usually platform' : 'Platform'} ${esc(pf.num)}</b>${pf.bound ? `, ${esc(pf.bound)}` : ''}</span>` : '';
+      return `<li class="ride" style="--c:${l.colour}"><span class="t"></span><span class="rail"></span><div class="body">${linePill(l)}${plat}<span class="sub">${esc(dir)}${dir ? ' · ' : ''}${n ? `${n} stop${n > 1 ? 's' : ''} · ` : ''}${Number(r.leg.duration) || 0} min</span></div></li>`;
     }).join('');
   }
 
@@ -758,7 +798,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   }
   $('opts').addEventListener('click', (e) => {
     const b = e.target.closest('button[data-i]'); if (!b || !S.res) return;
-    S.pick = +b.dataset.i; render(); loadCrowd();
+    S.pick = +b.dataset.i; S.plat = new Map(); render(); loadCrowd(); loadPlatforms();
     $('t-trip').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
