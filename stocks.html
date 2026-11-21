@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Stocks">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#06080c">
+<title>Stocks</title>
+<link rel="apple-touch-icon" href="stocks-icon.png">
+<link rel="icon" type="image/png" href="stocks-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap">
+<style>
+  :root {
+    --bg: #06080c; --ink: #f3f5f8; --ink-2: #c3c9d4; --muted: #8a93a5; --faint: #5f6878;
+    --line: rgba(255, 255, 255, 0.08); --line-2: rgba(255, 255, 255, 0.13);
+    --gold: #d6b26e; --up: #46d39a; --up-soft: rgba(70, 211, 154, 0.12); --down: #ff7a85; --down-soft: rgba(255, 122, 133, 0.12);
+    --amber: #f2c27b; --amber-soft: rgba(242, 194, 123, 0.1);
+    --display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+  body::before { content: ''; position: fixed; inset: 0; z-index: -1; background: radial-gradient(900px 520px at 50% -12%, rgba(214, 178, 110, 0.13), transparent 70%), linear-gradient(180deg, #0c1018 0%, var(--bg) 45%); }
+  .num { font-variant-numeric: tabular-nums; }
+  [hidden] { display: none !important; }
+  button { font: inherit; }
+  button:focus { outline: none; }
+  button:focus-visible, input:focus-visible { outline: 2px solid rgba(214, 178, 110, 0.7); outline-offset: 3px; }
+  a { color: inherit; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding-top: max(18px, env(safe-area-inset-top)); padding-bottom: calc(30px + env(safe-area-inset-bottom)); padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+
+  /* top bar */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0 18px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .mark { width: 44px; height: 44px; flex: none; border-radius: 12px; background: linear-gradient(160deg, #141a24, #07090d); border: 1px solid rgba(214, 178, 110, 0.35); display: grid; place-items: center; }
+  .mark svg { width: 26px; height: 26px; }
+  .eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  h1 { margin: 3px 0 0; font-family: var(--display); font-size: 26px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; }
+  .refresh { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.04); color: var(--ink-2); display: grid; place-items: center; cursor: pointer; padding: 0; touch-action: manipulation; }
+  .refresh svg { width: 18px; height: 18px; }
+  .refresh.spin svg { animation: spin 0.8s linear; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* sections and cards */
+  section { margin-top: 26px; }
+  .head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 0 2px 12px; }
+  .head h2 { margin: 0; font-family: var(--display); font-size: 19px; font-weight: 600; letter-spacing: -0.015em; }
+  .head h2 span { margin-left: 8px; font-family: inherit; font-size: 12.5px; font-weight: 500; letter-spacing: 0; color: var(--muted); }
+  .head .meta { font-size: 11.5px; color: var(--muted); }
+  .card { position: relative; overflow: hidden; padding: 20px 18px 18px; border-radius: 22px; background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018) 62%); border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06); }
+  .card::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(380px 220px at 100% 0%, rgba(214, 178, 110, 0.09), transparent 70%); }
+  .c-top { position: relative; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .c-name { font-family: var(--display); font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  .c-sub { margin-top: 4px; font-size: 12px; line-height: 1.45; color: var(--muted); }
+  .chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-2); border: 1px solid var(--line-2); text-align: right; }
+  .chip i { width: 6px; height: 6px; flex: none; border-radius: 50%; background: currentColor; }
+  .chip.amber { color: var(--amber); background: var(--amber-soft); border-color: rgba(242, 194, 123, 0.28); }
+  .chip.up, .chip.live { color: var(--up); background: var(--up-soft); border-color: rgba(70, 211, 154, 0.28); }
+  .chip.live i { animation: ping 2.2s infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(70, 211, 154, 0.5); } 80%, 100% { box-shadow: 0 0 0 8px rgba(70, 211, 154, 0); } }
+  .c-foot { position: relative; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 14px; font-size: 11.5px; color: var(--faint); }
+  .c-foot a { color: var(--muted); text-underline-offset: 3px; }
+
+  /* Anthropic */
+  .ant-chart { position: relative; height: 320px; margin-top: 14px; }
+  .tradingview-widget-container, .tradingview-widget-container__widget { width: 100%; height: 100%; }
+  .ant-chart iframe, .fx-live iframe { display: block; }
+  /* the charts are light-scheme pages: matching their scheme keeps them see-through instead of white */
+  .ant-chart, .fx-live { color-scheme: light; }
+  .wait { position: absolute; inset: 0; display: grid; place-items: center; padding: 0 20px; text-align: center; font-size: 13px; color: var(--muted); pointer-events: none; }
+  .facts { position: relative; display: grid; gap: 10px; margin-top: 16px; }
+  .facts div { padding: 13px 15px; border-radius: 15px; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.025); }
+  .facts small { display: block; margin-bottom: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .facts b { font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .facts span { display: block; margin-top: 4px; font-size: 12px; color: var(--muted); }
+  .ant-miles { position: relative; margin-top: 20px; }
+  .rlabel { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 10px; margin-bottom: 9px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .rlabel b { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; text-transform: none; color: var(--ink); }
+  .ant-miles .rlabel b { font-family: inherit; font-size: 11px; font-weight: 500; letter-spacing: 0; color: var(--faint); }
+  .ant-miles ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .ant-miles li { display: grid; grid-template-columns: 1fr auto; gap: 3px 12px; padding: 11px 1px; border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+  .ant-miles li .d { grid-row: 1; grid-column: 1; font-family: var(--display); font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .ant-miles li .d i { margin-left: 6px; font-family: inherit; font-style: normal; font-size: 11px; font-weight: 500; color: var(--muted); }
+  .ant-miles li .w { grid-row: 1; grid-column: 2; text-align: right; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+  .ant-miles li > span:nth-child(2) { grid-row: 2; grid-column: 1 / -1; }
+  .ant-miles li.past { opacity: 0.45; }
+  .ant-miles li.next { color: var(--ink); }
+  .ant-miles li.next .w { color: var(--gold); font-weight: 600; }
+  .ant-miles li.today .w { color: var(--up); font-weight: 600; }
+
+  /* dollar and converter */
+  .grid2 { display: grid; gap: 16px; }
+  .card.col { display: flex; flex-direction: column; }
+  .c-price { position: relative; margin: 16px 0 0; font-family: var(--display); font-size: 46px; font-weight: 500; letter-spacing: -0.035em; line-height: 1; white-space: nowrap; }
+  .c-price .cur { font-size: 21px; font-weight: 500; color: var(--muted); vertical-align: 0.95em; margin-right: 4px; letter-spacing: 0; }
+  .c-price .dec { font-size: 26px; color: var(--ink-2); letter-spacing: -0.02em; }
+  .c-move { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+  .pct { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 8px; font-weight: 700; font-size: 12px; }
+  .pct.up { color: var(--up); background: var(--up-soft); } .pct.down { color: var(--down); background: var(--down-soft); }
+  .rows { position: relative; margin-top: 20px; }
+  .fx-range { position: relative; height: 4px; border-radius: 4px; background: linear-gradient(90deg, rgba(214, 178, 110, 0.15), rgba(214, 178, 110, 0.6)); }
+  .fx-range .mk { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12), 0 4px 10px rgba(0, 0, 0, 0.5); }
+  .ends { display: flex; justify-content: space-between; gap: 10px; margin-top: 8px; font-size: 12px; color: var(--ink-2); }
+  .fx-live { position: relative; height: 170px; margin-top: 16px; }
+  .col .c-foot { margin-top: auto; }
+  .fx-form { position: relative; display: grid; gap: 12px; margin-top: 18px; }
+  .fx-form label { display: grid; gap: 6px; font-size: 13px; color: var(--ink-2); }
+  .fx-form label small { display: block; margin-top: 2px; font-size: 11.5px; color: var(--faint); }
+  .fx-in { display: flex; align-items: center; border-radius: 12px; border: 1px solid var(--line-2); background: rgba(0, 0, 0, 0.35); }
+  .fx-in:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(214, 178, 110, 0.16); }
+  .fx-in i { padding-left: 14px; font-style: normal; font-size: 14px; color: var(--muted); }
+  .fx-in input { flex: 1; min-width: 0; width: 100%; padding: 12px 14px 12px 8px; border: 0; outline: none; background: none; font: inherit; font-size: 16px; font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); }
+  .fx-out { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
+  .fx-out div { padding: 14px 14px; border-radius: 15px; border: 1px solid rgba(214, 178, 110, 0.25); background: rgba(214, 178, 110, 0.06); }
+  .fx-out small { display: block; margin-bottom: 7px; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .fx-out b { display: block; font-family: var(--display); font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: var(--ink); }
+  .fx-out span { display: block; margin-top: 6px; font-size: 11.5px; line-height: 1.45; color: var(--muted); }
+  .fx-note { position: relative; margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 11.5px; line-height: 1.55; color: var(--faint); }
+  .linkish { margin-left: 4px; padding: 0; border: 0; background: none; font: inherit; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+  footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 11.5px; line-height: 1.6; color: var(--faint); }
+
+  @media (min-width: 640px) {
+    .facts { grid-template-columns: repeat(3, 1fr); }
+    .fx-form label { grid-template-columns: 1fr 210px; align-items: center; }
+  }
+  @media (min-width: 860px) {
+    .wrap { padding-top: max(30px, env(safe-area-inset-top)); }
+    h1 { font-size: 30px; }
+    .card { padding: 26px 26px 22px; border-radius: 24px; }
+    .ant-chart { height: 420px; }
+    .grid2 { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .c-price { font-size: 56px; }
+    .fx-out b { font-size: 26px; }
+    .ant-miles li { grid-template-columns: 170px 1fr 140px; gap: 16px; align-items: baseline; }
+    .ant-miles li .d, .ant-miles li .w, .ant-miles li > span:nth-child(2) { grid-row: 1; }
+    .ant-miles li > span:nth-child(2) { grid-column: 2; }
+    .ant-miles li .w { grid-column: 3; }
+  }
+  @media (prefers-reduced-motion: reduce) { .chip.live i, .refresh.spin svg { animation: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="mark" aria-hidden="true"><svg viewBox="0 0 26 26" fill="none"><path d="M3 19.5l5.5-6 4.5 3.5 9-10" stroke="#d6b26e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="22" cy="7" r="2.2" fill="#f3e2b8"/></svg></div>
+      <div style="min-width:0"><div class="eyebrow num" id="eyebrow">Markets</div><h1>Stocks</h1></div>
+    </div>
+    <button class="refresh" id="btn-refresh" type="button" title="Refresh" aria-label="Refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+  </header>
+
+  <section id="ant-wrap">
+    <div class="head"><h2>Anthropic<span>NASDAQ: ANT</span></h2><div class="meta num" id="ant-meta"></div></div>
+    <article class="card">
+      <div class="c-top">
+        <div><div class="c-name">Share price</div><div class="c-sub">Class A shares, in US dollars</div></div>
+        <span class="chip" id="ant-chip"><i></i><span id="ant-chip-t">Nasdaq</span></span>
+      </div>
+      <div class="ant-chart" id="ant-chart"><div class="wait" id="ant-wait">Loading the chart…</div></div>
+      <div class="facts">
+        <div><small>IPO price</small><b class="num">$83.00 a share</b><span>set on Wed 18 Nov 2026</span></div>
+        <div><small>First day</small><b class="num">Closed $97.17</b><span>opened $111.50, up 17% on the IPO price</span></div>
+        <div><small>Next milestone</small><b id="ant-next-b">None set</b><span id="ant-next-s"></span></div>
+      </div>
+      <div class="ant-miles">
+        <div class="rlabel"><span>Milestones</span><b>Dates marked "about" may move by a day or two</b></div>
+        <ol id="ant-miles"></ol>
+      </div>
+      <div class="c-foot"><span>Listed on Nasdaq on Thursday 19 November 2026</span><span>Chart by <a href="https://www.tradingview.com/symbols/NASDAQ-ANT/" target="_blank" rel="noopener nofollow">TradingView</a></span></div>
+    </article>
+  </section>
+
+  <section id="fx-wrap">
+    <div class="head"><h2>US dollar<span>in rand</span></h2><div class="meta" id="fx-meta"></div></div>
+    <div class="grid2">
+      <article class="card col">
+        <div class="c-top">
+          <div><div class="c-name">USD/ZAR</div><div class="c-sub num" id="fx-sub">Loading the rate…</div></div>
+          <span class="chip" id="fx-chip" hidden><i></i><span id="fx-chip-t"></span></span>
+        </div>
+        <div class="c-price num" id="fx-rate">—</div>
+        <div class="c-move num" id="fx-move"></div>
+        <div class="rows">
+          <div class="rlabel"><span id="fx-year">This year</span><b class="num" id="fx-avg"></b></div>
+          <div class="fx-range"><div class="mk" id="fx-mk" style="left:50%"></div></div>
+          <div class="ends num"><span id="fx-low"></span><span id="fx-high"></span></div>
+        </div>
+        <div class="fx-live" id="fx-live"><div class="wait" id="fx-wait">Loading the live chart…</div></div>
+        <div class="c-foot"><span>Lower is better for rand savers: each rand buys more dollars</span><span>Live chart by <a href="https://www.tradingview.com/symbols/USDZAR/" target="_blank" rel="noopener nofollow">TradingView</a></span></div>
+      </article>
+      <article class="card col">
+        <div class="c-top"><div><div class="c-name">Rands to dollars</div><div class="c-sub">A rough estimate for EasyFX on EasyEquities</div></div></div>
+        <div class="fx-form">
+          <label for="fx-zar"><span>Rands to convert</span><div class="fx-in"><i>R</i><input id="fx-zar" inputmode="decimal" autocomplete="off" value="10000"></div></label>
+          <label for="fx-r"><span>Market rate<small>EasyFX costs are added for you</small></span><div class="fx-in"><i>R</i><input id="fx-r" inputmode="decimal" autocomplete="off"></div></label>
+          <label for="fx-p"><span>Target price<small>per Anthropic share, in dollars</small></span><div class="fx-in"><i>$</i><input id="fx-p" inputmode="decimal" autocomplete="off" value="83"></div></label>
+        </div>
+        <div class="fx-out">
+          <div><small>You'd get about</small><b class="num" id="fx-usd">—</b><span id="fx-usd-s"></span></div>
+          <div><small>That buys about</small><b class="num" id="fx-sh">—</b><span id="fx-sh-s"></span></div>
+        </div>
+        <p class="fx-note">Estimate only. EasyFX adds about 2% to the market rate plus a 0.5% fee, and buying US shares costs about 0.64% with VAT. The app shows the exact amounts before you confirm. Dollars usually arrive one to two working days after you convert. Your figures are saved on this phone only.<button class="linkish" id="fx-reset" type="button">Use today's rate</button></p>
+      </article>
+    </div>
+  </section>
+
+  <footer>Share prices and charts come from TradingView. Exchange rates come from the European Central Bank each weekday afternoon. Milestone dates come from reports on Anthropic's filing. For information only.</footer>
+</div>
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get(k, d = null) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage unavailable */ } },
+    del(k) { try { localStorage.removeItem(k); } catch { /* ignore */ } },
+  };
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = (n) => String(n).padStart(2, '0');
+  function easter(y) {
+    const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4;
+    const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+    const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+    const month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+    return Date.UTC(y, month - 1, day);
+  }
+  const isoDay = (ms) => new Date(ms).toISOString().slice(0, 10);
+  const jhbTime = (d = new Date()) => d.toLocaleTimeString('en-GB', { timeZone: 'Africa/Johannesburg', hour: '2-digit', minute: '2-digit' });
+  const ldnTime = (d = new Date()) => d.toLocaleTimeString('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit' });
+  const ANT_SYMBOL = 'NASDAQ:ANT';
+  const ANT_LIST_AT = Date.parse('2026-11-19T14:30:00Z'); // listing day: Nasdaq opens 09:30 New York, 14:30 London
+  const ANT_WIDGET = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js';
+  const ANT_FAIL = 'Could not load the chart. Check your connection, then press refresh.';
+  let antWidget = '';   // '', 'loading', 'ready' or 'failed'
+  let antMount = 0;
+
+  // New York clock, so the London times stay right when either country changes its clocks
+  const nyFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  function nyParts(ms) {
+    const p = {};
+    for (const x of nyFmt.formatToParts(new Date(ms))) p[x.type] = x.value;
+    return { y: +p.year, mo: +p.month, d: +p.day, h: +p.hour, mi: +p.minute };
+  }
+  function nyAt(y, mo, d, h, mi) {   // a New York clock time as an exact moment
+    const want = Date.UTC(y, mo - 1, d, h, mi);
+    let t = want;
+    for (let k = 0; k < 2; k++) { const p = nyParts(t); t += want - Date.UTC(p.y, p.mo - 1, p.d, p.h, p.mi); }
+    return t;
+  }
+
+  // Nasdaq holidays and 13:00 early closes (the same rules as the New York Stock Exchange)
+  const usHolidayCache = {};
+  function usHolidays(y) {
+    if (usHolidayCache[y]) return usHolidayCache[y];
+    const closed = new Map(), early = new Map();
+    const dowOf = (mo, d) => new Date(Date.UTC(y, mo - 1, d)).getUTCDay();
+    const key = (mo, d) => isoDay(Date.UTC(y, mo - 1, d));
+    const nth = (mo, dow, n) => 1 + ((dow - dowOf(mo, 1) + 7) % 7) + (n - 1) * 7;
+    const lastMonday = (mo) => { const dim = new Date(Date.UTC(y, mo, 0)).getUTCDate(); return dim - ((dowOf(mo, dim) + 6) % 7); };
+    const fixed = (mo, d, name, fridayIfSaturday = true) => {
+      const w = dowOf(mo, d);
+      if (w === 6) { if (fridayIfSaturday) closed.set(key(mo, d - 1), name); }
+      else if (w === 0) closed.set(key(mo, d + 1), name);
+      else closed.set(key(mo, d), name);
+    };
+    fixed(1, 1, "New Year's Day", false);
+    closed.set(key(1, nth(1, 1, 3)), 'Martin Luther King Jr. Day');
+    closed.set(key(2, nth(2, 1, 3)), "Presidents' Day");
+    closed.set(isoDay(easter(y) - 2 * 864e5), 'Good Friday');
+    closed.set(key(5, lastMonday(5)), 'Memorial Day');
+    fixed(6, 19, 'Juneteenth');
+    fixed(7, 4, 'Independence Day');
+    closed.set(key(9, nth(9, 1, 1)), 'Labor Day');
+    const thanks = nth(11, 4, 4);
+    closed.set(key(11, thanks), 'Thanksgiving');
+    fixed(12, 25, 'Christmas Day');
+    early.set(key(11, thanks + 1), 'day after Thanksgiving');
+    if (dowOf(7, 3) >= 1 && dowOf(7, 3) <= 4) early.set(key(7, 3), 'Independence Day eve');
+    if (dowOf(12, 24) >= 1 && dowOf(12, 24) <= 4) early.set(key(12, 24), 'Christmas Eve');
+    return (usHolidayCache[y] = { closed, early });
+  }
+  function nasdaqDay(y, mo, d) {
+    const w = new Date(Date.UTC(y, mo - 1, d)).getUTCDay();
+    if (w === 0 || w === 6) return { shut: 'weekend' };
+    const h = usHolidays(y), k = isoDay(Date.UTC(y, mo - 1, d));
+    if (h.closed.has(k)) return { shut: h.closed.get(k) };
+    const early = h.early.has(k);
+    return { open: nyAt(y, mo, d, 9, 30), close: nyAt(y, mo, d, early ? 13 : 16, 0), early };
+  }
+  function nasdaqNow(now) {
+    const p = nyParts(now);
+    const today = nasdaqDay(p.y, p.mo, p.d);
+    let next = null;
+    for (let i = 0; i <= 10 && !next; i++) {
+      const dt = new Date(Date.UTC(p.y, p.mo - 1, p.d) + i * 864e5);
+      const s = nasdaqDay(dt.getUTCFullYear(), dt.getUTCMonth() + 1, dt.getUTCDate());
+      if (s.open && s.open > now) next = s;
+    }
+    return { today, next, open: !!today.open && now >= today.open && now < today.close };
+  }
+
+  const ldnDay = (ms) => new Date(ms).toLocaleDateString('en-GB', { timeZone: 'Europe/London' });
+  function ldnWhen(ms, now) {   // "14:30", "tomorrow 14:30" or "Mon 14:30", London time
+    const t = ldnTime(new Date(ms));
+    if (ldnDay(ms) === ldnDay(now)) return t;
+    if (ldnDay(ms) === ldnDay(now + 864e5)) return `tomorrow ${t}`;
+    return `${new Date(ms).toLocaleDateString('en-GB', { weekday: 'short', timeZone: 'Europe/London' })} ${t}`;
+  }
+  function mountAntChart() {
+    const box = $('ant-chart'), wait = $('ant-wait'), mine = ++antMount;
+    box.querySelectorAll('.tradingview-widget-container').forEach((x) => x.remove());
+    antWidget = 'loading';
+    wait.textContent = 'Loading the chart…';
+    wait.hidden = false;
+    const ready = () => { if (mine === antMount) { antWidget = 'ready'; wait.hidden = true; } };
+    const fail = () => { if (mine === antMount && antWidget !== 'ready') { antWidget = 'failed'; wait.textContent = ANT_FAIL; wait.hidden = false; } };
+    const wrap = document.createElement('div');
+    wrap.className = 'tradingview-widget-container';
+    wrap.innerHTML = '<div class="tradingview-widget-container__widget"></div>';
+    // the chart arrives as a frame: clear the loading line once it has loaded
+    const watch = new MutationObserver(() => {
+      const f = wrap.querySelector('iframe');
+      if (!f) return;
+      watch.disconnect();
+      f.addEventListener('load', ready, { once: true });
+      setTimeout(ready, 15000);
+    });
+    watch.observe(wrap, { childList: true, subtree: true });
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = ANT_WIDGET;
+    s.onerror = () => { watch.disconnect(); fail(); };
+    s.innerHTML = JSON.stringify({
+      symbols: [['Share price', `${ANT_SYMBOL}|1D`]],
+      chartOnly: false, width: '100%', height: '100%', autosize: true, locale: 'en',
+      colorTheme: 'dark', isTransparent: true, backgroundColor: 'rgba(0, 0, 0, 0)',
+      fontFamily: "Inter, 'Segoe UI', system-ui, sans-serif", fontSize: '11', headerFontSize: 'large',
+      widgetFontColor: '#f3f5f8', fontColor: '#8a93a5', gridLineColor: 'rgba(255, 255, 255, 0.06)',
+      chartType: 'area', lineWidth: 2, lineType: 0,
+      lineColor: '#d6b26e', topColor: 'rgba(214, 178, 110, 0.28)', bottomColor: 'rgba(214, 178, 110, 0)',
+      trendLineColor: '#d6b26e', underLineColor: 'rgba(214, 178, 110, 0.28)', underLineBottomColor: 'rgba(214, 178, 110, 0)',
+      changeMode: 'price-and-percent', valuesTracking: '1', scalePosition: 'right', scaleMode: 'Normal', noTimeScale: false,
+      showVolume: false, showMA: false, hideDateRanges: false, hideMarketStatus: true, hideSymbolLogo: true,
+      dateRanges: ['1d|1', '1m|30', '3m|60', '12m|1D'],
+    });
+    wrap.appendChild(s);
+    box.appendChild(wrap);
+    setTimeout(() => { if (mine === antMount && antWidget === 'loading' && !wrap.querySelector('iframe')) { watch.disconnect(); fail(); } }, 20000);
+  }
+
+  const ANT_MILES = [
+    { d: '2026-11-19', s: 'Listing day', t: 'Listing day: first trade on the Nasdaq.' },
+    { d: '2026-12-14', about: true, s: 'Analysts start ratings', t: 'Analysts at the banks that ran the share sale usually start publishing ratings.' },
+    { d: '2026-12-16', about: true, s: 'First small unlock', t: 'First of four small unlocks: early investors can sell some of their shares.' },
+    { d: '2027-01-06', about: true, s: 'Second small unlock', t: 'Second small unlock for early investors.' },
+    { d: '2027-01-20', about: true, s: 'Third small unlock', t: 'Third small unlock for early investors.' },
+    { d: '2027-02-03', about: true, s: 'Fourth small unlock', t: 'Fourth small unlock for early investors.' },
+    { d: null, s: 'First results', t: 'First results as a public company (full year 2026). After them, staff can sell more of their shares.' },
+    { d: '2027-05-18', s: 'Main unlock (180 days)', t: '180 days: the main unlock for staff and early investors. It comes sooner if the first-quarter 2027 results are out first.' },
+    { d: '2027-11-19', s: 'One year', t: "One year: the co-founders' and large holders' remaining shares unlock, or sooner after the third-quarter 2027 results." },
+  ];
+  const milesDay = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10));
+  const ldnDayFmt = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', year: 'numeric', month: '2-digit', day: '2-digit' });
+  function ldnToday(now) {
+    const p = {};
+    for (const x of ldnDayFmt.formatToParts(new Date(now))) p[x.type] = x.value;
+    return Date.UTC(+p.year, +p.month - 1, +p.day);
+  }
+  function milesLabel(iso, year) {   // "Mon 14 Dec", with the year added when it is not this year
+    const t = new Date(milesDay(iso));
+    const s = t.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+    return t.getUTCFullYear() !== year ? `${s} ${t.getUTCFullYear()}` : s;
+  }
+  const inDays = (n) => `in ${n} ${n === 1 ? 'day' : 'days'}`;
+  function renderAntMiles(now) {
+    const today = ldnToday(now), year = new Date(today).getUTCFullYear();
+    const next = ANT_MILES.find((m) => m.d && milesDay(m.d) > today);
+    $('ant-miles').innerHTML = ANT_MILES.map((m) => {
+      if (!m.d) return `<li><span class="d">To be announced</span><span>${esc(m.t)}</span><span class="w"></span></li>`;
+      const n = Math.round((milesDay(m.d) - today) / 864e5);
+      const cls = n < 0 ? 'past' : n === 0 ? 'today' : m === next ? 'next' : '';
+      const w = n < 0 ? 'Done' : n === 0 ? 'Today' : `${m === next ? 'Next · ' : ''}${inDays(n)}`;
+      return `<li class="${cls}"><span class="d">${esc(milesLabel(m.d, year))}${m.about ? '<i>about</i>' : ''}</span><span>${esc(m.t)}</span><span class="w">${w}</span></li>`;
+    }).join('');
+    if (next) {
+      const n = Math.round((milesDay(next.d) - today) / 864e5);
+      $('ant-next-b').textContent = `${next.about ? 'About ' : ''}${milesLabel(next.d, year)}`;
+      $('ant-next-s').textContent = `${next.s}, ${inDays(n)}`;
+    } else {
+      $('ant-next-b').textContent = 'None set';
+      $('ant-next-s').textContent = '';
+    }
+  }
+
+  const FX_API = 'https://api.frankfurter.dev/v1';
+  const FX_BACKUP = 'https://open.er-api.com/v6/latest/USD';
+  const FX_WIDGET = 'https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
+  const FX_COST = 0.025;     // EasyFX: about 2% on the market rate plus a 0.5% fee
+  const TRADE_COST = 0.0064; // US trades: 0.25% brokerage and 0.31% clearing and admin, plus 15% VAT
+  let fx = store.get('st1.fx', null);
+  let fxRateTouched = false;
+  const rnd = (v, d = 2) => Number(v).toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fxDay = (iso) => new Date(milesDay(iso)).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' });
+  async function getJSON(url, ms = 12000) {
+    const c = new AbortController();
+    const t = setTimeout(() => c.abort(), ms);
+    try {
+      const r = await fetch(url, { signal: c.signal, cache: 'no-store' });
+      if (!r.ok) throw new Error(String(r.status));
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+  async function loadFx() {
+    const year = new Date(ldnToday(Date.now())).getUTCFullYear();
+    try {
+      const s = await getJSON(`${FX_API}/${year}-01-01..?from=USD&to=ZAR`);
+      const vals = Object.keys(s.rates || {}).sort().map((d) => [d, Number(s.rates[d] && s.rates[d].ZAR)]).filter(([, v]) => Number.isFinite(v) && v > 0);
+      if (vals.length < 2) throw new Error('short');
+      let lo = vals[0], hi = vals[0], sum = 0;
+      for (const v of vals) { if (v[1] < lo[1]) lo = v; if (v[1] > hi[1]) hi = v; sum += v[1]; }
+      const last = vals[vals.length - 1], prev = vals[vals.length - 2];
+      fx = { rate: last[1], date: last[0], prev: prev[1], low: lo[1], lowDate: lo[0], high: hi[1], highDate: hi[0], avg: sum / vals.length, year, src: 'ECB', at: Date.now() };
+      store.set('st1.fx', fx);
+    } catch (err) {
+      try {
+        const b = await getJSON(FX_BACKUP);
+        const r = Number(b && b.rates && b.rates.ZAR);
+        if (!Number.isFinite(r) || r <= 0) throw new Error('nodata');
+        const old = fx && fx.year === year ? fx : {};
+        fx = { ...old, rate: r, date: new Date(b.time_last_update_unix * 1000).toISOString().slice(0, 10), prev: null, src: 'backup', at: Date.now() };
+      } catch (err2) {
+        if (fx) fx.stale = true;
+      }
+    }
+    renderFx();
+  }
+  function renderFx() {
+    if (!fx || !Number.isFinite(fx.rate)) {
+      $('fx-rate').textContent = '—';
+      $('fx-sub').textContent = 'Could not load the rate. Check your connection, then press refresh.';
+      calcFx();
+      return;
+    }
+    const [int, dec] = fx.rate.toFixed(2).split('.');
+    $('fx-rate').innerHTML = `<span class="cur">R</span>${int}<span class="dec">.${dec}</span>`;
+    $('fx-sub').textContent = `${fx.src === 'ECB' ? 'European Central Bank' : 'Daily rate'}, ${fxDay(fx.date)}: R${fx.rate.toFixed(4)} per $1${fx.stale ? ' (could not refresh)' : ''}`;
+    if (Number.isFinite(fx.prev) && fx.prev > 0) {
+      const d = fx.rate - fx.prev, up = d > 0;
+      $('fx-move').innerHTML = Math.abs(d) < 0.00005 ? '<span>No change since the day before</span>'
+        : `<span class="pct ${up ? 'down' : 'up'}">${up ? '▲' : '▼'} ${rnd(Math.abs(d / fx.prev) * 100)}%</span><span>Dollar ${up ? 'up' : 'down'} R${rnd(Math.abs(d))} since the day before: the rand is ${up ? 'weaker' : 'stronger'}</span>`;
+    } else $('fx-move').innerHTML = '';
+    const stats = Number.isFinite(fx.low) && Number.isFinite(fx.high) && fx.lowDate;
+    if (stats) {
+      $('fx-year').textContent = `This year (${fx.year})`;
+      $('fx-low').textContent = `Low R${rnd(fx.low)} · ${fxDay(fx.lowDate)}`;
+      $('fx-high').textContent = `High R${rnd(fx.high)} · ${fxDay(fx.highDate)}`;
+      $('fx-avg').textContent = `Average R${rnd(fx.avg)}`;
+      const pos = fx.high > fx.low ? Math.min(100, Math.max(0, ((fx.rate - fx.low) / (fx.high - fx.low)) * 100)) : 50;
+      $('fx-mk').style.left = `${pos}%`;
+      const nearHigh = fx.rate >= fx.high * 0.99, nearLow = fx.rate <= fx.low * 1.01;
+      $('fx-chip').hidden = !(nearHigh || nearLow);
+      $('fx-chip').className = `chip ${nearHigh ? 'amber' : 'up'}`;
+      $('fx-chip-t').textContent = nearHigh ? "Near this year's high" : "Near this year's low";
+    }
+    $('fx-meta').textContent = 'Daily rates, updated each weekday afternoon';
+    if (!fxRateTouched) $('fx-r').value = fx.rate.toFixed(4);
+    calcFx();
+  }
+  const numIn = (id) => { const v = parseFloat(String($(id).value).replace(/[^\d.]/g, '')); return Number.isFinite(v) && v > 0 ? v : null; };
+  function calcFx() {
+    const zar = numIn('fx-zar'), rate = numIn('fx-r'), price = numIn('fx-p');
+    store.set('st1.fxcalc', { zar: $('fx-zar').value, price: $('fx-p').value });
+    if (!zar || !rate) {
+      $('fx-usd').textContent = '—'; $('fx-usd-s').textContent = 'Enter an amount and a rate';
+      $('fx-sh').textContent = '—'; $('fx-sh-s').textContent = '';
+      return;
+    }
+    const usd = (zar / rate) * (1 - FX_COST);
+    $('fx-usd').textContent = `$${rnd(usd)}`;
+    $('fx-usd-s').textContent = `R${rnd(zar, 0)} at R${rate.toFixed(4)}, less about ${rnd(FX_COST * 100, 1)}% EasyFX costs`;
+    if (!price) { $('fx-sh').textContent = '—'; $('fx-sh-s').textContent = 'Enter a share price'; return; }
+    const sh = usd / (price * (1 + TRADE_COST)), whole = Math.floor(sh);
+    $('fx-sh').textContent = `${rnd(sh)} shares`;
+    $('fx-sh-s').textContent = `at $${rnd(price)} each, after about ${rnd(TRADE_COST * 100)}% trading costs. That's ${whole} whole ${whole === 1 ? 'share' : 'shares'}.`;
+  }
+  function mountFxChart() {
+    const box = $('fx-live'), wait = $('fx-wait');
+    const wrap = document.createElement('div');
+    wrap.className = 'tradingview-widget-container';
+    wrap.innerHTML = '<div class="tradingview-widget-container__widget"></div>';
+    const watch = new MutationObserver(() => {
+      const f = wrap.querySelector('iframe');
+      if (!f) return;
+      watch.disconnect();
+      f.addEventListener('load', () => { wait.hidden = true; }, { once: true });
+      setTimeout(() => { wait.hidden = true; }, 15000);
+    });
+    watch.observe(wrap, { childList: true, subtree: true });
+    const s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = FX_WIDGET;
+    s.onerror = () => { watch.disconnect(); wait.textContent = 'Could not load the live chart. Check your connection.'; };
+    s.innerHTML = JSON.stringify({
+      symbol: 'FX_IDC:USDZAR', width: '100%', height: '100%', locale: 'en', dateRange: '12M', colorTheme: 'dark',
+      isTransparent: true, autosize: true, largeChartUrl: '', chartOnly: false, noTimeScale: false,
+      trendLineColor: '#d6b26e', underLineColor: 'rgba(214, 178, 110, 0.25)', underLineBottomColor: 'rgba(214, 178, 110, 0)',
+    });
+    wrap.appendChild(s);
+    box.appendChild(wrap);
+  }
+
+  function renderAnt() {
+    const now = Date.now();
+    renderAntMiles(now);
+    const mkt = nasdaqNow(now);
+    const hrs = mkt.today.open ? mkt.today : mkt.next;
+    $('ant-meta').textContent = hrs
+      ? `Nasdaq ${ldnTime(new Date(hrs.open))} to ${ldnTime(new Date(hrs.close))} UK · ${jhbTime(new Date(hrs.open))} to ${jhbTime(new Date(hrs.close))} SA${hrs.early ? ' · early close' : ''}`
+      : '';
+    let cls = '', text;
+    if (mkt.open) { cls = 'live'; text = `Open · closes ${ldnTime(new Date(mkt.today.close))} UK`; }
+    else {
+      const why = mkt.today.shut && mkt.today.shut !== 'weekend' ? `${mkt.today.shut} · ` : '';
+      text = `Closed · ${why}opens ${mkt.next ? ldnWhen(mkt.next.open, now) : 'soon'} UK`;
+    }
+    $('ant-chip').className = `chip ${cls}`;
+    $('ant-chip-t').textContent = text;
+    if (!antWidget) mountAntChart();
+  }
+  function tickClock() {
+    const now = new Date();
+    $('eyebrow').textContent = `${now.toLocaleDateString('en-GB', { timeZone: 'Europe/London', weekday: 'short', day: 'numeric', month: 'short' })} · UK ${ldnTime(now)} · SA ${jhbTime(now)}`;
+  }
+
+  ['fx-zar', 'fx-p'].forEach((id) => $(id).addEventListener('input', calcFx));
+  $('fx-r').addEventListener('input', () => { fxRateTouched = true; calcFx(); });
+  $('fx-reset').addEventListener('click', () => { fxRateTouched = false; if (fx && Number.isFinite(fx.rate)) $('fx-r').value = fx.rate.toFixed(4); calcFx(); });
+  $('btn-refresh').addEventListener('click', () => {
+    const b = $('btn-refresh');
+    b.classList.add('spin'); setTimeout(() => b.classList.remove('spin'), 800);
+    if (antWidget === 'failed') mountAntChart();
+    loadFx();
+  });
+
+  tickClock(); renderAnt();
+  const fxSaved = store.get('st1.fxcalc');
+  if (fxSaved) { if (fxSaved.zar) $('fx-zar').value = fxSaved.zar; if (fxSaved.price) $('fx-p').value = fxSaved.price; }
+  if (fx) renderFx(); else calcFx();
+  loadFx(); mountFxChart();
+  setInterval(tickClock, 10000); setInterval(renderAnt, 15000); setInterval(loadFx, 3600e3);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { tickClock(); renderAnt(); if (!fx || Date.now() - (fx.at || 0) > 15 * 60e3) loadFx(); } });
+})();
+</script>
+</body>
+</html>
