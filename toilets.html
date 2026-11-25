@@ -204,7 +204,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 
 .pages { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
 .pages a { --tab: #008198; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 7px; font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); white-space: nowrap; }
-.pages a[href="journeys.html"] { --tab: #564ade; } .pages a[href="events.html"] { --tab: #e7124d; } /* Apple teal, indigo and pink (higher-contrast shades) */
+.pages a[href="journeys.html"] { --tab: #564ade; } .pages a[href="events.html"] { --tab: #e7124d; } .pages a[href="toilets.html"] { --tab: #0066cc; } /* Apple teal, indigo and pink (higher-contrast shades) */
 .pages a::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--tab); }
 .pages a:hover { text-decoration: none; }
 .pages a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -288,45 +288,63 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 
 
 /* ---------- toilets page ---------- */
-.pages a[href="toilets.html"] { --tab: #b25000; }
-.glyph.loo { background: #b25000; }
-.glyph.loo svg { width: 32px; height: 32px; }
+.pages a[href="toilets.html"] { --tab: #0066cc; }
+.glyph.wc-glyph { width: 56px; height: 56px; background: none; border-radius: 0; }
+.glyph.wc-glyph svg { width: 56px; height: 56px; display: block; }
+@media (max-width: 734px) { .glyph.wc-glyph, .glyph.wc-glyph svg { width: 48px; height: 48px; } }
 .near-btn { min-height: 44px; padding: 10px 22px; font-size: 17px; margin-top: 26px; }
 .hero .near-note { margin: 12px auto 0; max-width: 30em; font-size: 14px; color: var(--ink-2); }
+
+/* station cards */
 .loos { display: grid; gap: 10px; margin-top: 18px; }
 .loo { border: 1px solid var(--rule); border-radius: 14px; padding: 14px 16px; min-width: 0; }
 .loo.has { border-color: color-mix(in srgb, var(--good) 45%, var(--rule)); }
-.loo-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
-.loo-head h3 { margin: 0; font-size: 19px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.loo-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.loo-head h3 { margin: 0 4px 0 0; font-size: 19px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
 .dist { font-size: 14px; color: var(--ink-2); }
 .badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 980px; font-size: 13px; font-weight: 600; line-height: 1.5; background: var(--quiet-tint); color: var(--quiet); white-space: nowrap; }
 .badge.yes { background: var(--good-tint); color: var(--good); }
 .badge.maybe { background: var(--minor-tint); color: var(--minor); }
 .loo-rows { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
-.loo-rows li { font-size: 15px; line-height: 1.4; }
+.loo-rows li { font-size: 15px; line-height: 1.45; }
 .loo-rows b { font-weight: 600; }
-.loo-rows span { color: var(--ink-2); }
+.loo-rows span:not(.gate) { color: var(--ink-2); }
 .loo-foot { margin: 10px 0 0; font-size: 13px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .loo-foot a { color: var(--link); }
 .loo-none { margin: 8px 0 0; font-size: 15px; color: var(--ink-2); }
+
+/* inside or outside the ticket gates */
+.gate { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 980px; font-size: 13px; font-weight: 600; line-height: 1.5; white-space: nowrap; }
+.gate::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.gate.out { background: color-mix(in srgb, #0066cc 13%, transparent); color: #0066cc; }
+.gate.in { background: var(--minor-tint); color: var(--minor); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .gate.out { color: #64b5ff; background: rgba(100, 181, 255, 0.16); } }
+:root[data-theme="dark"] .gate.out { color: #64b5ff; background: rgba(100, 181, 255, 0.16); }
+
+/* line diagrams */
 .strip { position: relative; margin: 20px 0 0; padding: 0; list-style: none; }
-.strip li { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 8px 0; }
-.strip li::before { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; width: 3px; background: var(--northern); opacity: 0.85; }
+.strip li { --line: var(--northern); position: relative; display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; padding: 8px 0; }
+.strip li::before { content: ""; position: absolute; left: 12.5px; top: 0; bottom: 0; width: 3px; background: var(--line); opacity: 0.85; }
 .strip li:first-child::before { top: 50%; } .strip li:last-child::before { bottom: 50%; }
-.stop { position: relative; z-index: 1; align-self: center; width: 13px; height: 13px; margin-left: 7px; border-radius: 50%; background: var(--tile); border: 3px solid var(--northern); }
-.strip li.has .stop { width: 22px; height: 22px; margin-left: 3px; background: var(--good); border-color: var(--good); display: grid; place-items: center; }
-.strip li.has .stop::after { content: "WC"; font-size: 8px; font-weight: 700; color: #ffffff; letter-spacing: 0.02em; }
-.strip .nm { font-size: 16px; font-weight: 600; line-height: 1.3; }
-.strip li:not(.has) .nm { font-weight: 500; color: var(--ink-2); }
+.stop { position: relative; z-index: 1; align-self: center; width: 13px; height: 13px; margin-left: 7.5px; border-radius: 50%; background: var(--tile); border: 3px solid var(--line); }
+.strip li.has .stop { width: 22px; height: 22px; margin-left: 3px; background: var(--good); border: 4px solid var(--tile); box-shadow: 0 0 0 2px var(--good); }
+.strip .nm { font-size: 16px; font-weight: 500; line-height: 1.3; color: var(--ink-2); }
+.strip li.has .nm, .strip li.key .nm { font-weight: 600; color: var(--ink); }
 .strip .what { display: block; font-size: 14px; font-weight: 400; color: var(--ink-2); line-height: 1.4; }
 .strip li.has .what { color: var(--ink); }
+.strip li.gap { padding: 4px 0; }
+.strip li.gap .stop { width: 7px; height: 7px; margin-left: 10.5px; border: 0; background: var(--line); opacity: 0.55; }
+.strip li.gap .what { font-style: italic; }
+#jr-strip li { --line: var(--ink-3); }
+.tag-s { display: inline-block; margin-left: 6px; padding: 0 8px; border-radius: 6px; font-size: 12px; font-weight: 600; line-height: 1.6; background: var(--fill); color: var(--ink-2); vertical-align: 1px; }
+
+/* tips and links */
 .tips { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; }
 .tips li { font-size: 15px; line-height: 1.47; }
 .tips b { display: block; font-size: 16px; }
 .links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; font-size: 15px; }
 .links a::after { content: "\203A"; display: inline-block; margin-left: 0.28em; transform: scale(1.25) translateY(-0.02em); }
 .status { margin: 14px 0 0; font-size: 14px; color: var(--ink-2); }
-.status.err { color: var(--severe); }
 .search { margin-top: 18px; }
 </style>
 </head>
@@ -339,10 +357,19 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 </header>
 
 <section class="hero wrap" aria-live="polite">
-  <div class="glyph loo" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><text x="16" y="21.5" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#ffffff">WC</text></svg></div>
+  <div class="glyph wc-glyph" aria-hidden="true"><svg viewBox="0 0 56 56" width="56" height="56" aria-hidden="true">
+    <rect width="56" height="56" rx="14" fill="#0066cc"/>
+    <g fill="#ffffff" transform="translate(0 1)">
+      <circle cx="19.4" cy="15.4" r="3.5"/>
+      <path d="M16.2 20.5H22.6L25.4 32.8H22.6V42H20.1V32.8H18.7V42H16.2V32.8H13.4Z"/>
+      <circle cx="36.6" cy="15.4" r="3.5"/>
+      <path d="M33.6 20.5H39.6A1.6 1.6 0 0 1 41.2 22.1V32.2H40V42H37.3V32.2H35.9V42H33.2V32.2H32V22.1A1.6 1.6 0 0 1 33.6 20.5Z"/>
+    </g>
+    <rect x="27.3" y="13" width="1.4" height="31" rx="0.7" fill="#ffffff" opacity="0.55"/>
+  </svg></div>
   <p class="eyebrow" id="eyebrow">Station toilets</p>
   <h1 class="headline" id="headline">Need a loo?</h1>
-  <p class="subhead" id="subhead">Find the nearest station toilets, check the ones on the commute, or look up any station.</p>
+  <p class="subhead" id="subhead">Find the nearest station toilets, check the ones on your journey, or look up any station.</p>
   <button class="pill near-btn" id="near" type="button">Find toilets near me</button>
   <p class="near-note" id="near-note">Your location is only sent to TfL, to find the nearest stations. This page doesn't save it.</p>
 </section>
@@ -353,6 +380,15 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     <h2 id="near-title">Nearest stations</h2>
     <p class="lede" id="near-lede"></p>
     <div class="loos" id="near-list"></div>
+  </section>
+
+  <section class="tile" id="jr-tile" hidden>
+    <p class="kicker">From the Journeys tab</p>
+    <h2 id="jr-title">Your journey</h2>
+    <p class="lede" id="jr-lede"></p>
+    <ol class="strip" id="jr-strip"></ol>
+    <p class="status" id="jr-status"></p>
+    <button class="more-link" id="jr-clear" type="button">Clear this journey</button>
   </section>
 
   <section class="tile">
@@ -379,7 +415,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   <section class="tile">
     <p class="kicker">Big stations</p>
     <h2>Handy for days out</h2>
-    <p class="lede">The large London stations all have toilets. Most are on the National Rail concourse, so you don't need to go through the Tube gates.</p>
+    <p class="lede">The large London stations all have toilets. Most are on the National Rail concourse, outside the Tube gates.</p>
     <div class="loos" id="hubs"></div>
   </section>
 
@@ -388,9 +424,10 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     <h2>Before you go</h2>
     <ul class="tips">
       <li><b>They're free</b>TfL's toilets cost nothing to use. A few run by other companies may charge.</li>
-      <li><b>Paid side or unpaid side</b>"Paid side" means inside the ticket gates, so you need to have touched in. "Unpaid side" means before the gates, so anyone can use it.</li>
+      <li><b>Outside or inside the gates</b>"Outside the gates" (TfL calls it the unpaid side) means anyone can use it. "Inside the gates" (the paid side) means you need to have touched in. "Outside the Tube gates" means it's in the National Rail station.</li>
       <li><b>RADAR key</b>Some accessible toilets are locked and open with a RADAR key from the National Key Scheme, sold by Disability Rights UK. If you don't have one, ask the station staff.</li>
       <li><b>Changing Places</b>Larger accessible toilets with a hoist and a changing bench, at King's Cross and Paddington on this page.</li>
+      <li><b>Plan a trip first</b>Check a journey on the Journeys tab, then open this tab to see the toilets along the way.</li>
       <li><b>Newest information</b>TfL keeps adding toilets. The TfL Go app now shows each toilet's location, whether it's inside the gates, its opening days and how to get in.</li>
     </ul>
     <div class="links">
@@ -404,7 +441,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 <footer>
   <div class="wrap">
     <p>Toilet details (where, opening hours, baby changing) come from TfL's customer toilet guide, September 2023. The yes or no for other stations comes live from TfL's station data. New toilets have opened since 2023, so the TfL Go app has the latest.</p>
-    <p>Powered by TfL Open Data. Walking distances are straight-line estimates.</p>
+    <p>A journey from the Journeys tab stays in this browser for a day, so this tab can show its toilets. Powered by TfL Open Data. Walking distances are straight-line estimates.</p>
   </div>
 </footer>
 
@@ -413,10 +450,9 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   'use strict';
   const API = 'https://api.tfl.gov.uk';
   const MODES = 'tube,elizabeth-line,overground,dlr,tram';
-  const GUIDE = {"hendon central": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "tottenham court road": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "euston": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "kings cross st pancras": [{"who": "Network Rail", "type": "Female", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}], "charing cross": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "waterloo": [{"who": "Network Rail", "type": "Female", "where": "Main National Rail concourse, opposite platform 19", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Main National Rail concourse, opposite platform 18", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Main National Rail concourse, opposite platform 20", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Main National Rail concourse, opposite platform 21", "hours": "Check with operator", "baby": true}], "london bridge": [{"who": "Network Rail", "type": "Female", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": true}], "victoria": [{"who": "London Underground", "type": "Female", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Male", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Accessible", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}], "liverpool street": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "paddington": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "National Rail station concourse, near platform 12", "hours": "Check with operator", "baby": false}], "bank": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall (Cannon Street entrance) - paid", "hours": "RADAR key access", "baby": false}], "stratford": [{"who": "London Underground", "type": "Female", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Male", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Adjacent to DLR platform 16", "hours": "Radar key access", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Southern ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": false}]};
-  const NOT_IN_GUIDE = new Set(["brent cross", "golders green", "hampstead", "belsize park", "chalk farm", "camden town", "mornington crescent", "warren street", "goodge street", "burnt oak", "colindale", "edgware", "leicester square", "oxford circus"]);
-  const ROUTE = [["940GZZLUHCL", "Hendon Central"], ["940GZZLUBTX", "Brent Cross"], ["940GZZLUGGN", "Golders Green"], ["940GZZLUHTD", "Hampstead"], ["940GZZLUBZP", "Belsize Park"], ["940GZZLUCFM", "Chalk Farm"], ["940GZZLUCTN", "Camden Town"], ["940GZZLUMTC", "Mornington Crescent"], ["940GZZLUEUS", "Euston"], ["940GZZLUWRR", "Warren Street"], ["940GZZLUGDG", "Goodge Street"], ["940GZZLUTCR", "Tottenham Court Road"]];
-  const HUBS = ["King's Cross St Pancras", "Euston", "Victoria", "Waterloo", "London Bridge", "Liverpool Street", "Paddington", "Charing Cross", "Stratford", "Bank"];
+  const DATA = {"guide": {"hendon central": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "tottenham court road": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "euston": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "kings cross st pancras": [{"who": "Network Rail", "type": "Female", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}], "charing cross": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "waterloo": [{"who": "Network Rail", "type": "Female", "where": "Main National Rail concourse, opposite platform 19", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Main National Rail concourse, opposite platform 18", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Main National Rail concourse, opposite platform 20", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Main National Rail concourse, opposite platform 21", "hours": "Check with operator", "baby": true}], "london bridge": [{"who": "Network Rail", "type": "Female", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": true}], "victoria": [{"who": "London Underground", "type": "Female", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Male", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Accessible", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}], "liverpool street": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "paddington": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "National Rail station concourse, near platform 12", "hours": "Check with operator", "baby": false}], "bank": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall (Cannon Street entrance) - paid", "hours": "RADAR key access", "baby": false}], "stratford": [{"who": "London Underground", "type": "Female", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Male", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Adjacent to DLR platform 16", "hours": "Radar key access", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Southern ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": false}]}, "notInGuide": ["brent cross", "golders green", "hampstead", "belsize park", "chalk farm", "camden town", "mornington crescent", "warren street", "goodge street", "burnt oak", "colindale", "edgware", "leicester square", "oxford circus"], "route": [["940GZZLUHCL", "Hendon Central"], ["940GZZLUBTX", "Brent Cross"], ["940GZZLUGGN", "Golders Green"], ["940GZZLUHTD", "Hampstead"], ["940GZZLUBZP", "Belsize Park"], ["940GZZLUCFM", "Chalk Farm"], ["940GZZLUCTN", "Camden Town"], ["940GZZLUMTC", "Mornington Crescent"], ["940GZZLUEUS", "Euston"], ["940GZZLUWRR", "Warren Street"], ["940GZZLUGDG", "Goodge Street"], ["940GZZLUTCR", "Tottenham Court Road"]], "hubs": ["King's Cross St Pancras", "Euston", "Victoria", "Waterloo", "London Bridge", "Liverpool Street", "Paddington", "Charing Cross", "Stratford", "Bank"]};
+  const GUIDE = DATA.guide, NOT_IN_GUIDE = new Set(DATA.notInGuide), ROUTE = DATA.route, HUBS = DATA.hubs;
+  const JOURNEY_KEY = 'toilets.journey';               // written by the Journeys tab, read here
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
@@ -428,6 +464,16 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       if (!r.ok) throw new Error(`TfL answered ${r.status}`);
       return await r.json();
     } finally { clearTimeout(t); }
+  }
+  const arr = (r) => (Array.isArray(r) ? r : (r ? [r] : []));
+  const spId = (sp) => String((sp && (sp.naptanId || sp.id)) || '');
+  async function stations(ids) {                         // TfL takes up to 20 stations per call
+    const out = new Map(), list = [...new Set(ids.filter(Boolean))];
+    const chunks = []; for (let i = 0; i < list.length; i += 20) chunks.push(list.slice(i, i + 20));
+    const got = await Promise.allSettled(chunks.map((c) => tfl(`/StopPoint/${c.join(',')}`, 20000)));
+    if (got.every((g) => g.status === 'rejected')) throw new Error('TfL did not answer');
+    got.forEach((g) => { if (g.status === 'fulfilled') arr(g.value).forEach((sp) => out.set(spId(sp), sp)); });
+    return out;
   }
 
   /* ---------- names ---------- */
@@ -443,7 +489,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     return k;
   }
 
-  /* ---------- TfL station data: "Facility: Toilets" and "Accessibility: Toilet" (yes/no), on the station or any of its parts ---------- */
+  /* ---------- TfL station data: "Facility: Toilets" and "Accessibility: Toilet" (yes/no), on the station or any part of it ---------- */
   function flags(sp) {
     const f = { toilets: null, accessible: null };
     const walk = (p) => {
@@ -461,11 +507,21 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     return f;
   }
 
+  /* ---------- inside or outside the ticket gates ---------- */
+  function gateOf(where, who) {
+    if (/unpaid/i.test(where)) return { cls: 'out', text: 'Outside the gates' };
+    if (/\bpaid\b/i.test(where)) return { cls: 'in', text: 'Inside the gates' };
+    if (/national rail/i.test(where) || who === 'Network Rail') return { cls: 'out', text: 'Outside the Tube gates' };
+    if (/platform/i.test(where)) return { cls: 'in', text: 'On the platform' };
+    return null;
+  }
+  const lc = (t) => t.charAt(0).toLowerCase() + t.slice(1);   // 'Outside the Tube gates' -> 'outside the Tube gates'
+  const chip = (g) => (g ? `<span class="gate ${g.cls}">${esc(g.text)}</span>` : '');
+
   /* ---------- describing a station ---------- */
-  const PAID = (w) => /unpaid/i.test(w) ? 'before the gates' : /paid/i.test(w) ? 'inside the gates' : '';
-  const HOURS = (h) => /radar/i.test(h) ? 'RADAR key' : /check with operator/i.test(h) ? 'hours: check with the station' : /speak to station staff/i.test(h) ? 'ask the staff' : h.toLowerCase();
+  const HOURS = (h) => (/radar/i.test(h) ? 'RADAR key' : /check with operator/i.test(h) ? 'hours: check with the station' : /speak to station staff/i.test(h) ? 'ask the staff' : h.toLowerCase());
   function list(types) {
-    const t = types.map((x, i) => (i && x !== 'Changing Places') ? x.toLowerCase() : x);
+    const t = types.map((x, i) => ((i && x !== 'Changing Places') ? x.toLowerCase() : x));
     return t.length < 2 ? t.join('') : `${t.slice(0, -1).join(', ')} and ${t[t.length - 1]}`;
   }
   function groups(rows) {
@@ -475,7 +531,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       const pm = r.where.match(/^(.*?\bplatform)\s+(\d+)$/i);
       const base = pm ? pm[1] : r.where;
       const k = `${base}|${r.hours}`;
-      if (!m.has(k)) m.set(k, { base, where: r.where, hours: r.hours, types: [], baby: false, plats: [] });
+      if (!m.has(k)) m.set(k, { base, where: r.where, hours: r.hours, who: r.who, types: [], baby: false, plats: [] });
       const x = m.get(k);
       if (!x.types.includes(r.type)) x.types.push(r.type);
       if (pm) x.plats.push(Number(pm[2]));
@@ -484,8 +540,13 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     return [...m.values()].map((x) => {
       const u = [...new Set(x.plats)].sort((a, b) => a - b);
       if (u.length > 1) x.where = `${x.base}s ${u[0]}–${u[u.length - 1]}`;
+      x.gate = gateOf(x.where, x.who);
       return x;
     });
+  }
+  function oneGate(gs) {                                 // the same gate answer for every toilet at the station
+    const t = [...new Set(gs.map((g) => (g.gate ? g.gate.text : '')))];
+    return t.length === 1 && t[0] ? gs[0].gate : null;
   }
   function summary(rows) {
     const t = new Set(rows.map((r) => r.type));
@@ -501,70 +562,119 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     else if ((f && f.toilets === false) || NOT_IN_GUIDE.has(k)) state = 'no';
     return { name: clean(name), k, rows, f, state };
   }
-  function short(d) {
+  const has = (d) => d.state === 'yes' || d.state === 'live';
+  function short(d) {                                    // one line for the line diagrams
     if (d.state === 'yes') {
-      const g = groups(d.rows)[0], bits = [list(groups(d.rows).flatMap((x) => x.types).filter((v, i, a) => a.indexOf(v) === i)).replace(/^./, (c) => c.toUpperCase())];
-      const where = PAID(g.where) || (/national rail/i.test(g.where) ? 'on the National Rail concourse' : '');
-      if (where) bits.push(where);
-      if (/radar/i.test(g.hours)) bits.push('RADAR key');
+      const gs = groups(d.rows), g = oneGate(gs);
+      const bits = [list(gs.flatMap((x) => x.types).filter((v, i, a) => a.indexOf(v) === i))];
+      if (g) bits.push(lc(g.text));
+      if (gs.some((x) => /radar/i.test(x.hours))) bits.push('RADAR key');
       return bits.join(' · ');
     }
     if (d.state === 'live') return d.f.accessible && !d.f.toilets ? 'Accessible toilet listed by TfL' : 'Toilets listed by TfL';
     if (d.state === 'no') return 'No toilets listed';
-    return 'Could not check';
+    return 'Not checked';
   }
-  function brief(d) {
+  function brief(d) {                                    // the big headline after "near me"
     if (d.state !== 'yes') return short(d);
-    const g = groups(d.rows)[0], bits = [summary(d.rows)];
-    const where = PAID(g.where) || (/national rail/i.test(g.where) ? 'on the National Rail concourse' : '');
-    if (where) bits.push(where);
-    if (/radar/i.test(g.hours)) bits.push('RADAR key');
+    const gs = groups(d.rows), g = oneGate(gs), bits = [summary(d.rows)];
+    if (g) bits.push(lc(g.text));
+    if (gs.some((x) => /radar/i.test(x.hours))) bits.push('RADAR key');
     return bits.join(' · ');
   }
   const walkTime = (m) => `${m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`} · about ${Math.max(1, Math.round(m / 80))} min walk`;
-  const mapLink = (lat, lon) => (Number.isFinite(lat) && Number.isFinite(lon)) ? `<a href="https://maps.apple.com/?daddr=${lat.toFixed(5)},${lon.toFixed(5)}&dirflg=w" target="_blank" rel="noopener">Walk there</a>` : '';
+  const mapLink = (lat, lon) => ((Number.isFinite(lat) && Number.isFinite(lon)) ? `<a href="https://maps.apple.com/?daddr=${lat.toFixed(5)},${lon.toFixed(5)}&dirflg=w" target="_blank" rel="noopener">Walk there</a>` : '');
   function card(d, extra = {}) {
-    const badge = d.state === 'yes' ? `<span class="badge yes">${esc(summary(d.rows))}</span>`
-      : d.state === 'live' ? `<span class="badge yes">${d.f.accessible && !d.f.toilets ? 'Accessible toilet' : 'Toilets'}</span>`
-      : d.state === 'no' ? '<span class="badge">No toilets listed</span>' : '<span class="badge maybe">Not checked</span>';
-    let body = '';
+    let badges, body;
     if (d.state === 'yes') {
-      body = `<ul class="loo-rows">${groups(d.rows).map((x) => {
-        const bits = [x.where, PAID(x.where), HOURS(x.hours), x.baby ? 'baby changing' : ''].filter(Boolean);
-        return `<li><b>${esc(list(x.types))}</b> <span>· ${esc(bits.join(' · '))}</span></li>`;
+      const gs = groups(d.rows), g = oneGate(gs);
+      badges = `<span class="badge yes">${esc(summary(d.rows))}</span>${chip(g)}`;
+      body = `<ul class="loo-rows">${gs.map((x) => {
+        const bits = [x.where, HOURS(x.hours), x.baby ? 'baby changing' : ''].filter(Boolean);
+        return `<li><b>${esc(list(x.types))}</b>${g ? '' : ` ${chip(x.gate)}`} <span>· ${esc(bits.join(' · '))}</span></li>`;
       }).join('')}</ul>`;
     } else if (d.state === 'live') {
-      body = `<p class="loo-none">TfL's station data lists ${d.f.toilets ? 'toilets' : 'an accessible toilet'}${d.f.toilets && d.f.accessible ? ', including an accessible one' : ''} here. TfL Go shows exactly where.</p>`;
+      badges = `<span class="badge yes">${d.f.accessible && !d.f.toilets ? 'Accessible toilet' : 'Toilets'}</span>`;
+      body = `<p class="loo-none">TfL's station data lists ${d.f.toilets ? 'toilets' : 'an accessible toilet'}${d.f.toilets && d.f.accessible ? ', including an accessible one' : ''} here, but doesn't say where. TfL Go shows whether it's inside the gates.</p>`;
     } else if (d.state === 'no') {
+      badges = '<span class="badge">No toilets listed</span>';
       body = '<p class="loo-none">TfL doesn\'t list toilets at this station.</p>';
     } else {
+      badges = '<span class="badge maybe">Not checked</span>';
       body = '<p class="loo-none">TfL\'s station data didn\'t answer just now. Try again in a minute.</p>';
     }
     const who = d.rows ? [...new Set(d.rows.map((r) => r.who))].join(' and ') : '';
     const foot = [who ? `Run by ${esc(who)}` : '', mapLink(extra.lat, extra.lon)].filter(Boolean);
-    return `<article class="loo${d.state === 'yes' || d.state === 'live' ? ' has' : ''}"><div class="loo-head"><h3>${esc(d.name)}</h3>${badge}${Number.isFinite(extra.distance) ? `<span class="dist num">${esc(walkTime(extra.distance))}</span>` : ''}</div>${body}${foot.length ? `<p class="loo-foot">${foot.join('')}</p>` : ''}</article>`;
+    const dist = Number.isFinite(extra.distance) ? `<span class="dist num">${esc(walkTime(extra.distance))}</span>` : '';
+    return `<article class="loo${has(d) ? ' has' : ''}"><div class="loo-head"><h3>${esc(d.name)}</h3>${badges}${dist}</div>${body}${foot.length ? `<p class="loo-foot">${foot.join('')}</p>` : ''}</article>`;
   }
-  const arr = (r) => Array.isArray(r) ? r : (r ? [r] : []);
-  const spId = (sp) => String(sp.naptanId || sp.id || '');
 
-  /* ---------- the commute strip ---------- */
+  /* ---------- line diagrams (the commute and a planned journey) ---------- */
+  function stripItem(name, d, tag) {
+    const what = has(d) ? short(d) : d.state === 'unknown' ? 'Not checked' : 'No toilets listed';
+    return `<li class="${[has(d) ? 'has' : '', tag ? 'key' : ''].filter(Boolean).join(' ')}"><span class="stop" aria-hidden="true"></span>`
+      + `<span class="nm">${esc(clean(name))}${tag ? ` <span class="tag-s">${esc(tag)}</span>` : ''}<span class="what">${esc(what)}</span></span></li>`;
+  }
   function renderStrip(byId) {
-    $('strip').innerHTML = ROUTE.map(([id, name]) => {
-      const d = describe(name, byId ? byId.get(id) : null);
-      const has = d.state === 'yes' || d.state === 'live';
-      return `<li class="${has ? 'has' : ''}"><span class="stop" aria-hidden="true"></span><span class="nm">${esc(name)}<span class="what">${esc(has ? short(d) : (d.state === 'unknown' ? 'Not in TfL\'s toilet guide' : 'No toilets listed'))}</span></span></li>`;
-    }).join('');
+    $('strip').innerHTML = ROUTE.map(([id, name]) => stripItem(name, describe(name, byId ? byId.get(id) : null))).join('');
   }
   async function loadStrip() {
     renderStrip(null);
     try {
-      const r = arr(await tfl(`/StopPoint/${ROUTE.map((x) => x[0]).join(',')}`, 15000));
-      renderStrip(new Map(r.map((sp) => [spId(sp), sp])));
+      renderStrip(await stations(ROUTE.map((x) => x[0])));
       $('strip-status').textContent = 'Checked against TfL\'s live station data just now.';
     } catch (e) {
       $('strip-status').textContent = 'From TfL\'s toilet guide. Live station data didn\'t load, so the others weren\'t double-checked.';
     }
   }
+
+  /* ---------- the journey planned on the Journeys tab ---------- */
+  const TAG = { start: 'Start', change: 'Change', end: 'Get off' };
+  function readJourney() {
+    try {
+      const j = JSON.parse(localStorage.getItem(JOURNEY_KEY) || 'null');
+      if (j && Array.isArray(j.stops) && j.stops.length && Date.now() - Number(j.at) < 24 * 3600e3) return j;
+    } catch (e) { /* storage blocked */ }
+    return null;
+  }
+  function renderJourney(J, byId, checked) {
+    const items = []; let skipped = 0;
+    const gap = () => {
+      if (!skipped) return;
+      const words = checked ? `${skipped} stop${skipped > 1 ? 's' : ''} with no toilets listed` : `${skipped} stop${skipped > 1 ? 's' : ''} in between`;
+      items.push(`<li class="gap"><span class="stop" aria-hidden="true"></span><span class="nm"><span class="what">${esc(words)}</span></span></li>`);
+      skipped = 0;
+    };
+    for (const s of J.stops) {
+      const d = describe(s.name, byId ? byId.get(s.id) : null);
+      if (s.kind === 'pass' && !has(d)) { skipped += 1; continue; }
+      gap();
+      items.push(stripItem(s.name, d, TAG[s.kind] || ''));
+    }
+    gap();
+    $('jr-strip').innerHTML = items.join('');
+  }
+  async function loadJourney() {
+    const J = readJourney(), tile = $('jr-tile');
+    if (!J) { tile.hidden = true; return; }
+    tile.hidden = false;
+    $('jr-title').textContent = `${clean(J.from)} to ${clean(J.to)}`;
+    const when = new Date(Number(J.at)).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/London' });
+    $('jr-lede').textContent = `Planned on the Journeys tab at ${when}. Green dots have toilets; stops without them are grouped.`;
+    renderJourney(J, null, false);
+    if (location.hash === '#journey') tile.scrollIntoView({ block: 'start' });
+    try {
+      renderJourney(J, await stations(J.stops.map((s) => s.id)), true);
+      $('jr-status').textContent = 'Checked against TfL\'s live station data just now.';
+    } catch (e) {
+      renderJourney(J, null, false);
+      $('jr-status').textContent = 'From TfL\'s toilet guide. Live station data didn\'t load, so other stops weren\'t checked.';
+    }
+  }
+  $('jr-clear').addEventListener('click', () => {
+    try { localStorage.removeItem(JOURNEY_KEY); } catch (e) { /* storage blocked */ }
+    $('jr-tile').hidden = true;
+  });
 
   /* ---------- big stations ---------- */
   $('hubs').innerHTML = HUBS.map((n) => card(describe(n, null))).join('');
@@ -575,7 +685,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
   function hero(eyebrow, headline, subhead) { $('eyebrow').textContent = eyebrow; $('headline').textContent = headline; $('subhead').textContent = subhead; }
   function where() {
     return new Promise((res, rej) => {
-      if (!('geolocation' in navigator)) return rej(new Error('nogeo'));
+      if (!('geolocation' in navigator)) { rej(new Error('nogeo')); return; }
       navigator.geolocation.getCurrentPosition(res, rej, { enableHighAccuracy: false, timeout: 15000, maximumAge: 120000 });
     });
   }
@@ -596,30 +706,20 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       const found = new Map();
       for (const sp of (r && Array.isArray(r.stopPoints) ? r.stopPoints : [])) {
         const dist = Number.isFinite(sp.distance) ? sp.distance : metres(lat, lon, sp.lat, sp.lon);
-        const k = key(sp.commonName);
-        const prev = found.get(k);
+        const k = key(sp.commonName), prev = found.get(k);
         if (!prev) found.set(k, { name: sp.commonName, sps: [sp], distance: dist, lat: sp.lat, lon: sp.lon });
         else { prev.sps.push(sp); if (dist < prev.distance) Object.assign(prev, { distance: dist, lat: sp.lat, lon: sp.lon }); }
       }
       const near = [...found.values()].sort((a, b) => a.distance - b.distance).slice(0, 8);
-      if (!near.length) {
-        hero('Near you', 'No stations within a mile', 'Try looking up a station below.');
-        return;
-      }
-      // full station records (with every platform and entrance) for the nearest ones
-      try {
-        const ids = near.flatMap((x) => x.sps.map(spId)).filter(Boolean).slice(0, 20);
-        const full = new Map(arr(await tfl(`/StopPoint/${ids.join(',')}`, 20000)).map((sp) => [spId(sp), sp]));
+      if (!near.length) { hero('Near you', 'No stations within a mile', 'Try looking up a station below.'); return; }
+      try {                                              // full station records, with every platform and entrance
+        const full = await stations(near.flatMap((x) => x.sps.map(spId)).slice(0, 40));
         for (const x of near) x.sps = x.sps.map((sp) => full.get(spId(sp)) || sp);
-      } catch (e) { /* the nearby list already carries the yes/no */ }
-      const seen = near.map((x) => {
-        const merged = { additionalProperties: [], children: x.sps };
-        return { d: describe(x.name, merged), x };
-      });
-      const best = seen.find((s) => s.d.state === 'yes' || s.d.state === 'live');
+      } catch (e) { /* the nearby list already carries the yes or no */ }
+      const seen = near.map((x) => ({ d: describe(x.name, { additionalProperties: [], children: x.sps }), x }));
+      const best = seen.find((s) => has(s.d));
       if (best) hero('Nearest station toilets', best.d.name, `${walkTime(best.x.distance)} · ${brief(best.d)}`);
       else hero('Near you', 'No station toilets close by', 'None of the stations within a mile list toilets. The big stations below all have them.');
-      $('near-title').textContent = 'Nearest stations';
       $('near-lede').textContent = 'Closest first, within about a mile.';
       $('near-list').innerHTML = seen.map((s) => card(s.d, s.x)).join('');
       $('near-tile').hidden = false;
@@ -638,7 +738,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     if (!cache.has(k)) {
       cache.set(k, tfl(`/StopPoint/Search/${encodeURIComponent(q)}?modes=${MODES}&maxResults=8`).then((r) => {
         const seen = new Set();
-        return (r && Array.isArray(r.matches) ? r.matches : []).map((m) => ({ id: String(m.id || ''), name: clean(m.name), lat: m.lat, lon: m.lon, tags: [(m.modes || []).join(', '), m.zone ? `Zone ${m.zone}` : ''].filter(Boolean).join(' · ') }))
+        return (r && Array.isArray(r.matches) ? r.matches : []).map((m) => ({ id: String(m.id || ''), name: clean(m.name), tags: [(m.modes || []).join(', '), m.zone ? `Zone ${m.zone}` : ''].filter(Boolean).join(' · ') }))
           .filter((s) => s.id && s.name && !seen.has(s.name) && seen.add(s.name));
       }).catch((e) => { cache.delete(k); throw e; }));
     }
@@ -659,10 +759,10 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       [...box.querySelectorAll('li[data-i]')].forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
       if (active >= 0) input.setAttribute('aria-activedescendant', `q-opt-${active}`); else input.removeAttribute('aria-activedescendant');
     };
-    const open = (list, q) => {
-      items = list; active = list.length ? 0 : -1;
-      box.innerHTML = list.length
-        ? list.map((m, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === 0}"><b>${esc(m.name)}</b><span>${esc(m.tags)}</span></li>`).join('')
+    const open = (found, q) => {
+      items = found; active = found.length ? 0 : -1;
+      box.innerHTML = found.length
+        ? found.map((m, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === 0}"><b>${esc(m.name)}</b><span>${esc(m.tags)}</span></li>`).join('')
         : `<li class="none" role="option" aria-disabled="true">No stations match “${esc(q)}”</li>`;
       box.hidden = false; input.setAttribute('aria-expanded', 'true'); mark();
     };
@@ -673,7 +773,7 @@ footer .sep { margin: 0 8px; color: var(--rule); }
       if (q.length < 2) { close(); return; }
       const mine = ++seq;
       timer = setTimeout(async () => {
-        try { const list = await searchStations(q); if (mine === seq) open(list, q); }
+        try { const found = await searchStations(q); if (mine === seq) open(found, q); }
         catch (e) { if (mine === seq) { items = []; box.innerHTML = '<li class="none" role="option" aria-disabled="true">TfL\'s station search didn\'t answer. Try again.</li>'; box.hidden = false; } }
       }, 220);
     });
@@ -690,8 +790,11 @@ footer .sep { margin: 0 8px; color: var(--rule); }
     $('find').addEventListener('submit', (e) => { e.preventDefault(); if (!box.hidden) pick(active); });
   })();
 
+  window.addEventListener('pageshow', (e) => { if (e.persisted) loadJourney(); });   // coming back from the Journeys tab
+  loadJourney();
   loadStrip();
 })();
+
 </script>
 </body>
 </html>
