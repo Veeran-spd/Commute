@@ -286,6 +286,10 @@ footer .sep { margin: 0 8px; color: var(--rule); }
 .opts .ls .line { font-size: 14px; font-weight: 500; }
 .opts .dur { font-size: 15px; color: var(--ink-2); white-space: nowrap; }
 .opts button[aria-pressed="true"] .tt { color: var(--link); }
+
+/* four tabs on small phones: a little less padding, the same on every page so the tabs never jump */
+@media (max-width: 400px) { .pages a { padding: 5px 8px; } }
+@media (max-width: 374px) { .pages a { padding: 5px 6px; } }
 </style>
 </head>
 <body>
