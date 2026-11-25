@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<title>Station Toilets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-title" content="Toilets">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22#48484a%22/%3E%3Cstop offset=%221%22 stop-color=%22#0b0b0c%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2215%22 fill=%22url(#g)%22/%3E%3Crect x=%2217%22 y=%229%22 width=%2230%22 height=%2237%22 rx=%229%22 fill=%22#fff%22/%3E%3Crect x=%2222%22 y=%2215%22 width=%2220%22 height=%2212%22 rx=%223.5%22 fill=%22#1d1d1f%22/%3E%3Ccircle cx=%2225.5%22 cy=%2237%22 r=%223.2%22 fill=%22#1d1d1f%22/%3E%3Ccircle cx=%2238.5%22 cy=%2237%22 r=%223.2%22 fill=%22#1d1d1f%22/%3E%3Cpath d=%22M24 55l5-8.5M40 55l-5-8.5%22 stroke=%22#fff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFl0lEQVR4AaxXS0xUZxQ+wSZujBFNjJsmbgo1lhTdGGtNJjyGsaRNgVSoSYGWKAg0tS4QjFKCJjUpD5t007SmTUiEhiYtNAFTurMbRRmaopaELStAGMYNj3tOv/Pf+9+ZgXtRWkkO557Xd75z7j937mTRhr9YLFZbUnJqADIFWYNImMRi74TGtEbj0WhMMaai0VP9wK7Z0I58AtFodH9xcWzYceQHZq6EHIa8AqEwcRwnNKY1GhcRxTgswlXA/rGoqOSX0tLSbEvEECguLi5E8G8R510tFBEDvFlziN/mPz8uwu+vrKz9VVRU9LaSMATW1/ksGu93HCYkkDKHHaBfWvxVx5FmQyASiVSJiK4czQVN2WglAH/GxEePHqGysjKqqamm6uqPNumKinLKz88PrVc8xwxpNlYZiRRWZeE2NujEbtBBMYOEavE00549e6i3t4e6ur6i5uYm07i2tmaTbmpqpO7uLrp+/Rrt27fPr98CvyGL2TmYaq5NGSTEK1bNdPHi53TkSL5u7IXkxIm3qLGxwcNhTzueTredg1lofgAkTDBI5+bm0smT5rzQ8vIy3b7dTz09vYGiMc1RloWFhZST81ooLvri9soB3AJnJ7OYidO1klFbQRRQpa7uLLW2ttHNm18HisY0R3NVlLyuX3E2ahefd+oGwMRdDzP7jBmkGLbeSwVTicfjqraU9Jy9e/f6eO7Em/H1DICAQBwIQ1SnbBH2G66urvrXYRfpOWKeJ5l47uQpfBBQQxsHa2CE9Xqu3yUQjMvehkFAGSoBxrrY24CrBdOr2E7Hjh2zl6E6PUfA3p1Y8TgQHwQsQ8ZBZBAQiKvdh0aq161b39GNG1/ShQufBYrGNMdWuAQsHgfigwB7zDZqx/gVxALu3r2bzpz50DwX9NmwUTSmOTZfaxkHWbDJzdrFx6fAZaZJ7sTWFsNYsEYLuF2ttYLmmbiZ+HgOsJk0LEn+J4Fg3BSJjA3YNdkiPUDpBMbG/qDjx09QfX0Dra2t+QtZX183Po1pjg1oraRtIAjf24CYdWuC29zagu2IxcOXUTfNzs7S6OgdyKjvHxkZgX3HxLq6un2/YHuZeGz6WD/jo2g24E7K5vQLGKdsh2ZmZnzA06c/oF27dlFubg4VFBT4/kgkYnwa0xwbiMcnMIDiugeO/QNpbYfMBhhMGEGGVsaq2bPv3v2TFhcXDWZd3Sf0+PEUjY39bogYJ/7pyVefxjQHLlpaWqKHD+NmYgYue3gb8f0NsElKMbP206cL1N7+hWJuS65ebadEYsnfgMWzG7Z2FoOZ4F7p2tmQYBQJbocDUc00PDyMN6Fyun9/HKCJUCKJxLLJKS8vp6GhIb9+K3wQEKzJNnO1/eq0pNQeH39ACpyX9yZNT08bEh0dHdTZec1cP3nyD+Xl5SGnwpBwhwnHs3EQcPyJLdOtdG1tNQ5cLi0sLJiXk76+PnN96NDreEWrwdTbwwMBvqcTalN7QMJsfTdsaWkxE3d2duINKUnJ5DN/C5cutVB2drbZ6Ivgoc89PYSTbrIyZ38CBLGZTPvy5TZz+icmJqi/f8CPDwwMkPr0Y9jW1gq/eCR4Szz0ndQNfI9mDgwUsSlm72DqRqx/x44dVFVVZabXLVi/1erTYGVlpcGw/iCt+MyCnvxt1vz8/AMRBgltziDhgLWr4Te26pWVVbySf0rnztVTPD7p+0EeDRkbmKTz5xupqanJxKw/pTPx8Svsm7m5ubj5ZYTn+hU0mWdv8mDNpKseHBw0BMV8dBVUPNvGf/Zs67ea0/2z2OgVwp8hkEwm50U4B/KrNldR5qqt6O2w16r/axx1vxHJG5j+Gfqnfh0nEolFSBlI1OLzPyAij9BoHeIxdydI2e5kKTs4jrhiPALeTxji42Ry+T08ppe0ucq/AAAA//+huwBaAAAABklEQVQDAHW9xM1tRvrEAAAAAElFTkSuQmCC">
+<style>[hidden] { display: none !important; }
+
+/* Layout: an Apple-style single column (980px of content) on a soft grey ground: a translucent sticky bar,
+   one centred status headline, then quiet white tiles whose rows open for detail. */
+:root {
+  --ground: #f5f5f7;
+  --tile: #ffffff;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --ink-3: #86868b;
+  --rule: #d2d2d7;
+  --fill: #e8e8ed;
+  --link: #0066cc;
+  --action: #0071e3;
+  --on-action: #ffffff;
+  --bar: rgba(245, 245, 247, 0.82);
+  --good: #248a3d;   --good-tint: #e3f3e6;
+  --minor: #b25000;  --minor-tint: #fdf0e1;
+  --severe: #d70015; --severe-tint: #fde8ea;
+  --quiet: #6e6e73;  --quiet-tint: #ececf0;
+  --northern: #1d1d1f; /* the Northern line is drawn in black on TfL's map */
+  --sport: #0066cc; --festival: #8944ab; --protest: #b25000; --works: #6e6e73;
+  --bus: #dc241f; /* London bus red, for route numbers */
+  --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #000000; --tile: #1c1c1e; --ink: #f5f5f7; --ink-2: #a1a1a6; --ink-3: #8e8e93; --rule: #38383a; --fill: #2c2c2e;
+    --link: #2997ff; --action: #0071e3; --on-action: #ffffff; --bar: rgba(22, 22, 23, 0.82);
+    --good: #30d158; --good-tint: rgba(48, 209, 88, 0.16); --minor: #ff9f0a; --minor-tint: rgba(255, 159, 10, 0.16);
+    --severe: #ff453a; --severe-tint: rgba(255, 69, 58, 0.18); --quiet: #98989d; --quiet-tint: #2c2c2e;
+    --northern: #f5f5f7; --sport: #2997ff; --festival: #bf5af2; --protest: #ff9f0a; --works: #98989d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #000000; --tile: #1c1c1e; --ink: #f5f5f7; --ink-2: #a1a1a6; --ink-3: #8e8e93; --rule: #38383a; --fill: #2c2c2e;
+  --link: #2997ff; --action: #0071e3; --on-action: #ffffff; --bar: rgba(22, 22, 23, 0.82);
+  --good: #30d158; --good-tint: rgba(48, 209, 88, 0.16); --minor: #ff9f0a; --minor-tint: rgba(255, 159, 10, 0.16);
+  --severe: #ff453a; --severe-tint: rgba(255, 69, 58, 0.18); --quiet: #98989d; --quiet-tint: #2c2c2e;
+  --northern: #f5f5f7; --sport: #2997ff; --festival: #bf5af2; --protest: #ff9f0a; --works: #98989d;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--font-text); font-size: 17px; line-height: 1.47; letter-spacing: -0.012em;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-optical-sizing: auto;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 0.16em; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--action); outline-offset: 3px; border-radius: 8px; }
+.num { font-variant-numeric: tabular-nums; }
+.wrap {
+  width: 100%; max-width: 1024px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 735px) {
+  .wrap { padding-left: max(22px, env(safe-area-inset-left, 0px)); padding-right: max(22px, env(safe-area-inset-right, 0px)); }
+}
+
+/* ---------- translucent bar ---------- */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30;
+  background: var(--bar); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+}
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--bar); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: inset 0 -1px 0 var(--rule);
+}
+.bar .wrap { display: flex; align-items: center; gap: 20px; min-height: 52px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: auto; min-width: 0; color: var(--ink); }
+.brand svg { width: 28px; height: 28px; flex: none; display: block; }
+.brand b { font-family: var(--font-display); font-size: 21px; font-weight: 600; letter-spacing: 0.011em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-links { display: flex; align-items: center; gap: 20px; font-size: 12px; letter-spacing: -0.01em; }
+.bar-links a { color: var(--ink); opacity: 0.85; white-space: nowrap; }
+.pill {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 28px; padding: 4px 14px;
+  border: 0; border-radius: 980px; background: var(--action); color: var(--on-action);
+  font-size: 12px; font-weight: 500; line-height: 1.33; letter-spacing: -0.01em; white-space: nowrap; cursor: pointer;
+}
+.pill:hover { filter: brightness(1.08); }
+.pill[disabled] { opacity: 0.6; cursor: default; filter: none; }
+.spin { width: 11px; height: 11px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--on-action) 35%, transparent); border-top-color: var(--on-action); animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 734px) {
+  .bar .wrap { gap: 14px; }
+  .brand b { font-size: 19px; }
+  .bar-links { gap: 14px; }
+}
+@media (max-width: 480px) { .bar .long { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { text-align: center; padding-block: 56px 48px; }
+.glyph { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; display: grid; place-items: center; background: var(--quiet); color: var(--on-action); }
+.glyph svg { width: 30px; height: 30px; display: block; }
+.glyph.good { background: var(--good); } .glyph.minor { background: var(--minor); } .glyph.severe { background: var(--severe); }
+.eyebrow { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.24; color: var(--ink-2); letter-spacing: -0.012em; }
+.eyebrow.severe { color: var(--severe); } .eyebrow.minor { color: var(--minor); } .eyebrow.good { color: var(--good); }
+.headline {
+  margin: 8px 0 0; font-family: var(--font-display); font-size: 64px; line-height: 1.06; font-weight: 600;
+  letter-spacing: -0.012em; text-wrap: balance; overflow-wrap: break-word;
+}
+.subhead { margin: 16px auto 0; max-width: 32em; font-size: 21px; line-height: 1.38; letter-spacing: 0.004em; text-wrap: balance; }
+.detail { margin: 12px auto 0; max-width: 38em; font-size: 17px; line-height: 1.47; color: var(--ink-2); text-wrap: pretty; }
+.tag { display: inline-flex; align-items: center; margin-top: 20px; padding: 5px 13px; border-radius: 980px; font-size: 14px; font-weight: 600; background: var(--quiet-tint); color: var(--quiet); }
+.tag.minor { background: var(--minor-tint); color: var(--minor); } .tag.severe { background: var(--severe-tint); color: var(--severe); } .tag.good { background: var(--good-tint); color: var(--good); }
+.cta { margin-top: 24px; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 30px; font-size: 17px; }
+.cta a::after, .more-link::after { content: "\203A"; display: inline-block; margin-left: 0.28em; transform: scale(1.25) translateY(-0.02em); }
+.meta { margin: 20px 0 0; font-size: 12px; line-height: 1.33; color: var(--ink-3); letter-spacing: -0.01em; }
+@media (max-width: 734px) {
+  .hero { padding-block: 36px 32px; }
+  .glyph { width: 48px; height: 48px; margin-bottom: 14px; }
+  .glyph svg { width: 26px; height: 26px; }
+  .eyebrow { font-size: 15px; }
+  .headline { font-size: 44px; line-height: 1.08; }
+  .subhead { font-size: 19px; line-height: 1.42; }
+  .detail { font-size: 16px; }
+}
+
+/* ---------- tiles ---------- */
+main.wrap { display: grid; gap: 12px; }
+.row2, .row3 { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.row3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.row3.n2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .row3.n1 { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 734px) { .row2, .row3, .row3.n2 { grid-template-columns: minmax(0, 1fr); } }
+.tile { background: var(--tile); border-radius: 18px; padding: 30px 32px 32px; min-width: 0; }
+.kicker { font-size: 14px; font-weight: 600; line-height: 1.29; color: var(--ink-2); letter-spacing: -0.01em; }
+.kicker .now { color: var(--link); }
+.tile h2 { margin: 3px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 1.14; font-weight: 600; letter-spacing: 0.007em; text-wrap: balance; }
+.lede { margin: 6px 0 0; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.ok-note { margin: 20px 0 0; font-size: 15px; line-height: 1.47; color: var(--ink-2); }
+.more-link { display: inline-block; margin-top: 14px; padding: 0; border: 0; background: none; color: var(--link); font-size: 14px; cursor: pointer; }
+.more-link:hover { text-decoration: underline; }
+@media (max-width: 734px) {
+  .tile { padding: 24px 22px 26px; }
+  .tile h2 { font-size: 24px; line-height: 1.17; }
+}
+
+/* ---------- rows that open for detail ---------- */
+.rows { margin-top: 14px; }
+.ev { border-top: 1px solid var(--rule); }
+.ev:first-child { border-top: 0; }
+.ev > summary {
+  list-style: none; display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 16px;
+  padding: 14px 0; cursor: pointer; border-radius: 10px;
+}
+.ev > summary::-webkit-details-marker { display: none; }
+.when-d { text-align: center; line-height: 1.1; }
+.when-d b { display: block; font-family: var(--font-display); font-size: 24px; font-weight: 600; letter-spacing: 0.004em; }
+.when-d b.now { font-size: 17px; color: var(--link); }
+.when-d span { display: block; margin-top: 3px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-2); }
+.what { min-width: 0; }
+.what b { display: block; font-size: 17px; font-weight: 600; line-height: 1.3; letter-spacing: -0.016em; }
+.what span { display: block; margin-top: 2px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+.what .one { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.what .hit { font-weight: 600; } .what .hit.severe { color: var(--severe); } .what .hit.minor { color: var(--minor); } .what .hit.quiet { color: var(--ink-2); font-weight: 400; }
+.side { display: flex; align-items: center; gap: 12px; }
+.chev { width: 9px; height: 9px; margin: 0 4px 4px 2px; border-right: 2px solid var(--ink-3); border-bottom: 2px solid var(--ink-3); transform: rotate(45deg); transition: transform 0.2s ease, margin 0.2s ease; }
+.ev[open] > summary .chev { transform: rotate(225deg); margin-bottom: -3px; }
+.more { padding: 0 0 18px 68px; font-size: 15px; line-height: 1.47; color: var(--ink-2); }
+.more p { margin: 0 0 8px; max-width: 62ch; }
+.more b { color: var(--ink); font-weight: 600; }
+.badge { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 980px; font-size: 12px; font-weight: 600; white-space: nowrap; background: var(--quiet-tint); color: var(--ink-2); }
+.badge.severe { background: var(--severe-tint); color: var(--severe); } .badge.minor { background: var(--minor-tint); color: var(--minor); }
+.type { font-style: normal; font-weight: 600; }
+.type.strike { color: var(--severe); } .type.protest { color: var(--protest); } .type.sport { color: var(--sport); } .type.festival { color: var(--festival); } .type.works { color: var(--works); }
+@media (max-width: 734px) {
+  .ev > summary { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; }
+  .when-d b { font-size: 21px; }
+  .more { padding-left: 54px; }
+  .side .badge { display: none; }
+}
+
+/* ---------- footer ---------- */
+footer { padding-block: 26px 48px; font-size: 12px; line-height: 1.5; color: var(--ink-3); letter-spacing: -0.01em; }
+footer p { margin: 0 0 8px; max-width: 80ch; }
+footer a { color: var(--ink-2); }
+footer .sep { margin: 0 8px; color: var(--rule); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.pages { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
+.pages a { --tab: #008198; display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 7px; font-size: 14px; font-weight: 500; line-height: 1.3; color: var(--ink); white-space: nowrap; }
+.pages a[href="journeys.html"] { --tab: #564ade; } .pages a[href="events.html"] { --tab: #e7124d; } /* Apple teal, indigo and pink (higher-contrast shades) */
+.pages a::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--tab); }
+.pages a:hover { text-decoration: none; }
+.pages a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.pages a:active { opacity: 0.85; }
+@view-transition { navigation: auto; }
+.pages a[aria-current="page"] { background: var(--tab); color: #ffffff; font-weight: 600; }
+.pages a[aria-current="page"]::before { background: #ffffff; }
+@media (max-width: 480px) { .pages a { padding: 5px 9px; font-size: 13px; } .pages a::before { display: none; } }
+@media (max-width: 374px) { .brand svg { display: none; } .pages a { padding: 5px 8px; } }
+
+/* ---------- plan form ---------- */
+.plan { display: grid; gap: 18px; }
+.field { position: relative; }
+.field-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.field label { font-size: 14px; font-weight: 600; color: var(--ink-2); }
+.field input { width: 100%; min-height: 50px; padding: 12px 16px; border: 1px solid var(--rule); border-radius: 12px; background: var(--ground); color: var(--ink); font: inherit; font-size: 17px; }
+.field input:focus { outline: none; border-color: var(--action); box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 25%, transparent); }
+.swap { border: 0; background: none; padding: 0; color: var(--link); font-size: 14px; cursor: pointer; }
+.suggest { position: absolute; z-index: 15; left: 0; right: 0; top: calc(100% + 6px); margin: 0; padding: 6px; list-style: none; background: var(--tile); border: 1px solid var(--rule); border-radius: 14px; box-shadow: 0 14px 36px color-mix(in srgb, #000 22%, transparent); max-height: 330px; overflow-y: auto; }
+.suggest li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 11px 12px; border-radius: 9px; cursor: pointer; }
+.suggest li[aria-selected="true"] { background: var(--fill); }
+@media (hover: hover) { .suggest li:hover { background: var(--fill); } }
+.suggest b { min-width: 0; font-weight: 600; }
+.suggest span { flex: none; font-size: 13px; color: var(--ink-2); }
+.suggest .none { color: var(--ink-2); cursor: default; }
+.when { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.seg { display: inline-flex; padding: 2px; border-radius: 9px; background: var(--fill); }
+.seg button { --tab: #564ade; display: inline-flex; align-items: center; gap: 6px; border: 0; background: none; padding: 7px 14px; border-radius: 7px; font-size: 15px; line-height: 1.3; color: var(--ink); cursor: pointer; white-space: nowrap; }
+.seg button::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--tab); }
+.seg button[aria-pressed="true"] { background: var(--tab); color: #ffffff; font-weight: 600; }
+.seg button[aria-pressed="true"]::before { background: #ffffff; }
+@media (max-width: 480px) { .seg button::before { display: none; } }
+.later { display: flex; flex-wrap: wrap; gap: 10px; }
+.later input { min-height: 42px; padding: 8px 12px; border: 1px solid var(--rule); border-radius: 10px; background: var(--ground); color: var(--ink); font: inherit; font-size: 16px; }
+.go { justify-self: start; display: inline-flex; align-items: center; gap: 9px; min-height: 46px; padding: 10px 24px; border: 0; border-radius: 980px; background: var(--action); color: var(--on-action); font-size: 17px; font-weight: 600; cursor: pointer; }
+.go:hover { filter: brightness(1.08); }
+.go[disabled] { opacity: 0.6; cursor: default; filter: none; }
+.note { margin: 0; font-size: 15px; color: var(--severe); }
+.recent { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.recent .lab { font-size: 14px; color: var(--ink-2); margin-right: 2px; }
+.recent button { border: 0; padding: 6px 13px; border-radius: 980px; background: var(--fill); font-size: 14px; cursor: pointer; }
+
+/* ---------- the journey ---------- */
+.trip { list-style: none; margin: 22px 0 0; padding: 0; }
+.trip li { display: grid; grid-template-columns: 46px 18px minmax(0, 1fr); column-gap: 12px; }
+.trip .t { font-size: 15px; font-weight: 600; line-height: 1.45; text-align: right; }
+.trip .rail { display: flex; justify-content: center; }
+.trip .pt .rail::before { content: ""; flex: none; width: 15px; height: 15px; margin-top: 3px; border-radius: 50%; border: 3px solid var(--ink); background: var(--tile); }
+.trip .ride .rail::before { content: ""; width: 6px; margin: 3px 0; border-radius: 3px; background: var(--c, var(--ink-3)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 12%, transparent); }
+.trip .walk .rail::before { content: ""; width: 0; margin: 3px 0; border-left: 3px dotted var(--ink-3); }
+.trip .body { min-width: 0; padding-bottom: 6px; }
+.trip .ride .body, .trip .walk .body { padding: 8px 0 18px; }
+.trip .nm { display: block; font-size: 17px; font-weight: 600; line-height: 1.4; }
+#t-trip, #t-lines, #t-opts { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px); }
+.trip .sub { display: block; font-size: 14px; line-height: 1.43; color: var(--ink-2); }
+.trip .sub b { color: var(--ink); font-weight: 600; }
+.line { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.line::before { content: ""; flex: none; width: 12px; height: 12px; border-radius: 3px; background: var(--c, var(--ink-3)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); }
+.crowd { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 14px; line-height: 1.4; color: var(--ink-2); }
+.crowd::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--quiet); }
+.crowd.l-quiet::before { background: var(--good); } .crowd.l-busy::before { background: var(--minor); } .crowd.l-very::before { background: var(--severe); }
+.crowd b { color: var(--ink); font-weight: 600; }
+
+/* ---------- lines and other times ---------- */
+.status { list-style: none; margin: 14px 0 0; padding: 0; }
+.status li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; padding: 13px 0; border-top: 1px solid var(--rule); }
+.status li:first-child { border-top: 0; }
+.status p { flex-basis: 100%; margin: 0; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.badge.good { background: var(--good-tint); color: var(--good); }
+.heads { margin: 14px 0 0; padding: 14px 0 0; border-top: 1px solid var(--rule); font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.heads p { margin: 0 0 8px; }
+.heads b { color: var(--ink); font-weight: 600; }
+.opts { list-style: none; margin: 12px 0 0; padding: 0; }
+.opts button { width: 100%; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 14px; padding: 13px 0; border: 0; border-top: 1px solid var(--rule); background: none; text-align: left; cursor: pointer; }
+.opts li:first-child button { border-top: 0; }
+.opts .tt { font-size: 17px; font-weight: 600; }
+.opts .ls { display: flex; flex-wrap: wrap; gap: 4px 12px; min-width: 0; }
+.opts .ls .line { font-size: 14px; font-weight: 500; }
+.opts .dur { font-size: 15px; color: var(--ink-2); white-space: nowrap; }
+.opts button[aria-pressed="true"] .tt { color: var(--link); }
+
+
+/* ---------- toilets page ---------- */
+.pages a[href="toilets.html"] { --tab: #b25000; }
+.glyph.loo { background: #b25000; }
+.glyph.loo svg { width: 32px; height: 32px; }
+.near-btn { min-height: 44px; padding: 10px 22px; font-size: 17px; margin-top: 26px; }
+.hero .near-note { margin: 12px auto 0; max-width: 30em; font-size: 14px; color: var(--ink-2); }
+.loos { display: grid; gap: 10px; margin-top: 18px; }
+.loo { border: 1px solid var(--rule); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.loo.has { border-color: color-mix(in srgb, var(--good) 45%, var(--rule)); }
+.loo-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.loo-head h3 { margin: 0; font-size: 19px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em; }
+.dist { font-size: 14px; color: var(--ink-2); }
+.badge { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 980px; font-size: 13px; font-weight: 600; line-height: 1.5; background: var(--quiet-tint); color: var(--quiet); white-space: nowrap; }
+.badge.yes { background: var(--good-tint); color: var(--good); }
+.badge.maybe { background: var(--minor-tint); color: var(--minor); }
+.loo-rows { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.loo-rows li { font-size: 15px; line-height: 1.4; }
+.loo-rows b { font-weight: 600; }
+.loo-rows span { color: var(--ink-2); }
+.loo-foot { margin: 10px 0 0; font-size: 13px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.loo-foot a { color: var(--link); }
+.loo-none { margin: 8px 0 0; font-size: 15px; color: var(--ink-2); }
+.strip { position: relative; margin: 20px 0 0; padding: 0; list-style: none; }
+.strip li { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; padding: 8px 0; }
+.strip li::before { content: ""; position: absolute; left: 12px; top: 0; bottom: 0; width: 3px; background: var(--northern); opacity: 0.85; }
+.strip li:first-child::before { top: 50%; } .strip li:last-child::before { bottom: 50%; }
+.stop { position: relative; z-index: 1; align-self: center; width: 13px; height: 13px; margin-left: 7px; border-radius: 50%; background: var(--tile); border: 3px solid var(--northern); }
+.strip li.has .stop { width: 22px; height: 22px; margin-left: 3px; background: var(--good); border-color: var(--good); display: grid; place-items: center; }
+.strip li.has .stop::after { content: "WC"; font-size: 8px; font-weight: 700; color: #ffffff; letter-spacing: 0.02em; }
+.strip .nm { font-size: 16px; font-weight: 600; line-height: 1.3; }
+.strip li:not(.has) .nm { font-weight: 500; color: var(--ink-2); }
+.strip .what { display: block; font-size: 14px; font-weight: 400; color: var(--ink-2); line-height: 1.4; }
+.strip li.has .what { color: var(--ink); }
+.tips { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.tips li { font-size: 15px; line-height: 1.47; }
+.tips b { display: block; font-size: 16px; }
+.links { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; font-size: 15px; }
+.links a::after { content: "\203A"; display: inline-block; margin-left: 0.28em; transform: scale(1.25) translateY(-0.02em); }
+.status { margin: 14px 0 0; font-size: 14px; color: var(--ink-2); }
+.status.err { color: var(--severe); }
+.search { margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="gt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#48484a"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#gt)"/><rect x="17" y="9" width="30" height="37" rx="9" fill="#fff"/><rect x="22" y="15" width="20" height="12" rx="3.5" fill="#1d1d1f"/><circle cx="25.5" cy="37" r="3.2" fill="#1d1d1f"/><circle cx="38.5" cy="37" r="3.2" fill="#1d1d1f"/><path d="M24 55l5-8.5M40 55l-5-8.5" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/></svg><nav class="pages" aria-label="Pages"><a href="index.html">Commute</a><a href="journeys.html">Journeys</a><a href="events.html">Events</a><a href="toilets.html" aria-current="page">Toilets</a></nav></div>
+  </div>
+</header>
+
+<section class="hero wrap" aria-live="polite">
+  <div class="glyph loo" aria-hidden="true"><svg viewBox="0 0 32 32" aria-hidden="true"><text x="16" y="21.5" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#ffffff">WC</text></svg></div>
+  <p class="eyebrow" id="eyebrow">Station toilets</p>
+  <h1 class="headline" id="headline">Need a loo?</h1>
+  <p class="subhead" id="subhead">Find the nearest station toilets, check the ones on the commute, or look up any station.</p>
+  <button class="pill near-btn" id="near" type="button">Find toilets near me</button>
+  <p class="near-note" id="near-note">Your location is only sent to TfL, to find the nearest stations. This page doesn't save it.</p>
+</section>
+
+<main class="wrap">
+  <section class="tile" id="near-tile" hidden aria-live="polite">
+    <p class="kicker">Near you</p>
+    <h2 id="near-title">Nearest stations</h2>
+    <p class="lede" id="near-lede"></p>
+    <div class="loos" id="near-list"></div>
+  </section>
+
+  <section class="tile">
+    <p class="kicker">Northern line, Charing Cross branch</p>
+    <h2>Toilets on the commute</h2>
+    <p class="lede">Hendon Central to Tottenham Court Road. A green dot means toilets at that station.</p>
+    <ol class="strip" id="strip"></ol>
+    <p class="status" id="strip-status"></p>
+  </section>
+
+  <section class="tile">
+    <p class="kicker">Any station</p>
+    <h2>Look up a station</h2>
+    <form class="search" id="find" autocomplete="off" novalidate>
+      <div class="field">
+        <div class="field-head"><label for="q">Station</label></div>
+        <input id="q" type="text" inputmode="search" enterkeyhint="search" spellcheck="false" autocapitalize="words" placeholder="Station name" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="q-list">
+        <ul class="suggest" id="q-list" role="listbox" aria-label="Matching stations" hidden></ul>
+      </div>
+    </form>
+    <div class="loos" id="find-out" aria-live="polite"></div>
+  </section>
+
+  <section class="tile">
+    <p class="kicker">Big stations</p>
+    <h2>Handy for days out</h2>
+    <p class="lede">The large London stations all have toilets. Most are on the National Rail concourse, so you don't need to go through the Tube gates.</p>
+    <div class="loos" id="hubs"></div>
+  </section>
+
+  <section class="tile">
+    <p class="kicker">Good to know</p>
+    <h2>Before you go</h2>
+    <ul class="tips">
+      <li><b>They're free</b>TfL's toilets cost nothing to use. A few run by other companies may charge.</li>
+      <li><b>Paid side or unpaid side</b>"Paid side" means inside the ticket gates, so you need to have touched in. "Unpaid side" means before the gates, so anyone can use it.</li>
+      <li><b>RADAR key</b>Some accessible toilets are locked and open with a RADAR key from the National Key Scheme, sold by Disability Rights UK. If you don't have one, ask the station staff.</li>
+      <li><b>Changing Places</b>Larger accessible toilets with a hoist and a changing bench, at King's Cross and Paddington on this page.</li>
+      <li><b>Newest information</b>TfL keeps adding toilets. The TfL Go app now shows each toilet's location, whether it's inside the gates, its opening days and how to get in.</li>
+    </ul>
+    <div class="links">
+      <a href="https://tfl.gov.uk/plan-a-journey/tfl-go" target="_blank" rel="noopener">TfL Go app</a>
+      <a href="https://tfl.gov.uk/help-and-contact/public-toilets-in-london" target="_blank" rel="noopener">TfL public toilets</a>
+      <a href="https://content.tfl.gov.uk/enhanced-customer-toilet-information.pdf" target="_blank" rel="noopener">TfL toilet guide (PDF)</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Toilet details (where, opening hours, baby changing) come from TfL's customer toilet guide, September 2023. The yes or no for other stations comes live from TfL's station data. New toilets have opened since 2023, so the TfL Go app has the latest.</p>
+    <p>Powered by TfL Open Data. Walking distances are straight-line estimates.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const API = 'https://api.tfl.gov.uk';
+  const MODES = 'tube,elizabeth-line,overground,dlr,tram';
+  const GUIDE = {"hendon central": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "tottenham court road": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall – unpaid side", "hours": "RADAR key access", "baby": false}], "euston": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "kings cross st pancras": [{"who": "Network Rail", "type": "Female", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "King's Cross National Rail station, by platform 9", "hours": "Check with operator", "baby": false}], "charing cross": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "waterloo": [{"who": "Network Rail", "type": "Female", "where": "Main National Rail concourse, opposite platform 19", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Main National Rail concourse, opposite platform 18", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Main National Rail concourse, opposite platform 20", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Main National Rail concourse, opposite platform 21", "hours": "Check with operator", "baby": true}], "london bridge": [{"who": "Network Rail", "type": "Female", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "Lower concourse, within shopping area", "hours": "Check with operator", "baby": true}], "victoria": [{"who": "London Underground", "type": "Female", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Male", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}, {"who": "London Underground", "type": "Accessible", "where": "North ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": true}], "liverpool street": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}], "paddington": [{"who": "Network Rail", "type": "Female", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Male", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Accessible", "where": "National Rail station concourse", "hours": "Check with operator", "baby": false}, {"who": "Network Rail", "type": "Baby changing", "where": "National Rail station concourse", "hours": "Check with operator", "baby": true}, {"who": "Network Rail", "type": "Changing Places", "where": "National Rail station concourse, near platform 12", "hours": "Check with operator", "baby": false}], "bank": [{"who": "London Underground", "type": "Accessible", "where": "Ticket hall (Cannon Street entrance) - paid", "hours": "RADAR key access", "baby": false}], "stratford": [{"who": "London Underground", "type": "Female", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Male", "where": "Southern ticket hall – paid side", "hours": "Open daily", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Adjacent to DLR platform 16", "hours": "Radar key access", "baby": false}, {"who": "London Underground", "type": "Accessible", "where": "Southern ticket hall – paid side", "hours": "Please speak to station staff for assistance", "baby": false}]};
+  const NOT_IN_GUIDE = new Set(["brent cross", "golders green", "hampstead", "belsize park", "chalk farm", "camden town", "mornington crescent", "warren street", "goodge street", "burnt oak", "colindale", "edgware", "leicester square", "oxford circus"]);
+  const ROUTE = [["940GZZLUHCL", "Hendon Central"], ["940GZZLUBTX", "Brent Cross"], ["940GZZLUGGN", "Golders Green"], ["940GZZLUHTD", "Hampstead"], ["940GZZLUBZP", "Belsize Park"], ["940GZZLUCFM", "Chalk Farm"], ["940GZZLUCTN", "Camden Town"], ["940GZZLUMTC", "Mornington Crescent"], ["940GZZLUEUS", "Euston"], ["940GZZLUWRR", "Warren Street"], ["940GZZLUGDG", "Goodge Street"], ["940GZZLUTCR", "Tottenham Court Road"]];
+  const HUBS = ["King's Cross St Pancras", "Euston", "Victoria", "Waterloo", "London Bridge", "Liverpool Street", "Paddington", "Charing Cross", "Stratford", "Bank"];
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  async function tfl(path, timeout = 12000) {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), timeout);
+    try {
+      const r = await fetch(`${API}${path}`, { signal: ctl.signal, cache: 'no-store' });
+      if (!r.ok) throw new Error(`TfL answered ${r.status}`);
+      return await r.json();
+    } finally { clearTimeout(t); }
+  }
+
+  /* ---------- names ---------- */
+  const clean = (s) => String(s || '').replace(/\s*\((?:elizabeth line|london)\)/gi, '')
+    .replace(/\s+(?:underground|rail|dlr|overground|tram|elizabeth line)\s+station$/i, '').replace(/\s+station$/i, '').trim();
+  const norm = (s) => clean(s).toLowerCase().replace(/&/g, ' and ').replace(/['’.]/g, '').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const ALIAS = { 'kings cross': 'kings cross st pancras', 'st pancras international': 'kings cross st pancras', 'london st pancras international': 'kings cross st pancras',
+                  'kings cross st pancras international': 'kings cross st pancras', 'bank and monument': 'bank' };
+  function key(name) {
+    let k = norm(name);
+    if (ALIAS[k]) k = ALIAS[k];
+    if (!GUIDE[k] && !NOT_IN_GUIDE.has(k) && k.startsWith('london ')) { const t = k.slice(7); if (GUIDE[t] || ALIAS[t]) k = ALIAS[t] || t; }
+    return k;
+  }
+
+  /* ---------- TfL station data: "Facility: Toilets" and "Accessibility: Toilet" (yes/no), on the station or any of its parts ---------- */
+  function flags(sp) {
+    const f = { toilets: null, accessible: null };
+    const walk = (p) => {
+      if (!p || typeof p !== 'object') return;
+      for (const a of Array.isArray(p.additionalProperties) ? p.additionalProperties : []) {
+        if (!/toilet/i.test(String(a.key || ''))) continue;
+        const v = String(a.value ?? '').trim().toLowerCase();
+        const slot = /accessib/i.test(String(a.category || '')) ? 'accessible' : 'toilets';
+        if (/^(yes|true|y)\b/.test(v) || /^[1-9]/.test(v)) f[slot] = true;
+        else if (/^(no|false|n|0)\b/.test(v) && f[slot] === null) f[slot] = false;
+      }
+      for (const c of Array.isArray(p.children) ? p.children : []) walk(c);
+    };
+    walk(sp);
+    return f;
+  }
+
+  /* ---------- describing a station ---------- */
+  const PAID = (w) => /unpaid/i.test(w) ? 'before the gates' : /paid/i.test(w) ? 'inside the gates' : '';
+  const HOURS = (h) => /radar/i.test(h) ? 'RADAR key' : /check with operator/i.test(h) ? 'hours: check with the station' : /speak to station staff/i.test(h) ? 'ask the staff' : h.toLowerCase();
+  function list(types) {
+    const t = types.map((x, i) => (i && x !== 'Changing Places') ? x.toLowerCase() : x);
+    return t.length < 2 ? t.join('') : `${t.slice(0, -1).join(', ')} and ${t[t.length - 1]}`;
+  }
+  function groups(rows) {
+    // one line per place; "opposite platform 18", "…19", "…20" become "opposite platforms 18–20"
+    const m = new Map();
+    for (const r of rows) {
+      const pm = r.where.match(/^(.*?\bplatform)\s+(\d+)$/i);
+      const base = pm ? pm[1] : r.where;
+      const k = `${base}|${r.hours}`;
+      if (!m.has(k)) m.set(k, { base, where: r.where, hours: r.hours, types: [], baby: false, plats: [] });
+      const x = m.get(k);
+      if (!x.types.includes(r.type)) x.types.push(r.type);
+      if (pm) x.plats.push(Number(pm[2]));
+      if (r.baby && r.type !== 'Baby changing') x.baby = true;
+    }
+    return [...m.values()].map((x) => {
+      const u = [...new Set(x.plats)].sort((a, b) => a - b);
+      if (u.length > 1) x.where = `${x.base}s ${u[0]}–${u[u.length - 1]}`;
+      return x;
+    });
+  }
+  function summary(rows) {
+    const t = new Set(rows.map((r) => r.type));
+    if (t.has('Female') || t.has('Male')) return 'Toilets';
+    if (t.has('Accessible') || t.has('Changing Places')) return 'Accessible toilet';
+    return 'Baby changing';
+  }
+  function describe(name, sp) {
+    const k = key(name), rows = GUIDE[k] || null, f = sp ? flags(sp) : null;
+    let state = 'unknown';
+    if (rows) state = 'yes';
+    else if (f && (f.toilets || f.accessible)) state = 'live';
+    else if ((f && f.toilets === false) || NOT_IN_GUIDE.has(k)) state = 'no';
+    return { name: clean(name), k, rows, f, state };
+  }
+  function short(d) {
+    if (d.state === 'yes') {
+      const g = groups(d.rows)[0], bits = [list(groups(d.rows).flatMap((x) => x.types).filter((v, i, a) => a.indexOf(v) === i)).replace(/^./, (c) => c.toUpperCase())];
+      const where = PAID(g.where) || (/national rail/i.test(g.where) ? 'on the National Rail concourse' : '');
+      if (where) bits.push(where);
+      if (/radar/i.test(g.hours)) bits.push('RADAR key');
+      return bits.join(' · ');
+    }
+    if (d.state === 'live') return d.f.accessible && !d.f.toilets ? 'Accessible toilet listed by TfL' : 'Toilets listed by TfL';
+    if (d.state === 'no') return 'No toilets listed';
+    return 'Could not check';
+  }
+  function brief(d) {
+    if (d.state !== 'yes') return short(d);
+    const g = groups(d.rows)[0], bits = [summary(d.rows)];
+    const where = PAID(g.where) || (/national rail/i.test(g.where) ? 'on the National Rail concourse' : '');
+    if (where) bits.push(where);
+    if (/radar/i.test(g.hours)) bits.push('RADAR key');
+    return bits.join(' · ');
+  }
+  const walkTime = (m) => `${m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`} · about ${Math.max(1, Math.round(m / 80))} min walk`;
+  const mapLink = (lat, lon) => (Number.isFinite(lat) && Number.isFinite(lon)) ? `<a href="https://maps.apple.com/?daddr=${lat.toFixed(5)},${lon.toFixed(5)}&dirflg=w" target="_blank" rel="noopener">Walk there</a>` : '';
+  function card(d, extra = {}) {
+    const badge = d.state === 'yes' ? `<span class="badge yes">${esc(summary(d.rows))}</span>`
+      : d.state === 'live' ? `<span class="badge yes">${d.f.accessible && !d.f.toilets ? 'Accessible toilet' : 'Toilets'}</span>`
+      : d.state === 'no' ? '<span class="badge">No toilets listed</span>' : '<span class="badge maybe">Not checked</span>';
+    let body = '';
+    if (d.state === 'yes') {
+      body = `<ul class="loo-rows">${groups(d.rows).map((x) => {
+        const bits = [x.where, PAID(x.where), HOURS(x.hours), x.baby ? 'baby changing' : ''].filter(Boolean);
+        return `<li><b>${esc(list(x.types))}</b> <span>· ${esc(bits.join(' · '))}</span></li>`;
+      }).join('')}</ul>`;
+    } else if (d.state === 'live') {
+      body = `<p class="loo-none">TfL's station data lists ${d.f.toilets ? 'toilets' : 'an accessible toilet'}${d.f.toilets && d.f.accessible ? ', including an accessible one' : ''} here. TfL Go shows exactly where.</p>`;
+    } else if (d.state === 'no') {
+      body = '<p class="loo-none">TfL doesn\'t list toilets at this station.</p>';
+    } else {
+      body = '<p class="loo-none">TfL\'s station data didn\'t answer just now. Try again in a minute.</p>';
+    }
+    const who = d.rows ? [...new Set(d.rows.map((r) => r.who))].join(' and ') : '';
+    const foot = [who ? `Run by ${esc(who)}` : '', mapLink(extra.lat, extra.lon)].filter(Boolean);
+    return `<article class="loo${d.state === 'yes' || d.state === 'live' ? ' has' : ''}"><div class="loo-head"><h3>${esc(d.name)}</h3>${badge}${Number.isFinite(extra.distance) ? `<span class="dist num">${esc(walkTime(extra.distance))}</span>` : ''}</div>${body}${foot.length ? `<p class="loo-foot">${foot.join('')}</p>` : ''}</article>`;
+  }
+  const arr = (r) => Array.isArray(r) ? r : (r ? [r] : []);
+  const spId = (sp) => String(sp.naptanId || sp.id || '');
+
+  /* ---------- the commute strip ---------- */
+  function renderStrip(byId) {
+    $('strip').innerHTML = ROUTE.map(([id, name]) => {
+      const d = describe(name, byId ? byId.get(id) : null);
+      const has = d.state === 'yes' || d.state === 'live';
+      return `<li class="${has ? 'has' : ''}"><span class="stop" aria-hidden="true"></span><span class="nm">${esc(name)}<span class="what">${esc(has ? short(d) : (d.state === 'unknown' ? 'Not in TfL\'s toilet guide' : 'No toilets listed'))}</span></span></li>`;
+    }).join('');
+  }
+  async function loadStrip() {
+    renderStrip(null);
+    try {
+      const r = arr(await tfl(`/StopPoint/${ROUTE.map((x) => x[0]).join(',')}`, 15000));
+      renderStrip(new Map(r.map((sp) => [spId(sp), sp])));
+      $('strip-status').textContent = 'Checked against TfL\'s live station data just now.';
+    } catch (e) {
+      $('strip-status').textContent = 'From TfL\'s toilet guide. Live station data didn\'t load, so the others weren\'t double-checked.';
+    }
+  }
+
+  /* ---------- big stations ---------- */
+  $('hubs').innerHTML = HUBS.map((n) => card(describe(n, null))).join('');
+
+  /* ---------- near me ---------- */
+  const R = 6371000, rad = (x) => x * Math.PI / 180;
+  const metres = (a, b, c, d) => 2 * R * Math.asin(Math.sqrt(Math.sin(rad(c - a) / 2) ** 2 + Math.cos(rad(a)) * Math.cos(rad(c)) * Math.sin(rad(d - b) / 2) ** 2));
+  function hero(eyebrow, headline, subhead) { $('eyebrow').textContent = eyebrow; $('headline').textContent = headline; $('subhead').textContent = subhead; }
+  function where() {
+    return new Promise((res, rej) => {
+      if (!('geolocation' in navigator)) return rej(new Error('nogeo'));
+      navigator.geolocation.getCurrentPosition(res, rej, { enableHighAccuracy: false, timeout: 15000, maximumAge: 120000 });
+    });
+  }
+  async function nearMe() {
+    const btn = $('near');
+    btn.disabled = true; btn.innerHTML = '<span class="spin" aria-hidden="true"></span> Finding toilets…';
+    try {
+      let pos;
+      try { pos = await where(); } catch (e) {
+        const denied = e && e.code === 1;
+        hero('Location is off', denied ? 'Allow location to search' : 'Couldn\'t find you', denied
+          ? 'Your phone blocked location for this page. Turn it on in Settings, or look up a station below.'
+          : 'Your location didn\'t come through. Try again, or look up a station below.');
+        return;
+      }
+      const lat = pos.coords.latitude, lon = pos.coords.longitude;
+      const r = await tfl(`/StopPoint?lat=${lat.toFixed(5)}&lon=${lon.toFixed(5)}&stopTypes=NaptanMetroStation,NaptanRailStation&radius=1600&modes=${MODES}`, 20000);
+      const found = new Map();
+      for (const sp of (r && Array.isArray(r.stopPoints) ? r.stopPoints : [])) {
+        const dist = Number.isFinite(sp.distance) ? sp.distance : metres(lat, lon, sp.lat, sp.lon);
+        const k = key(sp.commonName);
+        const prev = found.get(k);
+        if (!prev) found.set(k, { name: sp.commonName, sps: [sp], distance: dist, lat: sp.lat, lon: sp.lon });
+        else { prev.sps.push(sp); if (dist < prev.distance) Object.assign(prev, { distance: dist, lat: sp.lat, lon: sp.lon }); }
+      }
+      const near = [...found.values()].sort((a, b) => a.distance - b.distance).slice(0, 8);
+      if (!near.length) {
+        hero('Near you', 'No stations within a mile', 'Try looking up a station below.');
+        return;
+      }
+      // full station records (with every platform and entrance) for the nearest ones
+      try {
+        const ids = near.flatMap((x) => x.sps.map(spId)).filter(Boolean).slice(0, 20);
+        const full = new Map(arr(await tfl(`/StopPoint/${ids.join(',')}`, 20000)).map((sp) => [spId(sp), sp]));
+        for (const x of near) x.sps = x.sps.map((sp) => full.get(spId(sp)) || sp);
+      } catch (e) { /* the nearby list already carries the yes/no */ }
+      const seen = near.map((x) => {
+        const merged = { additionalProperties: [], children: x.sps };
+        return { d: describe(x.name, merged), x };
+      });
+      const best = seen.find((s) => s.d.state === 'yes' || s.d.state === 'live');
+      if (best) hero('Nearest station toilets', best.d.name, `${walkTime(best.x.distance)} · ${brief(best.d)}`);
+      else hero('Near you', 'No station toilets close by', 'None of the stations within a mile list toilets. The big stations below all have them.');
+      $('near-title').textContent = 'Nearest stations';
+      $('near-lede').textContent = 'Closest first, within about a mile.';
+      $('near-list').innerHTML = seen.map((s) => card(s.d, s.x)).join('');
+      $('near-tile').hidden = false;
+    } catch (e) {
+      hero('Near you', 'TfL didn\'t answer', 'TfL\'s station data is busy or offline. Try again in a minute.');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Find toilets near me';
+    }
+  }
+  $('near').addEventListener('click', nearMe);
+
+  /* ---------- look up any station ---------- */
+  const cache = new Map();
+  function searchStations(q) {
+    const k = q.toLowerCase();
+    if (!cache.has(k)) {
+      cache.set(k, tfl(`/StopPoint/Search/${encodeURIComponent(q)}?modes=${MODES}&maxResults=8`).then((r) => {
+        const seen = new Set();
+        return (r && Array.isArray(r.matches) ? r.matches : []).map((m) => ({ id: String(m.id || ''), name: clean(m.name), lat: m.lat, lon: m.lon, tags: [(m.modes || []).join(', '), m.zone ? `Zone ${m.zone}` : ''].filter(Boolean).join(' · ') }))
+          .filter((s) => s.id && s.name && !seen.has(s.name) && seen.add(s.name));
+      }).catch((e) => { cache.delete(k); throw e; }));
+    }
+    return cache.get(k);
+  }
+  async function show(station) {
+    const out = $('find-out');
+    out.innerHTML = `<p class="status">Checking ${esc(station.name)}…</p>`;
+    let sp = null;
+    try { sp = arr(await tfl(`/StopPoint/${encodeURIComponent(station.id)}`, 15000))[0] || null; } catch (e) { sp = null; }
+    out.innerHTML = card(describe(station.name, sp), { lat: sp && Number(sp.lat), lon: sp && Number(sp.lon) });
+  }
+  (function combo() {
+    const input = $('q'), box = $('q-list');
+    let timer = 0, items = [], active = -1, seq = 0;
+    const close = () => { box.hidden = true; input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant'); active = -1; };
+    const mark = () => {
+      [...box.querySelectorAll('li[data-i]')].forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
+      if (active >= 0) input.setAttribute('aria-activedescendant', `q-opt-${active}`); else input.removeAttribute('aria-activedescendant');
+    };
+    const open = (list, q) => {
+      items = list; active = list.length ? 0 : -1;
+      box.innerHTML = list.length
+        ? list.map((m, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === 0}"><b>${esc(m.name)}</b><span>${esc(m.tags)}</span></li>`).join('')
+        : `<li class="none" role="option" aria-disabled="true">No stations match “${esc(q)}”</li>`;
+      box.hidden = false; input.setAttribute('aria-expanded', 'true'); mark();
+    };
+    const pick = (i) => { const m = items[i]; if (!m) return; input.value = m.name; close(); show(m); };
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      const q = input.value.trim();
+      if (q.length < 2) { close(); return; }
+      const mine = ++seq;
+      timer = setTimeout(async () => {
+        try { const list = await searchStations(q); if (mine === seq) open(list, q); }
+        catch (e) { if (mine === seq) { items = []; box.innerHTML = '<li class="none" role="option" aria-disabled="true">TfL\'s station search didn\'t answer. Try again.</li>'; box.hidden = false; } }
+      }, 220);
+    });
+    input.addEventListener('keydown', (e) => {
+      if (box.hidden) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (items.length) { active = (active + 1) % items.length; mark(); } }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (items.length) { active = (active - 1 + items.length) % items.length; mark(); } }
+      else if (e.key === 'Enter') { e.preventDefault(); pick(active); }
+      else if (e.key === 'Escape') close();
+    });
+    box.addEventListener('mousedown', (e) => e.preventDefault());
+    box.addEventListener('click', (e) => { const li = e.target.closest('li[data-i]'); if (li) pick(Number(li.dataset.i)); });
+    input.addEventListener('blur', () => setTimeout(close, 120));
+    $('find').addEventListener('submit', (e) => { e.preventDefault(); if (!box.hidden) pick(active); });
+  })();
+
+  loadStrip();
+})();
+</script>
+</body>
+</html>
